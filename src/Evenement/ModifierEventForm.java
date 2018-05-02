@@ -10,6 +10,7 @@ import Entities.Evenement;
 import Services.ServiceEvenement;
 import com.codename1.ui.Button;
 import com.codename1.ui.ComboBox;
+import com.codename1.ui.Dialog;
 import com.codename1.ui.FontImage;
 import com.codename1.ui.Form;
 import com.codename1.ui.TextField;
@@ -63,6 +64,7 @@ public class ModifierEventForm {
 //        f.add(btnaff);  
 System.out.println(event.getId_evenement());
         btnajout.addActionListener((e) -> {
+            if (isInputValid()) {
             ServiceEvenement ser = new ServiceEvenement();
             int day , month , year ;
             day=date.getCurrentDay();
@@ -87,13 +89,37 @@ System.out.println(event.getId_evenement());
 
             ser.Updateeven(event);
 
-        });
+            }});
 //        btnaff.addActionListener((e)->{
         //Affichage a=new Affichage();
         //a.getF().show();
         //});
     }
+private boolean isInputValid() 
+    {
+        String errorMessage = "";
 
+        if (tnom.getText() == null || tnom.getText().length() == 0) 
+        {
+            errorMessage += "Champ titre invalide !\n"; 
+        }
+        if (description.getText() == null || description.getText().length() == 0) 
+        {
+            errorMessage += "Champ description invalide !\n"; 
+        }
+      
+       
+        
+        if (errorMessage.length() == 0) 
+        {
+            return true;
+        }
+         else 
+        {
+            Dialog.show("Champs invalides", errorMessage, "OK", null);
+            return false;
+        }
+    }
     public Form getF() {
         return f;
     }
