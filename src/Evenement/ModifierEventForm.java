@@ -18,6 +18,7 @@ import com.codename1.ui.Toolbar;
 import com.codename1.ui.layouts.BoxLayout;
 import com.codename1.ui.spinner.DateSpinner;
 import com.codename1.ui.util.Resources;
+import com.mycompany.myapp.Authentification;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -35,7 +36,7 @@ public class ModifierEventForm {
     TextField description;
     DateSpinner date=new DateSpinner();
      ServiceEvenement se = new ServiceEvenement();
-     ArrayList<Etablissement> lsevent= se.getListEtab();
+     ArrayList<Etablissement> lsevent= se.getListEtab(Authentification.connectedUser.getId());
      
     
     Button btnajout,btnaff;
@@ -47,7 +48,7 @@ public class ModifierEventForm {
                               tnom = new TextField();
         description = new TextField();
         ServiceEvenement se = new ServiceEvenement();
-                ArrayList<Etablissement> lsevent= se.getListEtab();
+                ArrayList<Etablissement> lsevent= se.getListEtab(Authentification.connectedUser.getId());
                 ComboBox combo = new ComboBox();
                                 for (Etablissement etablissement : lsevent) {
                                     combo.addItem(etablissement);

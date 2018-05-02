@@ -149,10 +149,10 @@ public class ServiceEvenement {
         NetworkManager.getInstance().addToQueueAndWait(con);
         return listTasks;
     }
-     public ArrayList<Etablissement> getListEtab() {
+     public ArrayList<Etablissement> getListEtab(int id) {
         ArrayList<Etablissement> listTasks = new ArrayList<>();
         ConnectionRequest con = new ConnectionRequest();
-        con.setUrl("http://localhost/symfony/web/app_dev.php/BonPlan/etabM");
+        con.setUrl("http://localhost/symfony/web/app_dev.php/BonPlan/etabM/"+id);
         con.addResponseListener(new ActionListener<NetworkEvent>() 
         {
             @Override

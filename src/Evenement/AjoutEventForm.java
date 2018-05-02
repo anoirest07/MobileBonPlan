@@ -27,6 +27,7 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import com.codename1.ui.util.Resources;
+import com.mycompany.myapp.Authentification;
 
 
 
@@ -45,7 +46,7 @@ public class AjoutEventForm {
     TextField description;
     DateSpinner date=new DateSpinner();
      ServiceEvenement se = new ServiceEvenement();
-     ArrayList<Etablissement> lsevent= se.getListEtab();
+     ArrayList<Etablissement> lsevent= se.getListEtab(Authentification.connectedUser.getId());
      
     
     Button btnajout,btnaff;
@@ -58,7 +59,7 @@ public class AjoutEventForm {
         tnom = new TextField();
         description = new TextField();
         ServiceEvenement se = new ServiceEvenement();
-                ArrayList<Etablissement> lsevent= se.getListEtab();
+                ArrayList<Etablissement> lsevent= se.getListEtab(Authentification.connectedUser.getId());
                 ComboBox combo = new ComboBox();
                                 for (Etablissement etablissement : lsevent) {
                                     combo.addItem(etablissement);
