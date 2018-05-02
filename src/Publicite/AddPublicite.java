@@ -107,11 +107,12 @@ ImageViewer image;
         choose=new Button("choose image");
 
                  f.add(choose);
-        image =new ImageViewer();
+        image = new ImageViewer();
         
                   f.add(image);
 
-        choose.addActionListener(new ActionListener() {
+        choose.addActionListener(new ActionListener() 
+        {
             @Override
             public void actionPerformed(ActionEvent evt) {
                 ServicePublicite s=new ServicePublicite();
@@ -255,6 +256,10 @@ f.add(combo);
         if (cvc.getText() == null || cvc.getText().length() == 0) 
         {
             errorMessage += "Champ cvc invalide !\n"; 
+        }
+        if(image.isEnabled() == false)
+        {
+            errorMessage += "Image !\n"; 
         }
         if (errorMessage.length() == 0) 
         {
