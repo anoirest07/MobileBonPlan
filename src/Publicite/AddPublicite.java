@@ -8,9 +8,11 @@ package Publicite;
 import Entities.Etablissement;
 import Entities.Publicite;
 import Services.ServiceAjouter;
+import Services.ServiceEvenement;
 import Services.ServicePaiement;
 import Services.ServicePublicite;
 import com.codename1.components.FloatingActionButton;
+import com.codename1.components.ImageViewer;
 import com.codename1.io.FileSystemStorage;
 import com.codename1.l10n.ParseException;
 import com.codename1.l10n.SimpleDateFormat;
@@ -51,7 +53,7 @@ public class AddPublicite extends SideMenuBaseForm{
     DateSpinner date = new DateSpinner();
 TextField ref;
 TextField desc;
-TextField im;
+
 TextField num;
 TextField mexp;
 TextField aexp;
@@ -59,7 +61,9 @@ TextField cvc;
    // Form f;
 Container f;
 Etablissement etabli  ;
-
+ImageViewer image;
+  
+    Button choose ; 
 
     public AddPublicite(Resources res) {
          super(BoxLayout.y());
@@ -100,8 +104,22 @@ Etablissement etabli  ;
         f.add(ref);
         desc = new TextField("", "descriptionPublicite", 20, TextField.NUMERIC);
         f.add(desc);
-        im = new TextField("", "photoPublicite", 20, TextField.NUMERIC);
-        f.add(im);
+        choose=new Button("choose image");
+
+                 f.add(choose);
+        image =new ImageViewer();
+        
+                  f.add(image);
+
+        choose.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent evt) {
+                ServicePublicite s=new ServicePublicite();
+           s.browseImage(image);
+          
+            }
+        });
+
         ServicePublicite sp = new ServicePublicite();
                 ArrayList<Etablissement> lsevent= sp.getListEtab(Authentification.connectedUser.getId());
                 ComboBox combo = new ComboBox();
@@ -155,7 +173,7 @@ f.add(combo);
         {
             pub.setDescription_publicite(desc.getText());
             pub.setTitre(ref.getText());
-            pub.setPhoto_publicite(im.getText());
+            pub.setPhoto_publicite(image.getImage().getImageName());
             etabli=lsevent.get(combo.getSelectedIndex());
             pub.setEtablissement(etabli);
             int day=date.getCurrentDay();
@@ -221,10 +239,7 @@ f.add(combo);
         {
             errorMessage += "Champ description invalide !\n"; 
         }
-        if (im.getText() == null || im.getText().length() == 0) 
-        {
-            errorMessage += "Champ image invalide !\n"; 
-        }
+      
         if (num.getText() == null || num.getText().length() == 0) 
         {
             errorMessage += "Champ n° invalide !\n"; 

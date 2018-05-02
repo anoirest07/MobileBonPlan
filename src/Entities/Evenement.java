@@ -37,13 +37,13 @@ public class Evenement
         etab = new Etablissement();
     }*/
     
-     public Evenement(String nom , String description, Date date_evenement, Etablissement etab)
+     public Evenement(String nom , String description, Date date_evenement, Etablissement etab, String photo)
     {
         this.nom_evenement=nom;
         this.description=description;
         this.date_evenement=date_evenement;
         this.etab=etab;
-      
+      this.photo =photo;
     }
 
  

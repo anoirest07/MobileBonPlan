@@ -9,6 +9,7 @@ import Entities.Etablissement;
 import Entities.Evenement;
 import Services.ServiceEvenement;
 import com.codename1.capture.Capture;
+import com.codename1.components.ImageViewer;
 import com.codename1.ui.Button;
 import com.codename1.ui.ComboBox;
 import com.codename1.ui.Display;
@@ -37,6 +38,9 @@ public class AjoutEventForm {
     Form f;
     TextField tnom;
     
+ ImageViewer image;
+  
+    Button choose ; 
     TextField description;
     DateSpinner date=new DateSpinner();
      ServiceEvenement se = new ServiceEvenement();
@@ -67,7 +71,26 @@ public class AjoutEventForm {
         f.add(date);
        f.add(combo);
         f.add(btnajout);
-//        f.add(btnaff);  
+
+
+
+
+ choose=new Button("choose image");
+
+                 f.add(choose);
+        image =new ImageViewer();
+        
+                  f.add(image);
+
+        choose.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent evt) {
+                ServiceEvenement s=new ServiceEvenement();
+           s.browseImage(image);
+          
+            }
+        });
+
         btnajout.addActionListener((e) -> {
             ServiceEvenement ser = new ServiceEvenement();
             int day , month , year ;
@@ -84,12 +107,12 @@ public class AjoutEventForm {
                 
             }
            etabli=lsevent.get(combo.getSelectedIndex());
-            Evenement t = new Evenement(tnom.getText(),description.getText(),debut, etabli);
+            Evenement t = new Evenement(tnom.getText(),description.getText(),debut, etabli,image.getImage().getImageName());
   System.out.println(etabli.getId_etablissement());
 
             ser.ajouteven(t);
                         AffichagePropEvenForm pc = new AffichagePropEvenForm(res);
-
+                            pc.show();
         });
 //        btnaff.addActionListener((e)->{
         //Affichage a=new Affichage();

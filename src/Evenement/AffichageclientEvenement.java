@@ -9,6 +9,7 @@ import Entities.Evenement;
 import Services.ServiceEvenement;
 import com.codename1.components.ImageViewer;
 import com.codename1.components.SpanLabel;
+import com.codename1.media.MediaManager;
 import com.codename1.ui.Button;
 import com.codename1.ui.Container;
 import com.codename1.ui.Dialog;
@@ -34,6 +35,7 @@ import com.nexmo.client.auth.AuthMethod;
 import com.nexmo.client.auth.TokenAuthMethod;
 import com.nexmo.client.sms.SmsSubmissionResult;
 import com.nexmo.client.sms.messages.TextMessage;
+import com.restfb.types.StoryAttachment.Media;
 import java.io.IOException;
 
 import java.util.ArrayList;
@@ -52,7 +54,19 @@ public class AffichageclientEvenement extends SideMenuBaseForm1{
     public AffichageclientEvenement(Resources theme)  
     { super(BoxLayout.y());
     Toolbar tb = getToolbar();
-        f =new Container(new BoxLayout(BoxLayout.Y_AXIS));
+      String file = "C:/Users/amine/Desktop/jeuvoiture.mp4";
+                try {
+                   com.codename1.media.Media video =  MediaManager.createMedia(file,false);
+                   video.setVolume(150);
+                   
+                   video.play();
+                   
+                } catch(IOException err) {
+                   
+                } 
+       
+    
+    f =new Container(new BoxLayout(BoxLayout.Y_AXIS));
        
                                 try {
                                     enc = EncodedImage.create("/load.png");
@@ -89,7 +103,7 @@ public class AffichageclientEvenement extends SideMenuBaseForm1{
             
         
             Button abonner = new Button("Abonner");
-                                            abonner.setIcon(FontImage.createMaterial(FontImage.MATERIAL_THUMB_UP, abonner.getUnselectedStyle()));   
+           abonner.setIcon(FontImage.createMaterial(FontImage.MATERIAL_THUMB_UP, abonner.getUnselectedStyle()));   
 
             abonner.addActionListener(new ActionListener() {
                 @Override
@@ -107,7 +121,7 @@ TextMessage message = new TextMessage("Events", "21697485816", "un nouveau clien
                         } catch (NexmoClientException ex) {
                         }
                         
-                        AffichagePropEvenForm pc = new AffichagePropEvenForm(theme);
+                        AffichageclientEvenement pc = new AffichageclientEvenement(theme);
                         pc.show();
 
                     }
@@ -232,7 +246,8 @@ TextMessage message = new TextMessage("Events", "21697485816", "un nouveau clien
 //    public Form getF() {
 //        return f;
 //    }
-
+    
+  
     public void setF(Form f) {
         this.f = f;
     }
