@@ -36,5 +36,10 @@ public enum budget {
     public void setValeur(int valeur) {
         this.valeur = valeur;
     }
+
+    @Override
+    public String toString() {
+        return "budget{" + "name=" + name + ", valeur=" + valeur + '}';
+    }
     
 }

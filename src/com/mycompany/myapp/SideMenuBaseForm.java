@@ -22,6 +22,8 @@ package com.mycompany.myapp;
 
 
 import Evenement.AffichagePropEvenForm;
+import Produit_Offre.AfficheOffres;
+import Produit_Offre.AfficheProduits;
 import Publicite.AffichageClient;
 import Publicite.PubliciteController;
 import com.codename1.ui.Container;
@@ -61,7 +63,7 @@ public abstract class SideMenuBaseForm extends Form {
         
         Image profilePic = res.getImage("logo1.png");
         Image mask = res.getImage("round-mask.png");
-        mask = mask.scaledHeight(mask.getHeight() / 4 * 3);
+       mask = mask.scaledHeight(mask.getHeight() / 4 * 3);
         profilePic = profilePic.fill(mask.getWidth(), mask.getHeight());
         Label profilePicLabel = new Label("", profilePic, "SideMenuTitle");
        profilePicLabel.setMask(mask.createMask());
@@ -74,8 +76,8 @@ public abstract class SideMenuBaseForm extends Form {
         getToolbar().addMaterialCommandToSideMenu("  Profile", FontImage.MATERIAL_TRENDING_UP,  e -> showOtherForm(res));
         getToolbar().addMaterialCommandToSideMenu("  Publicite", FontImage.MATERIAL_TRENDING_UP,e -> new PubliciteController(res).show());
         getToolbar().addMaterialCommandToSideMenu("  Evenement", FontImage.MATERIAL_TRENDING_UP,e -> new AffichagePropEvenForm(res).show());
-        getToolbar().addMaterialCommandToSideMenu("  Offre", FontImage.MATERIAL_TRENDING_UP,e -> new PubliciteController(res).show());
-        getToolbar().addMaterialCommandToSideMenu("  Produit", FontImage.MATERIAL_TRENDING_UP,e -> new PubliciteController(res).show());
+        getToolbar().addMaterialCommandToSideMenu("  Offre", FontImage.MATERIAL_TRENDING_UP,e -> new AfficheOffres(res).show());
+        getToolbar().addMaterialCommandToSideMenu("  Produit", FontImage.MATERIAL_TRENDING_UP,e -> new AfficheProduits(res).getF().show());
         getToolbar().addMaterialCommandToSideMenu("  Actualité", FontImage.MATERIAL_TRENDING_UP,e -> new AffichageClient(res).show());
         getToolbar().addMaterialCommandToSideMenu("  Logout", FontImage.MATERIAL_EXIT_TO_APP,  e -> new Authentification(res).getF().show());
         

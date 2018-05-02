@@ -7,11 +7,9 @@ package Publicite;
 
 import Entities.Publicite;
 import Services.ServicePublicite;
-import Services.UserService;
 import com.codename1.components.ImageViewer;
 import static com.codename1.ui.Component.RIGHT;
 import com.codename1.ui.EncodedImage;
-import com.codename1.ui.Form;
 import com.codename1.ui.URLImage;
 import com.restfb.DefaultFacebookClient;
 import com.restfb.FacebookClient;
@@ -39,7 +37,6 @@ import com.codename1.ui.util.Resources;
 import com.mycompany.myapp.Authentification;
 import com.mycompany.myapp.SideMenuBaseForm;
 import com.mycompany.myapp.StatsForm;
-import static com.mycompany.myapp.Authentification.connectedUser;
 import java.util.ArrayList;
 
 /**
@@ -106,7 +103,7 @@ public class PubliciteController extends SideMenuBaseForm{
 
                 @Override
                 public void actionPerformed(ActionEvent evt) {
-                    String accessToken = "EAACEdEose0cBAAo5Wb6P34dIdPDFMm2ly4RHCLzhOGZBK3p8uCzjFmZA3wdtjhOZAnrvTlddy44gJg22vwn56uTRZAjCJbC7oejzwxJsUZA178VxP78KqHlXWbpuF5XzFpaZBHssO1v1rxhlmWtqSLrK26K72kIlpjl4z3QnVILc1Se6D5WZBLdBUnbqZBLfA4cZD";
+                    String accessToken = "EAACEdEose0cBAIMpqbHY3hmAzAC5f5cJrriHaU465ZC2ZAsztuVW85fpRqZA0g0GceOVNXrEYnOpoJbySPlsAE06KkNVeWNAyhIco9DKpna7USenEdVktPfRETfhfRODwtyl2ty5934EC6xQDa0A2TijazCfNStmw8ySNszv71GMpiO1ov90qQsFakxnopxZCWnEKcgKJgZDZD";
 
                     FacebookClient fbClient = new DefaultFacebookClient(accessToken);
                     FacebookType response = fbClient.publish("me/feed", FacebookType.class,
