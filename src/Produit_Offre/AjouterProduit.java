@@ -129,7 +129,7 @@ public class AjouterProduit {
                         System.out.println(s);
                         // if (s.equals("success")) {
                         Dialog.show("Confirmation", "ajout ok", "Ok", null);
-           new AfficheProduits(res).getF().show();
+           new AfficheProduits(res).show();
                         
                         //}
                  
@@ -145,7 +145,7 @@ public class AjouterProduit {
 
         btnaff.addActionListener((e) -> {
             AfficheProduits a = new AfficheProduits(res);
-            a.getF().show();
+            a.show();
         });
 
     }

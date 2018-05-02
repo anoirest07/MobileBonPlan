@@ -7,11 +7,14 @@ package Produit_Offre;
 
 import Entities.Produit;
 import Services.ServiceProduit;
+import com.codename1.components.FloatingActionButton;
 import com.codename1.components.ImageViewer;
 import com.codename1.components.SpanLabel;
 import com.codename1.io.ConnectionRequest;
 import com.codename1.io.NetworkManager;
 import com.codename1.ui.Button;
+import static com.codename1.ui.Component.BOTTOM;
+import static com.codename1.ui.Component.RIGHT;
 import com.codename1.ui.Container;
 import com.codename1.ui.Dialog;
 import com.codename1.ui.Display;
@@ -20,23 +23,27 @@ import com.codename1.ui.FontImage;
 import com.codename1.ui.Form;
 import com.codename1.ui.Image;
 import com.codename1.ui.Label;
+import com.codename1.ui.SideMenuBar;
 import com.codename1.ui.Toolbar;
 import com.codename1.ui.URLImage;
 import com.codename1.ui.events.ActionEvent;
 import com.codename1.ui.events.ActionListener;
+import com.codename1.ui.layouts.BorderLayout;
 import com.codename1.ui.layouts.BoxLayout;
+import com.codename1.ui.layouts.FlowLayout;
 import com.codename1.ui.plaf.Border;
 import com.codename1.ui.plaf.Style;
 import com.codename1.ui.util.Resources;
+import com.mycompany.myapp.SideMenuBaseForm;
 import java.util.ArrayList;
 
 /**
  *
  * @author Yassine
  */
-public class AfficheProduits {
-
-    Form f, f2;
+public class AfficheProduits extends SideMenuBaseForm{
+    Container f;
+    Form  f2;
     Label lb1;
     Label lb2, label;
     SpanLabel lb3;
@@ -48,9 +55,42 @@ public class AfficheProduits {
     Button btnajout;
 
     public AfficheProduits(Resources res) {
-        btnajout = new Button("Ajouter Produit");
+        super(BoxLayout.y());
+        Toolbar tb = getToolbar();
+          FloatingActionButton fab = FloatingActionButton.createFAB(FontImage.MATERIAL_ADD);     
+        fab.addActionListener(e -> {          
+//            AddPublicite add= new AddPublicite(theme);
+//            add.getForm().show();
+            AjouterProduit ao=  new AjouterProduit(res);
+            ao.getF().show();
+            Form f5 = ao.getF();
+            Toolbar tg = f5.getToolbar();
+            tg.addMaterialCommandToRightBar("", FontImage.MATERIAL_ARROW_BACK, g->
+            {
+            
+            new AfficheProduits(res).show();
+             });
+        });
+       
 
-        f = new Form("Liste des produits", new BoxLayout(BoxLayout.Y_AXIS));
+      f = new Container(new BoxLayout(BoxLayout.Y_AXIS));
+       Button menuButton = new Button("");
+        menuButton.setUIID("Title");
+        FontImage.setMaterialIcon(menuButton, FontImage.MATERIAL_MENU);
+        menuButton.addActionListener(l -> ((SideMenuBar)getToolbar().getMenuBar()).openMenu(null));
+        
+       
+        Container titleCmp = BoxLayout.encloseY(
+                        FlowLayout.encloseIn(menuButton),
+                        BorderLayout.centerAbsolute(
+                                BoxLayout.encloseY(
+                                    new Label("Mes Produits", "Title")
+                                )
+                            )
+                );
+        tb.setTitleComponent(fab.bindFabToContainer(titleCmp, RIGHT, BOTTOM));
+        FontImage arrowDown = FontImage.createMaterial(FontImage.MATERIAL_KEYBOARD_ARROW_DOWN, "Label", 3);  
+        setupSideMenu(res);
 
         ServiceProduit serviceProd = new ServiceProduit();
         ArrayList<Produit> lis = serviceProd.getList2();
@@ -99,7 +139,7 @@ public class AfficheProduits {
                         f.revalidate();
 //                       PubliciteController pc = new PubliciteController(theme);
 //                        pc.getForm().show();
-                    new AfficheProduits(res).getF().show();
+                    new AfficheProduits(res).show();
              }}
             });
             
@@ -115,21 +155,21 @@ public class AfficheProduits {
                     tb.getAllStyles().setBgColor(0x990033);
                     tb.addMaterialCommandToRightBar("Retourner à la liste", FontImage.MATERIAL_ARROW_BACK, (evt2) -> {
                         AfficheProduits h = new AfficheProduits(res);
-                        h.getF().show();
+                        h.show();
                     });
                     tb.getAllStyles().setBgColor(0x990033);
 
                     tb.addMaterialCommandToSideMenu("Retourner à la liste", FontImage.MATERIAL_RADIO_BUTTON_CHECKED, (evt2) -> {
                         AfficheProduits h = new AfficheProduits(res);
-                        h.getF().show();
+                        h.show();
                     });
                     tb.addMaterialCommandToSideMenu("Retourner à la liste", FontImage.MATERIAL_RADIO_BUTTON_CHECKED, (evt2) -> {
                         AfficheProduits h = new AfficheProduits(res);
-                        h.getF().show();
+                        h.show();
                     });
                     tb.addMaterialCommandToSideMenu("Retourner à la liste", FontImage.MATERIAL_RADIO_BUTTON_CHECKED, (evt2) -> {
                         AfficheProduits h = new AfficheProduits(res);
-                        h.getF().show();
+                        h.show();
                     });
 
                     ImageViewer img = new ImageViewer();
@@ -180,39 +220,44 @@ public class AfficheProduits {
                     + "", URLImage.RESIZE_SCALE_TO_FILL));
 
         }
-        Toolbar tb = f.getToolbar();
+        
         tb.getAllStyles().setBgColor(0x990033);
 
         tb.addMaterialCommandToSideMenu("Retourner à la liste", FontImage.MATERIAL_RADIO_BUTTON_CHECKED, (evt2) -> {
             AfficheProduits h = new AfficheProduits(res);
-            h.getF().show();
+            h.show();
         });
         tb.addMaterialCommandToSideMenu("Retourner à la liste", FontImage.MATERIAL_RADIO_BUTTON_CHECKED, (evt2) -> {
             AfficheProduits h = new AfficheProduits(res);
-            h.getF().show();
+            h.show();
         });
         tb.addMaterialCommandToSideMenu("Retourner à la liste", FontImage.MATERIAL_RADIO_BUTTON_CHECKED, (evt2) -> {
             AfficheProduits h = new AfficheProduits(res);
-            h.getF().show();
+            h.show();
         });
-        btnajout.addActionListener((e) -> {
-            AjouterProduit a = new AjouterProduit(res);
-            a.getF().show();
-        });
+//        btnajout.addActionListener((e) -> {
+//            AjouterProduit a = new AjouterProduit(res);
+//            a.getF().show();
+//        });
 
         
         
-        f.add(btnajout);
         
         
+        add(f);
 
     }
 
-    public Form getF() {
-        return f;
-    }
+//    public Form getF() {
+//        return f;
+//    }
 
     public void setF(Form f) {
         this.f = f;
+    }
+
+    @Override
+    protected void showOtherForm(Resources res) {
+         //To change body of generated methods, choose Tools | Templates.
     }
 }

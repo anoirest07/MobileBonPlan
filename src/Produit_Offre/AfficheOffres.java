@@ -58,7 +58,15 @@ Container f;
 //            add.getForm().show();
             AjouterOffre ao=  new AjouterOffre(res);
             ao.getF().show();
+            Form f5 = ao.getF();
+            Toolbar tg = f5.getToolbar();
+            tg.addMaterialCommandToRightBar("", FontImage.MATERIAL_ARROW_BACK, g->
+            {
+            
+            new AfficheOffres(res).show();
+             });
         });
+    
         btnajout = new Button("Ajouter Offre");
         f = new Container(new BoxLayout(BoxLayout.Y_AXIS));
         Button menuButton = new Button("");
@@ -71,7 +79,7 @@ Container f;
                         FlowLayout.encloseIn(menuButton),
                         BorderLayout.centerAbsolute(
                                 BoxLayout.encloseY(
-                                    new Label("Mes Publicites", "Title")
+                                    new Label("Mes Offres", "Title")
                                 )
                             )
                 );
