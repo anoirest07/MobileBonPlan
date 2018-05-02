@@ -12,6 +12,7 @@ import com.codename1.capture.Capture;
 import com.codename1.components.ImageViewer;
 import com.codename1.ui.Button;
 import com.codename1.ui.ComboBox;
+import com.codename1.ui.Dialog;
 import com.codename1.ui.Display;
 import com.codename1.ui.FontImage;
 import com.codename1.ui.Form;
@@ -92,6 +93,7 @@ public class AjoutEventForm {
         });
 
         btnajout.addActionListener((e) -> {
+            if (isInputValid()) {
             ServiceEvenement ser = new ServiceEvenement();
             int day , month , year ;
             day=date.getCurrentDay();
@@ -113,13 +115,37 @@ public class AjoutEventForm {
             ser.ajouteven(t);
                         AffichagePropEvenForm pc = new AffichagePropEvenForm(res);
                             pc.show();
-        });
+            }});
 //        btnaff.addActionListener((e)->{
         //Affichage a=new Affichage();
         //a.getF().show();
         //});
     }
+ private boolean isInputValid() 
+    {
+        String errorMessage = "";
 
+        if (tnom.getText() == null || tnom.getText().length() == 0) 
+        {
+            errorMessage += "Champ titre invalide !\n"; 
+        }
+        if (description.getText() == null || description.getText().length() == 0) 
+        {
+            errorMessage += "Champ description invalide !\n"; 
+        }
+      
+       
+        
+        if (errorMessage.length() == 0) 
+        {
+            return true;
+        }
+         else 
+        {
+            Dialog.show("Champs invalides", errorMessage, "OK", null);
+            return false;
+        }
+    }
     public Form getF() {
         return f;
     }
