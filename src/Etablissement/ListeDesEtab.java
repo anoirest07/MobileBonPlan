@@ -12,6 +12,7 @@ import Entities.Etablissement;
 import Services.ServiceEtablissement;
 import com.codename1.components.ImageViewer;
 import com.codename1.ui.AutoCompleteTextField;
+import com.codename1.ui.Button;
 import com.codename1.ui.Container;
 import com.codename1.ui.Display;
 import com.codename1.ui.EncodedImage;
@@ -28,6 +29,7 @@ import com.codename1.ui.list.DefaultListModel;
 import com.codename1.ui.list.ListModel;
 import com.codename1.ui.plaf.Border;
 import com.codename1.ui.plaf.Style;
+import com.codename1.ui.util.Resources;
 import java.util.ArrayList;
 
 
@@ -52,7 +54,7 @@ ListModel<String> etabRech = new DefaultListModel<String>();
     
     AutoCompleteTextField ac = new AutoCompleteTextField(etabRech);
     
-    public ListeDesEtab() {
+    public ListeDesEtab(Resources theme) {
 
         f = new Form("Liste des établissements");
 
@@ -116,13 +118,13 @@ ListModel<String> etabRech = new DefaultListModel<String>();
                         c3 = new Container(new BoxLayout(BoxLayout.Y_AXIS));
 
                         tb.getAllStyles().setBgColor(0x990033);
-                        tb.addMaterialCommandToLeftBar("Retourner à la liste", FontImage.MATERIAL_ARROW_BACK, (evt2) -> {
-                        ListeDesEtab h=new ListeDesEtab();
+                        tb.addMaterialCommandToLeftBar("", FontImage.MATERIAL_ARROW_BACK, (evt2) -> {
+                        ListeDesEtab h=new ListeDesEtab(theme);
                           h.getF().show();
                         });
                         ImageViewer img=new ImageViewer();
                         SpanLabel sp=new SpanLabel(et.getNom_etablissement());
-                        SpanLabel sp1=new SpanLabel("Travaille aujourd'hui à :"+et.getOuverture().toString()+"_"+et.getFermeture().toString());
+                     //   SpanLabel sp1=new SpanLabel("Travaille aujourd'hui à :"+et.getOuverture().toString()+"_"+et.getFermeture().toString());
                         SpanLabel sp2=new SpanLabel("Catégorie :"+et.getCategorie().getNom_categorie());
                         SpanLabel sp3=new SpanLabel(et.getAdresse_etablissement()+","+et.getCode_postal());
                         SpanLabel sp4=new SpanLabel("");
@@ -160,7 +162,7 @@ ListModel<String> etabRech = new DefaultListModel<String>();
                         c2.add(sp);
                           c2.add(sp3);
                            c2.add(space1);
-                          c3.add(sp1);
+                       //   c3.add(sp1);
                           
                             c3.add(sp2);
                           
@@ -244,13 +246,13 @@ ListModel<String> etabRech = new DefaultListModel<String>();
                         c3 = new Container(new BoxLayout(BoxLayout.Y_AXIS));
 
                         tb.getAllStyles().setBgColor(0x990033);
-                        tb.addMaterialCommandToLeftBar("Retourner à la liste", FontImage.MATERIAL_ARROW_BACK, (evt2) -> {
-                        ListeDesEtab h=new ListeDesEtab();
+                        tb.addMaterialCommandToLeftBar("", FontImage.MATERIAL_ARROW_BACK, (evt2) -> {
+                        ListeDesEtab h=new ListeDesEtab(theme);
                           h.getF().show();
                         });
                         ImageViewer img=new ImageViewer();
                         SpanLabel sp=new SpanLabel(e.getNom_etablissement());
-                        SpanLabel sp1=new SpanLabel("Travaille aujourd'hui à :"+e.getOuverture().toString()+"_"+e.getFermeture().toString());
+                      //  SpanLabel sp1=new SpanLabel("Travaille aujourd'hui à :"+e.getOuverture().toString()+"_"+e.getFermeture().toString());
                         SpanLabel sp2=new SpanLabel("Catégorie :"+e.getCategorie().getNom_categorie());
                         SpanLabel sp3=new SpanLabel(e.getAdresse_etablissement()+","+e.getCode_postal());
                         SpanLabel sp4=new SpanLabel("");
@@ -277,18 +279,15 @@ ListModel<String> etabRech = new DefaultListModel<String>();
                         SpanLabel space4= new SpanLabel("                                                  ");
                         SpanLabel space5= new SpanLabel("                                                  ");
 
-
-                        //   c2.setHeight(700);  
-               // f2.getAllStyles().setBorder(Border.createLineBorder(3, 0xffa83b));
-//                f2.getAllStyles().set3DText(true, false);
-//                f2.getAllStyles().setUnderline(true);
-//                f2.getAllStyles().setBgTransparency(200);
-//                f2.getAllStyles().setTextDecoration(Style.TEXT_DECORATION_UNDERLINE);
-                       // f2.add(img);
+                        Button favoris = new Button("Ajouter aux favoris");
+                         Button produits = new Button("Nos produits");
+                          Button offres = new Button("Nos offres");
                         c2.add(sp);
                           c2.add(sp3);
+                           c2.add(favoris);
                            c2.add(space1);
-                          c3.add(sp1);
+                          
+//                          c3.add(sp1);
                           
                             c3.add(sp2);
                           
@@ -299,11 +298,13 @@ ListModel<String> etabRech = new DefaultListModel<String>();
                                   
                                     c3.add(sp6);
                                       c3.add(sp7);
+                                      c3.add(produits);
+                                      c3.add(offres);
                                      c3.add(space2);
                                       c3.add(space3);
                                        c3.add(space4);
                                         c3.add(space5);
-//                                     
+//                                      
                                        cgen.add(label2);
                                        cgen.add(c2);
                                        f2.add(cgen);

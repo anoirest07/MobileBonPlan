@@ -74,7 +74,7 @@ public abstract class SideMenuBaseForm extends Form {
         
         getToolbar().addComponentToSideMenu(sidemenuTop);
         getToolbar().addMaterialCommandToSideMenu("  Accueil", FontImage.MATERIAL_DASHBOARD,  e -> new PubliciteController(res).show());
-        getToolbar().addMaterialCommandToSideMenu("  Etablissement", FontImage.MATERIAL_TRENDING_UP,  e -> new MesEtabs(res).getF().show());
+        getToolbar().addMaterialCommandToSideMenu("  Etablissement", FontImage.MATERIAL_TRENDING_UP,  e -> new MesEtabs(res).show());
         getToolbar().addMaterialCommandToSideMenu("  Publicite", FontImage.MATERIAL_TRENDING_UP,e -> new PubliciteController(res).show());
         getToolbar().addMaterialCommandToSideMenu("  Evenement", FontImage.MATERIAL_TRENDING_UP,e -> new AffichagePropEvenForm(res).show());
         getToolbar().addMaterialCommandToSideMenu("  Offre", FontImage.MATERIAL_TRENDING_UP,e -> new AfficheOffres(res).show());

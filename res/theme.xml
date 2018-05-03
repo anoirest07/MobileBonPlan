@@ -136,7 +136,7 @@
         <val key="FloatingActionButton.sel#fgColor" value="0" />
         <val key="FloatingActionButton.sel#transparency" value="0" />
         <val key="FloatingActionButton.transparency" value="0" />
-        <font key="Label.font" type="system" face="0" style="2" size="8" />
+        <font key="Label.font" type="system" face="0" style="2" size="0" />
         <val key="Label.press#transparency" value="0" />
         <val key="Label.sel#transparency" value="0" />
         <val key="Label.transparency" value="0" />
@@ -322,7 +322,7 @@
         <val key="TodayTitle.padUnit" value="2,2,2,2" />
         <val key="TodayTitle.padding" value="5,3,2,1" />
         <val key="TodayTitle.transparency" value="0" />
-        <val key="Toolbar.bgImage" value="BonPlan.png" />
+        <val key="Toolbar.bgImage" value="slide3.jpg" />
         <val key="Toolbar.bgType" value="33" />
         <border key="Toolbar.border" type="empty" />
         <val key="Toolbar.margin" value="0,0,0,0" />

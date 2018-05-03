@@ -125,6 +125,7 @@ ImageViewer image;
 //        ServicePublicite sp = new ServicePublicite();
    ServiceEtablissement se=new ServiceEtablissement();
                 ArrayList<Etablissement> lsevent= se.MesEtabs(Authentification.connectedUser.getId());
+                System.out.println("+++++"+se.MesEtabs(Authentification.connectedUser.getId()));
                 ComboBox combo = new ComboBox();
                                 for (Etablissement etablissement : lsevent) {
                                     combo.addItem(etablissement.getNom_etablissement());
