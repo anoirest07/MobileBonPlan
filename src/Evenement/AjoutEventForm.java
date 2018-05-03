@@ -7,6 +7,7 @@ package Evenement;
 
 import Entities.Etablissement;
 import Entities.Evenement;
+import Services.ServiceEtablissement;
 import Services.ServiceEvenement;
 import com.codename1.capture.Capture;
 import com.codename1.components.ImageViewer;
@@ -27,6 +28,7 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import com.codename1.ui.util.Resources;
+import com.mycompany.myapp.Authentification;
 
 
 
@@ -57,11 +59,12 @@ public class AjoutEventForm {
         
         tnom = new TextField();
         description = new TextField();
+        ServiceEtablissement seer= new ServiceEtablissement();
         ServiceEvenement se = new ServiceEvenement();
-                ArrayList<Etablissement> lsevent= se.getListEtab();
+                ArrayList<Etablissement> lsevent= seer.MesEtabs(Authentification.connectedUser.getId());
                 ComboBox combo = new ComboBox();
                                 for (Etablissement etablissement : lsevent) {
-                                    combo.addItem(etablissement);
+                                    combo.addItem(etablissement.getNom_etablissement());
                                 }
         btnajout = new Button("ajouter");
         f.add(tnom);

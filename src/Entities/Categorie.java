@@ -28,8 +28,6 @@ public class Categorie {
     public Categorie() {
     }
     
-    
-
     public int getId_categorie() {
         return id_categorie;
     }
