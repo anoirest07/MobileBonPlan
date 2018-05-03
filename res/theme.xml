@@ -136,6 +136,7 @@
         <val key="FloatingActionButton.sel#fgColor" value="0" />
         <val key="FloatingActionButton.sel#transparency" value="0" />
         <val key="FloatingActionButton.transparency" value="0" />
+        <font key="Label.font" type="system" face="0" style="2" size="8" />
         <val key="Label.press#transparency" value="0" />
         <val key="Label.sel#transparency" value="0" />
         <val key="Label.transparency" value="0" />
