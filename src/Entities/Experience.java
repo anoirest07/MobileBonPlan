@@ -13,17 +13,18 @@ import java.util.Date;
  * @author amine
  */
 public class Experience {
-    private int id_exp;
+       private int id_exp;
     private String description_experience;
     private String preuve;
     private Utilisateur utilisateur ;
     private Etablissement etablissement;
-private Date date_exp;
+    private String date_exp;
+private int noteExp;
     
     public Experience() {
     }
 
-    public Experience( String description_experience, String preuve, Utilisateur utilisateur, Etablissement etablissement, Date date_exp) {
+    public Experience( String description_experience, String preuve, Utilisateur utilisateur, Etablissement etablissement, String date_exp) {
         this.description_experience = description_experience;
         this.preuve = preuve;
         this.utilisateur = utilisateur;
@@ -73,21 +74,26 @@ private Date date_exp;
         this.etablissement = etablissement;
     }
 
-    public Date getDate_exp() {
+    public String getDate_exp() {
         return date_exp;
     }
 
-    public void setDate_exp(Date date_exp) {
+    public void setDate_exp(String date_exp) {
         this.date_exp = date_exp;
+    }
+
+    public int getNoteExp() {
+        return noteExp;
+    }
+
+    public void setNoteExp(int noteExp) {
+        this.noteExp = noteExp;
     }
 
     @Override
     public String toString() {
-        return "Experience{" + "id_exp=" + id_exp + ", description_experience=" + description_experience + ", preuve=" + preuve + ", utilisateur=" + utilisateur + ", etablissement=" + etablissement + ", date_exp=" + date_exp + '}';
+        return "Experience{" + "id_exp=" + id_exp + ", description_experience=" + description_experience + ", preuve=" + preuve + ", utilisateur=" + utilisateur + ", etablissement=" + etablissement + ", date_exp=" + date_exp + ", noteExp=" + noteExp + '}';
     }
-
-    
-    
 
     
 }

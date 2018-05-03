@@ -4,25 +4,11 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
-<<<<<<< HEAD
-=======
-<<<<<<< HEAD
-            <file>file:/C:/wamp64/www/MobileBonPlan/src/Publicite/PubliciteController.java</file>
-            <file>file:/C:/wamp64/www/MobileBonPlan/src/Produit_Offre/AfficheProduits.java</file>
-            <file>file:/C:/wamp64/www/MobileBonPlan/src/Services/ServiceOffre.java</file>
-            <file>file:/C:/wamp64/www/MobileBonPlan/src/com/mycompany/myapp/MyApplication.java</file>
-            <file>file:/C:/wamp64/www/MobileBonPlan/src/Produit_Offre/AfficheOffres.java</file>
-=======
-            <file>file:/C:/Users/amine/Desktop/MobileBonPlan/src/Evenement/AffichageclientEvenement.java</file>
->>>>>>> 8535cb5d1136c058ec0de204391dd0f5300b40dd
             <file>file:/C:/Users/amine/Desktop/MobileBonPlan/src/Evenement/AjoutEventForm.java</file>
+            <file>file:/C:/Users/amine/Desktop/MobileBonPlan/src/Services/ServiceEvenement.java</file>
             <file>file:/C:/Users/amine/Desktop/MobileBonPlan/src/Evenement/ModifierEventForm.java</file>
+            <file>file:/C:/Users/amine/Desktop/MobileBonPlan/src/Services/ServicePublicite.java</file>
             <file>file:/C:/Users/amine/Desktop/MobileBonPlan/src/Publicite/AddPublicite.java</file>
-<<<<<<< HEAD
-=======
-            <file>file:/C:/Users/amine/Desktop/MobileBonPlan/src/Publicite/PubliciteController.java</file>
->>>>>>> 8a3ca34d41c13ba6c25ee760bfcce3a5b6fa97e6
->>>>>>> 8535cb5d1136c058ec0de204391dd0f5300b40dd
         </group>
     </open-files>
 </project-private>
