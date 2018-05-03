@@ -242,6 +242,30 @@ public class ServiceEtablissement {
         NetworkManager.getInstance().addToQueueAndWait(con);
         return listTasks;
     }
+
+//    public void ajouterEtablissement(Etablissement ta) {
+//        ConnectionRequest con = new ConnectionRequest();
+//        String Url = "http://192.168.1.12/BonPlan/web/app_dev.php/BonPlan/AjouterEtablissementMobile/" + ta.getNom_etablissement() + "/" + ta.getAdresse_etablissement()+"/"
+//        +ta.getDescription_etablissement()+"/"+ta.getBudget()+"/"+ta.getPhoto_etablissement()+"/"+ta.getPhoto_patente()+"/"
+//        +ta.getSite_web()+"/"+ta.getCode_postal()+"/"+"/"+ta.getLat()+"/"+ta.getLong()+"/"+ta.getOuverture()+"/"
+//        +ta.getFermeture()+"/"+ta.getTelephone_etablissement();
+//        con.setUrl(Url);
+//        con.addResponseListener((e) -> {
+//            String str = new String(con.getResponseData());
+//            System.out.println(str);
+////            if (str.trim().equalsIgnoreCase("OK")) {
+////                f2.setTitle(tlogin.getText());
+////             f2.show();
+////            }
+////            else{
+////            Dialog.show("error", "login ou pwd invalid", "ok", null);
+////            }
+//        });
+//        NetworkManager.getInstance().addToQueueAndWait(con);
+//    }
+    
+   
+
     public void ajouterEtablissement(Etablissement ta) {
         ConnectionRequest con = new ConnectionRequest();
         String Url = "http://localhost/symfony/web/app_dev.php/BonPlan/AjouterEtablissementMobile/" + ta.getNom_etablissement() + "/" + ta.getAdresse_etablissement()+"/"
@@ -351,4 +375,5 @@ public class ServiceEtablissement {
         NetworkManager.getInstance().addToQueueAndWait(con);
         return listTasks;
     }
+
 }
