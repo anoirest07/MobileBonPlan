@@ -77,19 +77,19 @@ public class ServiceEtablissement {
 //                        task.setTelephone_etablissement((int) obj.get("telephoneEtablissement"));
                         task.setPhoto_etablissement(obj.get("photoEtablissement").toString());
                         task.setDescription_etablissement(obj.get("descriptionEtablissement").toString());
-                         new Date((long) Float.parseFloat(obj.get("ouverture").toString()));
-                        //double t = (double) ouverture.get("timestamp");
-                        //long x = (long) (t * 1000L); 
-                        //String format = new SimpleDateFormat("HH:mm:ss").format(new Date(x));
-                        //Date tdate= new SimpleDateFormat("HH:mm:ss").parse(format);
-                       Map<String, Object> fermeture = (Map<String, Object>) obj.get("fermeture");
-                        double t1 = (double) fermeture.get("timestamp");
-                        long x1 = (long) (t1 * 1000L); 
-//                        String format1 = new SimpleDateFormat("HH:mm:ss").format(new Date(x1)); 
-//                        Date tdate1= new SimpleDateFormat("HH:mm:ss").parse(format1);
-                     //    new Date((long) Float.parseFloat(x1.toString()));
-                        task.setOuverture(new Date((long) Float.parseFloat(obj.get("ouverture").toString())));  
-                        task.setFermeture(new Date((long) Float.parseFloat(obj.get("fermeture").toString())));
+//                         new Date((long) Float.parseFloat(obj.get("ouverture").toString()));
+//                        //double t = (double) ouverture.get("timestamp");
+//                        //long x = (long) (t * 1000L); 
+//                        //String format = new SimpleDateFormat("HH:mm:ss").format(new Date(x));
+//                        //Date tdate= new SimpleDateFormat("HH:mm:ss").parse(format);
+//                       Map<String, Object> fermeture = (Map<String, Object>) obj.get("fermeture");
+//                        double t1 = (double) fermeture.get("timestamp");
+//                        long x1 = (long) (t1 * 1000L); 
+////                        String format1 = new SimpleDateFormat("HH:mm:ss").format(new Date(x1)); 
+////                        Date tdate1= new SimpleDateFormat("HH:mm:ss").parse(format1);
+//                     //    new Date((long) Float.parseFloat(x1.toString()));
+//                        task.setOuverture(new Date((long) Float.parseFloat(obj.get("ouverture").toString())));  
+//                        task.setFermeture(new Date((long) Float.parseFloat(obj.get("fermeture").toString())));
              task.setCode_postal((int)(double) obj.get("codePostal"));
              task.setSite_web(obj.get("siteWeb").toString());
              task.setTelephone_etablissement((int)(double) obj.get("telephoneEtablissement"));
@@ -296,9 +296,7 @@ public class ServiceEtablissement {
             con.addResponseListener((e) -> {
                 String str = new String(con.getResponseData());
                 System.out.println(str);
-                            Dialog.show("", "Suppression effectuée", "ok", null);
-                            MesEtabs h = new MesEtabs(theme);
-        h.getF().show();
+                    
                             
 
             });

@@ -4,6 +4,7 @@
  * and open the template in the editor.
  */
 package com.mycompany.myapp;
+import Etablissement.ListeDesEtab;
 import Evenement.AffichagePropEvenForm;
 import Evenement.AffichageclientEvenement;
 import Publicite.AffichageClient;
@@ -53,7 +54,7 @@ public abstract class SideMenuBaseForm1 extends Form {
         
         getToolbar().addComponentToSideMenu(sidemenuTop);
         getToolbar().addMaterialCommandToSideMenu("  Accueil", FontImage.MATERIAL_DASHBOARD,  e -> new PubliciteController(res).show());
-        getToolbar().addMaterialCommandToSideMenu("  Profile", FontImage.MATERIAL_TRENDING_UP,  e -> showOtherForm(res));
+        getToolbar().addMaterialCommandToSideMenu("  Etablissement", FontImage.MATERIAL_TRENDING_UP,  e -> new ListeDesEtab(res).getF().show());
         getToolbar().addMaterialCommandToSideMenu("  Publicite", FontImage.MATERIAL_TRENDING_UP,e -> new PubliciteController(res).show());
         getToolbar().addMaterialCommandToSideMenu("  Evenement", FontImage.MATERIAL_TRENDING_UP,e -> new AffichageclientEvenement(res).show());
         getToolbar().addMaterialCommandToSideMenu("  Offre", FontImage.MATERIAL_TRENDING_UP,e -> new PubliciteController(res).show());

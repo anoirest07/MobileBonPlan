@@ -250,7 +250,7 @@ public class AjouterEtab {
                         // if (s.equals("success")) {
                              Dialog.show("Ajout effectué", "Votre établissement a été ajouté", "Ok", null);
                                MesEtabs h = new MesEtabs(theme);
-        h.getF().show();
+        h.show();
                         //}
                     }
                 });
@@ -263,7 +263,7 @@ public class AjouterEtab {
     
         btnaff.addActionListener((e)->{
         MesEtabs a=new MesEtabs(theme);
-        a.getF().show();
+        a.show();
         });
      
    //  f.add(containerCrit);  

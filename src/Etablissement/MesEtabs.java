@@ -8,8 +8,11 @@ package Etablissement;
 import Entities.Categorie;
 import Entities.CriteresEvaluation;
 import Entities.Etablissement;
+import Publicite.AddPublicite;
 import Services.ServiceCategorie;
 import Services.ServiceEtablissement;
+import Services.ServicePublicite;
+import com.codename1.components.FloatingActionButton;
 import com.codename1.components.ImageViewer;
 import com.codename1.components.SpanLabel;
 import com.codename1.io.ConnectionRequest;
@@ -22,6 +25,8 @@ import com.codename1.ui.AutoCompleteTextField;
 import com.codename1.ui.Button;
 import com.codename1.ui.ComboBox;
 import com.codename1.ui.Component;
+import static com.codename1.ui.Component.BOTTOM;
+import static com.codename1.ui.Component.RIGHT;
 import com.codename1.ui.Container;
 import com.codename1.ui.Dialog;
 import com.codename1.ui.Display;
@@ -30,13 +35,16 @@ import com.codename1.ui.FontImage;
 import com.codename1.ui.Form;
 import com.codename1.ui.Image;
 import com.codename1.ui.Label;
+import com.codename1.ui.SideMenuBar;
 import com.codename1.ui.TextArea;
 import com.codename1.ui.TextField;
 import com.codename1.ui.Toolbar;
 import com.codename1.ui.URLImage;
 import com.codename1.ui.events.ActionEvent;
 import com.codename1.ui.events.ActionListener;
+import com.codename1.ui.layouts.BorderLayout;
 import com.codename1.ui.layouts.BoxLayout;
+import com.codename1.ui.layouts.FlowLayout;
 import com.codename1.ui.list.DefaultListModel;
 import com.codename1.ui.plaf.Border;
 import com.codename1.ui.plaf.Style;
@@ -44,6 +52,7 @@ import com.codename1.ui.spinner.DateTimeSpinner;
 import com.codename1.ui.spinner.TimeSpinner;
 import com.codename1.ui.util.Resources;
 import com.mycompany.myapp.Authentification;
+import com.mycompany.myapp.SideMenuBaseForm;
 import java.io.ByteArrayInputStream;
 import java.io.IOException;
 import java.io.InputStreamReader;
@@ -54,8 +63,9 @@ import java.util.Map;
  *
  * @author Nadia
  */
-public class MesEtabs {
-      Form f,f2;
+public class MesEtabs extends SideMenuBaseForm{
+    Container f;
+      Form f2;
     Label lb1,photooo;
     Label lb2,label,lcat,label2;
     SpanLabel lb3,lbadr,lbnom;
@@ -91,7 +101,34 @@ public class MesEtabs {
      private String newfilePath = "";
     ServiceCategorie sc= new ServiceCategorie();
     public MesEtabs(Resources theme){
-      f = new Form("Mes établissements");
+        
+       super(BoxLayout.y());
+        Toolbar tb = getToolbar();
+        FloatingActionButton fab = FloatingActionButton.createFAB(FontImage.MATERIAL_ADD);     
+        fab.addActionListener(e -> {          
+//            AddPublicite add= new AddPublicite(theme);
+//            add.getForm().show();
+              new AjouterEtab(theme).getF().show();
+        });
+        f = new Container(new BoxLayout(BoxLayout.Y_AXIS));
+        
+        Button menuButton = new Button("");
+        menuButton.setUIID("Title");
+        FontImage.setMaterialIcon(menuButton, FontImage.MATERIAL_MENU);
+        menuButton.addActionListener(l -> ((SideMenuBar)getToolbar().getMenuBar()).openMenu(null));
+        
+       
+        Container titleCmp = BoxLayout.encloseY(
+                        FlowLayout.encloseIn(menuButton),
+                        BorderLayout.centerAbsolute(
+                                BoxLayout.encloseY(
+                                    new Label("Mes Etablissements", "Title")
+                                )
+                            )
+                );
+        tb.setTitleComponent(fab.bindFabToContainer(titleCmp, RIGHT, BOTTOM));
+        FontImage arrowDown = FontImage.createMaterial(FontImage.MATERIAL_KEYBOARD_ARROW_DOWN, "Label", 3);  
+        setupSideMenu(theme);
 
         ServiceEtablissement serviceTask = new ServiceEtablissement();
         ArrayList<Etablissement> lis = serviceTask.MesEtabs(Authentification.connectedUser.getId());
@@ -143,7 +180,9 @@ public class MesEtabs {
                             @Override
                             public void actionPerformed(ActionEvent evt) {
                            serviceTask.suppTask(e.getId_etablissement());
-                            
+                                    Dialog.show("", "Suppression effectuée", "ok", null);
+                            MesEtabs h = new MesEtabs(theme);
+        h.show();
                             }
                         });
                         touver = new DateTimeSpinner();
@@ -220,7 +259,7 @@ public class MesEtabs {
                             @Override
                             public void actionPerformed(ActionEvent evt) {
                    MesEtabs h = new MesEtabs(theme);
-        h.getF().show();
+        h.show();
                             }
                         });
      f2.add(photooo);
@@ -277,7 +316,7 @@ public class MesEtabs {
                         // if (s.equals("success")) {
                              Dialog.show("Modification enregistrée", "Votre établissement a été modifié", "Ok", null);
                          
-                             f.show();
+                             new MesEtabs(theme).show();
                              //}  
                     }
                 });
@@ -296,6 +335,7 @@ public class MesEtabs {
                 c1.add(space6);
               
                 f.addComponent(c1);
+                
               c.getAllStyles().setPadding(Component.LEFT, 30);
               c.getAllStyles().setPadding(Component.RIGHT, 0);
                
@@ -315,12 +355,18 @@ public class MesEtabs {
 //                c1.setWidth(500);
             }
         }
+       add(f);
     }
-      public Form getF() {
-        return f;
-    }
+//      public Form getF() {
+//        return f;
+//    }
 
     public void setF(Form f) {
         this.f = f;
+    }
+
+    @Override
+    protected void showOtherForm(Resources res) {
+        //To change body of generated methods, choose Tools | Templates.
     }
 }
