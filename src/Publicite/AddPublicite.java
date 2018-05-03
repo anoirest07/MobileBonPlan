@@ -8,6 +8,7 @@ package Publicite;
 import Entities.Etablissement;
 import Entities.Publicite;
 import Services.ServiceAjouter;
+import Services.ServiceEtablissement;
 import Services.ServiceEvenement;
 import Services.ServicePaiement;
 import Services.ServicePublicite;
@@ -121,11 +122,12 @@ ImageViewer image;
             }
         });
 
-        ServicePublicite sp = new ServicePublicite();
-                ArrayList<Etablissement> lsevent= sp.getListEtab(Authentification.connectedUser.getId());
+//        ServicePublicite sp = new ServicePublicite();
+   ServiceEtablissement se=new ServiceEtablissement();
+                ArrayList<Etablissement> lsevent= se.MesEtabs(Authentification.connectedUser.getId());
                 ComboBox combo = new ComboBox();
                                 for (Etablissement etablissement : lsevent) {
-                                    combo.addItem(etablissement.toString());
+                                    combo.addItem(etablissement.getNom_etablissement());
                                 }
 //        Button imgBtn = new Button("image");
 //        imgBtn.addActionListener(e -> {

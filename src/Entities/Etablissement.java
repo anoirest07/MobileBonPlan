@@ -6,7 +6,9 @@
 package Entities;
 
 import Entities.budget;
+import java.util.Date;
 import java.util.List;
+import java.util.TimeZone;
 
 /**
  *
@@ -22,14 +24,16 @@ public class Etablissement {
     private String photo_etablissement;
     private String photo_patente;
     private int code_postal;
-    //private String position;
-    private budget budget ;
+    private String budget ;
     private String site_web;
     private int enabled;
     private Categorie categorie;
     private Utilisateur utilisateur;
     private Double Long;
     private Double Lat;
+    private Date ouverture;
+    private Date Fermeture;
+   
 //    private List<Offre> offres;
 //    private List<Evenement> evenements;
 //    private List<Publicite> publicites;
@@ -39,8 +43,10 @@ public class Etablissement {
     public Etablissement() {
         utilisateur=new Utilisateur();
     }
-
-    public Etablissement(int id_etablissement, String nom_etablissement, String adresse_etablissement, int telephone_etablissement, String horaire_travail, String description_etablissement, String photo_etablissement, String photo_patente, int code_postal, String position, budget budget, String site_web, int enabled, Categorie categorie, Utilisateur utilisateur, Double Long, Double Lat) {
+public Etablissement(String nom_etablissement) {
+        this.nom_etablissement= nom_etablissement;
+    }
+    public Etablissement(int id_etablissement, String nom_etablissement, String adresse_etablissement, int telephone_etablissement, String horaire_travail, String description_etablissement, String photo_etablissement, String photo_patente, int code_postal, String budget, String site_web, int enabled, Categorie categorie, Utilisateur utilisateur, Double Long, Double Lat) {
         this.id_etablissement = id_etablissement;
         this.nom_etablissement = nom_etablissement;
         this.adresse_etablissement = adresse_etablissement;
@@ -50,16 +56,14 @@ public class Etablissement {
         this.photo_etablissement = photo_etablissement;
         this.photo_patente = photo_patente;
         this.code_postal = code_postal;
-      //  this.position = position;
         this.budget = budget;
         this.site_web = site_web;
         this.enabled = enabled;
-        this.categorie = categorie;
-        this.utilisateur = utilisateur;
+        //this.categorie = categorie;
+        //this.utilisateur = utilisateur;
         this.Long = Long;
         this.Lat = Lat;
     }
-
     public Double getLong() {
         return Long;
     }
@@ -76,7 +80,7 @@ public class Etablissement {
         this.Lat = Lat;
     }
 
-    public Etablissement(String nom_etablissement, String adresse_etablissement, int telephone_etablissement, String horaire_travail, String description_etablissement, String photo_etablissement, String photo_patente, int code_postal, String position, budget budget, String site_web, Categorie categorie, Utilisateur utilisateur,int enabled) {
+    public Etablissement(String nom_etablissement, String adresse_etablissement, int telephone_etablissement, String horaire_travail, String description_etablissement, String photo_etablissement, String photo_patente, int code_postal, String budget, String site_web, Categorie categorie, Utilisateur utilisateur,int enabled) {
 //        this.id_etablissement = id_etablissement;
         this.nom_etablissement = nom_etablissement;
         this.adresse_etablissement = adresse_etablissement;
@@ -97,9 +101,40 @@ public class Etablissement {
 //        this.publicites = publicites;
     }
 
-    
-    
-    
+    public Etablissement(String nom_etablissement, String adresse_etablissement, int telephone_etablissement, String description_etablissement, String photo_etablissement, String photo_patente, int code_postal, String budget, String site_web, int enabled, Double Long, Double Lat, Date ouverture, Date Fermeture) {
+        this.nom_etablissement = nom_etablissement;
+        this.adresse_etablissement = adresse_etablissement;
+        this.telephone_etablissement = telephone_etablissement;
+        this.description_etablissement = description_etablissement;
+        this.photo_etablissement = photo_etablissement;
+        this.photo_patente = photo_patente;
+        this.code_postal = code_postal;
+        this.budget = budget;
+        this.site_web = site_web;
+        this.enabled = enabled;
+    //    this.categorie = categorie;
+     //   this.utilisateur = utilisateur;
+        this.Long = Long;
+        this.Lat = Lat;
+        this.ouverture = ouverture;
+        this.Fermeture = Fermeture;
+    }
+
+    public Date getOuverture() {
+        return ouverture;
+    }
+
+    public void setOuverture(Date ouverture) {
+        this.ouverture = ouverture;
+    }
+
+    public Date getFermeture() {
+        return Fermeture;
+    }
+
+    public void setFermeture(Date Fermeture) {
+        this.Fermeture = Fermeture;
+    }
     
     public int getId_etablissement() {
         return id_etablissement;
@@ -138,7 +173,7 @@ public class Etablissement {
     }
 
    
-    public budget getBudget() {
+    public String getBudget() {
         return budget;
     }
 
@@ -195,7 +230,7 @@ public class Etablissement {
     }
 
    
-    public void setBudget(budget budget) {
+    public void setBudget(String budget) {
         this.budget = budget;
     }
 
@@ -241,19 +276,10 @@ public class Etablissement {
 
     @Override
     public String toString() {
-        return this.nom_etablissement;
+        return "Etablissement{" + "id_etablissement=" + id_etablissement + ", nom_etablissement=" + nom_etablissement + ", adresse_etablissement=" + adresse_etablissement + ", telephone_etablissement=" + telephone_etablissement + ", horaire_travail=" + horaire_travail + ", description_etablissement=" + description_etablissement + ", photo_etablissement=" + photo_etablissement + ", photo_patente=" + photo_patente + ", code_postal=" + code_postal + ", budget=" + budget + ", site_web=" + site_web + ", enabled=" + enabled + ", categorie=" + categorie + ", utilisateur=" + utilisateur + ", Long=" + Long + ", Lat=" + Lat + ", ouverture=" + ouverture + ", Fermeture=" + Fermeture + '}';
     }
 
-   
-   
-    
-   
 
-    
-
-
-    
-    
     
     
 }
