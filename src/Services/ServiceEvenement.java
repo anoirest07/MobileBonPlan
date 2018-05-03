@@ -13,6 +13,8 @@ import com.codename1.io.NetworkEvent;
 import com.codename1.io.NetworkManager;
 import com.codename1.ui.events.ActionListener;
 import Entities.Evenement;
+import Entities.Interesser;
+import Entities.Utilisateur;
 import com.codename1.components.ImageViewer;
 import com.codename1.io.File;
 import com.codename1.ui.Display;
@@ -149,7 +151,7 @@ public class ServiceEvenement {
         NetworkManager.getInstance().addToQueueAndWait(con);
         return listTasks;
     }
-     public ArrayList<Etablissement> getListEtab(int id) {
+      public ArrayList<Etablissement> getListEtab(int id) {
         ArrayList<Etablissement> listTasks = new ArrayList<>();
         ConnectionRequest con = new ConnectionRequest();
         con.setUrl("http://localhost/symfony/web/app_dev.php/BonPlan/etabM/"+id);
@@ -170,6 +172,46 @@ public class ServiceEvenement {
                         E.setNom_etablissement(obj.get("nomEtablissement").toString()); 
                         float id = Float.parseFloat(obj.get("idEtablissement").toString());
                         E.setId_etablissement((int)id);
+                            
+
+
+                        listTasks.add(E);
+
+                    }
+                } catch (IOException ex) {
+                }
+
+            }
+        });
+        NetworkManager.getInstance().addToQueueAndWait(con);
+        return listTasks;
+    }
+    
+    
+    
+     public ArrayList<Utilisateur> getListinteresser(int id) {
+        ArrayList<Utilisateur> listTasks = new ArrayList<>();
+        ConnectionRequest con = new ConnectionRequest();
+        con.setUrl("http://localhost/symfony/web/app_dev.php/BonPlan/listinteresser/"+id);
+        con.addResponseListener(new ActionListener<NetworkEvent>() 
+        {
+            @Override
+            public void actionPerformed(NetworkEvent evt) {
+                //listTasks = getListTask(new String(con.getResponseData()));
+                JSONParser jsonp = new JSONParser();
+                
+                try {
+                    Map<String, Object> tasks = jsonp.parseJSON(new CharArrayReader(new String(con.getResponseData()).toCharArray()));
+                    System.out.println(tasks);
+                    //System.out.println(tasks);
+                    List<Map<String, Object>> list = (List<Map<String, Object>>) tasks.get("root");
+                    for (Map<String, Object> obj : list) {
+                        Utilisateur E = new Utilisateur();
+                   
+                            float id = Float.parseFloat(obj.get("id").toString());
+                             E.setId((int)id);
+                        E.setNom(obj.get("nom").toString()); 
+   
                             
 
 

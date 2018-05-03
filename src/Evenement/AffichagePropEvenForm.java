@@ -6,7 +6,10 @@
 package Evenement;
 
 import Entities.Evenement;
+import Entities.Interesser;
+import Entities.Utilisateur;
 import Services.ServiceEvenement;
+import Services.serviceInteresser;
 import com.codename1.components.ImageViewer;
 import com.codename1.components.SpanLabel;
 import com.codename1.io.ConnectionRequest;
@@ -50,7 +53,7 @@ public class AffichagePropEvenForm extends SideMenuBaseForm{
     String url2 = "/imggd";
     String url = "http://localhost/symfony/web/uploads/images/";
     EncodedImage enc;
-  
+  Label l5;
     
     public AffichagePropEvenForm(Resources theme)  
     {super(BoxLayout.y());
@@ -105,7 +108,8 @@ public class AffichagePropEvenForm extends SideMenuBaseForm{
         Container ctnlistProduct = new Container(new BoxLayout(BoxLayout.Y_AXIS));
         for (Evenement pr : p) {
                        
-            
+                    ArrayList<Utilisateur>listi = sp.getListinteresser(pr.getId_evenement());
+                   
         Button del = new Button("");
                                 del.setIcon(FontImage.createMaterial(FontImage.MATERIAL_DELETE, del.getUnselectedStyle()));   
 
@@ -154,31 +158,7 @@ public class AffichagePropEvenForm extends SideMenuBaseForm{
              }
                           
             });
-            Button abonner = new Button("Abonner");
-                                            abonner.setIcon(FontImage.createMaterial(FontImage.MATERIAL_THUMB_UP, abonner.getUnselectedStyle()));   
-
-            abonner.addActionListener(new ActionListener() {
-                @Override
-                public void actionPerformed(ActionEvent k) {
-
-                    Dialog d = new Dialog();
-
-                    if (Dialog.show("Confirmation", "voulez vous abonnez a cette evenement??", "Ok", "Annuler")) {
-                       AuthMethod auth = new TokenAuthMethod("8b5a02fa", "a6QPxefji9TzLl4S");
-NexmoClient client = new NexmoClient(auth);
-TextMessage message = new TextMessage("Events", "21697485816", "un nouveau client a particité a votre evenement");
-                        try {
-                            SmsSubmissionResult[] responses = client.getSmsClient().submitMessage(message);
-                        } catch (IOException ex) {
-                        } catch (NexmoClientException ex) {
-                        }
-                        
-                        AffichagePropEvenForm pc = new AffichagePropEvenForm(theme);
-                        pc.show();
-
-                    }
-                }
-            });
+           
             
             Button btmap = new Button("Carte");
                         btmap.setIcon(FontImage.createMaterial(FontImage.MATERIAL_MAP, btmap.getUnselectedStyle()));   
@@ -234,20 +214,31 @@ TextMessage message = new TextMessage("Events", "21697485816", "un nouveau clien
                 ImageViewer imgvb = new ImageViewer(imgsv);
                 imgvb.setWidth(100);
                 imgvb.setHeight(100);
-                Label name = new Label(pr.getNom_evenement());
-                                SpanLabel fondation = new SpanLabel("Description: "+pr.getDescription());
-                        Container ca = new Container(new BoxLayout(BoxLayout.Y_AXIS));
+                SpanLabel name = new SpanLabel(pr.getNom_evenement());
+                
+                SpanLabel fondation = new SpanLabel("Description: "+pr.getDescription());
+                Container ca = new Container(new BoxLayout(BoxLayout.Y_AXIS));
+                SpanLabel inter = new SpanLabel("list des interessé");
+                 
                 ca.add(imgvb);
                 f2.add(fondation); 
-                ca.add(abonner);
                 f2.add(ca);
-                f2.show();
+               f2.add(inter);
+               for (Utilisateur k : listi) {
+
+                    System.out.println(k.getNom());
+                    
+                   SpanLabel listinteresser = new SpanLabel(k.getNom());
+                 f2.add(listinteresser);
+                 }
+
+               f2.show();
 }
         });
                    
 
                         Container c = new Container(new BoxLayout(BoxLayout.X_AXIS));
-                        Label label = new Label();
+                        SpanLabel label = new SpanLabel();
                         System.out.println(pr.getPhoto());
                         int deviceWidth = Display.getInstance().getDisplayWidth() /4;
                                 Image placeholder = Image.createImage(deviceWidth, deviceWidth); //square image set to 10% of screen width
@@ -280,6 +271,8 @@ TextMessage message = new TextMessage("Events", "21697485816", "un nouveau clien
                         
        
         }
+        
+        
         f.add(ctnlistProduct);
         add(f);
     }
