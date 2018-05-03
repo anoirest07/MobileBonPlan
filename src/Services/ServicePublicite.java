@@ -70,7 +70,7 @@ public class ServicePublicite {
     public ArrayList<Etablissement> getListEtab(int id) {
         ArrayList<Etablissement> listTasks = new ArrayList<>();
         ConnectionRequest con = new ConnectionRequest();
-        con.setUrl("http://localhost/symfony/web/app_dev.php/BonPlan/etabM");
+        con.setUrl("http://localhost/symfony/web/app_dev.php/BonPlan/etabM/"+id);
         con.addResponseListener(new ActionListener<NetworkEvent>() 
         {
             @Override

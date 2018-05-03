@@ -47,7 +47,7 @@ public class AjoutEventForm {
     TextField description;
     DateSpinner date=new DateSpinner();
      ServiceEvenement se = new ServiceEvenement();
-     ArrayList<Etablissement> lsevent= se.getListEtab();
+     ArrayList<Etablissement> lsevent= se.getListEtab(Authentification.connectedUser.getId());
      
     
     Button btnajout,btnaff;
@@ -61,7 +61,11 @@ public class AjoutEventForm {
         description = new TextField();
         ServiceEtablissement seer= new ServiceEtablissement();
         ServiceEvenement se = new ServiceEvenement();
+
                 ArrayList<Etablissement> lsevent= seer.MesEtabs(Authentification.connectedUser.getId());
+
+                
+
                 ComboBox combo = new ComboBox();
                                 for (Etablissement etablissement : lsevent) {
                                     combo.addItem(etablissement.getNom_etablissement());
