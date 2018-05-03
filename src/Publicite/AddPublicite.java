@@ -128,6 +128,7 @@ ImageViewer image;
                 ComboBox combo = new ComboBox();
                                 for (Etablissement etablissement : lsevent) {
                                     combo.addItem(etablissement.getNom_etablissement());
+                                    System.out.println(" *****"+etablissement.getNom_etablissement());
                                 }
 //        Button imgBtn = new Button("image");
 //        imgBtn.addActionListener(e -> {
