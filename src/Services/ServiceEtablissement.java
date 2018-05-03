@@ -165,39 +165,5 @@ public class ServiceEtablissement {
 //        NetworkManager.getInstance().addToQueueAndWait(con);
 //    }
     
-    public ArrayList<Etablissement> getListEtab() {
-        ArrayList<Etablissement> listTasks = new ArrayList<>();
-        ConnectionRequest con = new ConnectionRequest();
-        con.setUrl("http://localhost/symfony/web/app_dev.php/BonPlan/etabproduits");
-        con.addResponseListener(new ActionListener<NetworkEvent>() 
-        {
-            @Override
-            public void actionPerformed(NetworkEvent evt) {
-                //listTasks = getListTask(new String(con.getResponseData()));
-                JSONParser jsonp = new JSONParser();
-                
-                try {
-                    Map<String, Object> tasks = jsonp.parseJSON(new CharArrayReader(new String(con.getResponseData()).toCharArray()));
-                    System.out.println(tasks);
-                    //System.out.println(tasks);
-                    List<Map<String, Object>> list = (List<Map<String, Object>>) tasks.get("root");
-                    for (Map<String, Object> obj : list) {
-                        Etablissement E = new Etablissement();
-                        E.setNom_etablissement(obj.get("nomEtablissement").toString()); 
-                        float id = Float.parseFloat(obj.get("idEtablissement").toString());
-                        E.setId_etablissement((int)id);
-                            
-
-
-                        listTasks.add(E);
-
-                    }
-                } catch (IOException ex) {
-                }
-
-            }
-        });
-        NetworkManager.getInstance().addToQueueAndWait(con);
-        return listTasks;
-    }
+   
 }
