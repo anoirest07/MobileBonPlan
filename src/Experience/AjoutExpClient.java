@@ -50,6 +50,8 @@ import com.nexmo.client.auth.TokenAuthMethod;
 import com.nexmo.client.sms.SmsSubmissionResult;
 import com.nexmo.client.sms.messages.TextMessage;
 import com.codename1.ext.filechooser.FileChooser;
+import com.codename1.ui.FontImage;
+import com.mycompany.myapp.Authentification;
 
 
 
@@ -115,10 +117,16 @@ public class AjoutExpClient {
         
         theme = UIManager.initFirstTheme("/theme");
         Toolbar.setGlobalToolbar(true);
-        FilClient fc = new FilClient();
-        f.getToolbar().addCommandToLeftBar("", theme.getImage("back-command.png"), b -> {
-                fc.getF().showBack();
-            });
+        FilClient fc = new FilClient(theme);
+//        f.getToolbar().addCommandToLeftBar("", theme.getImage("back-command.png"), b -> {
+//                fc.showBack();
+//            });
+        Toolbar tg = f.getToolbar();
+         tg.addMaterialCommandToRightBar("", FontImage.MATERIAL_ARROW_BACK, g->
+            {
+            
+            new FilClient(theme).show();
+             });
         
         btnajout = new Button("Valider");
         btnOpen = new Button("Ajouter une photo");
@@ -160,7 +168,7 @@ public class AjoutExpClient {
                 etabRech.removeItem(ii);
             }
             
-//        etabs2 = setab.getListEtab(comboCat.getSelectedItem().toString());
+        etabs2 = setab.getListEtab(comboCat.getSelectedItem().toString());
             
             for (Etablissement et : etabs2)
         {
@@ -293,7 +301,7 @@ public class AjoutExpClient {
             
             
 
-           // etab=setab.getEtab(ac.getText());
+            etab=setab.getEtab(ac.getText());
 
             SimpleDateFormat format = new SimpleDateFormat("dd/MM/yyyy");
         
@@ -316,7 +324,7 @@ public class AjoutExpClient {
         if (!this.newfilePath.equals("") && this.newfilePath != null) {
                                 
             
-            sxp.ajoutTask(exp, 2, etab.getId_etablissement(), desc.getText(), this.newfilePath , 1, debut);
+            sxp.ajoutTask(exp, Authentification.connectedUser.getId(), etab.getId_etablissement(), desc.getText(), this.newfilePath , 1, debut);
         }
             ServiceEvaluation seval = new ServiceEvaluation();
 
@@ -354,9 +362,10 @@ public class AjoutExpClient {
             int moyenne = 5;
             sxp.modifNoteTask(exp, tot/5);
 
+            Dialog.show("Ajout expérience", "Ajout avec succes", "OK",null);
 
-            FilClient a=new FilClient();
-            a.getF().show();
+            FilClient a=new FilClient(theme);
+            a.show();
 
   if ((ev1.getNote()<3) || (ev2.getNote()<3)||(ev3.getNote()<3)||(ev4.getNote()<3)||(ev5.getNote()<3))
            

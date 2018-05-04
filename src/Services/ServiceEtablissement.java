@@ -373,5 +373,93 @@ public class ServiceEtablissement {
         NetworkManager.getInstance().addToQueueAndWait(con);
         return listTasks;
     }
+      
+    public ArrayList<Etablissement> getListEtab(String nomCat) {
+        ArrayList<Etablissement> listEtab = new ArrayList<>();
+        ConnectionRequest con = new ConnectionRequest();
+        con.setUrl("http://localhost/symfony/web/app_dev.php/BonPlan/etabs/allEtabCat/"+ nomCat );
+        con.addResponseListener(new ActionListener<NetworkEvent>() {
+            @Override
+            public void actionPerformed(NetworkEvent evt) {
+                //listTasks = getListTask(new String(con.getResponseData()));
+                JSONParser jsonp = new JSONParser();
+                
+                try {
+                    Map<String, Object> tasks = jsonp.parseJSON(new CharArrayReader(new String(con.getResponseData()).toCharArray()));
+                    System.out.println(tasks);
+                    //System.out.println(tasks);
+                    List<Map<String, Object>> list = (List<Map<String, Object>>) tasks.get("root");
+                    for (Map<String, Object> obj : list) {
+                        Etablissement etab = new Etablissement();
+
+                        float id = Float.parseFloat(obj.get("idEtablissement").toString());
+                        etab.setId_etablissement((int)id);                        
+
+                        etab.setNom_etablissement(obj.get("nomEtablissement").toString());
+                        
+                         Map<String,Object> e = (Map<String,Object>) obj.get("idCategorie"); 
+                        Categorie cat = new Categorie();
+
+                        float idcat = Float.parseFloat(e.get("idCategorie").toString());
+                        cat.setId_categorie((int)idcat);  
+                        cat.setNom_categorie(e.get("nomCategorie").toString());
+
+                        etab.setCategorie(cat);  
+                        
+                        listEtab.add(etab);
+
+                    }
+                } catch (IOException ex) {
+                }
+
+            }
+        });
+        NetworkManager.getInstance().addToQueueAndWait(con);
+        return listEtab;
+    }
+    
+    
+    public Etablissement getEtab(String nomEtab) {
+        Etablissement etab = new Etablissement();
+        ConnectionRequest con = new ConnectionRequest();
+        con.setUrl("http://localhost/symfony/web/app_dev.php/BonPlan/etabs/oneEtabNom/"+ nomEtab );
+        con.addResponseListener(new ActionListener<NetworkEvent>() {
+            @Override
+            public void actionPerformed(NetworkEvent evt) {
+                //listTasks = getListTask(new String(con.getResponseData()));
+                JSONParser jsonp = new JSONParser();
+                
+                try {
+                    Map<String, Object> tasks = jsonp.parseJSON(new CharArrayReader(new String(con.getResponseData()).toCharArray()));
+                    System.out.println(tasks);
+                    //System.out.println(tasks);
+                    List<Map<String, Object>> list = (List<Map<String, Object>>) tasks.get("root");
+                    for (Map<String, Object> obj : list) {
+
+                        float id = Float.parseFloat(obj.get("idEtablissement").toString());
+                        etab.setId_etablissement((int)id);                        
+
+                        etab.setNom_etablissement(obj.get("nomEtablissement").toString());
+                        
+                        Map<String,Object> e = (Map<String,Object>) obj.get("idCategorie"); 
+                        Categorie cat = new Categorie();
+
+                        float idcat = Float.parseFloat(e.get("idCategorie").toString());
+                        cat.setId_categorie((int)idcat);  
+                        cat.setNom_categorie(e.get("nomCategorie").toString());
+
+                        etab.setCategorie(cat);  
+                        
+
+                    }
+                } catch (IOException ex) {
+                }
+
+            }
+        });
+        NetworkManager.getInstance().addToQueueAndWait(con);
+        return etab;
+    }
+
 
 }

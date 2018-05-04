@@ -4,9 +4,11 @@
  * and open the template in the editor.
  */
 package com.mycompany.myapp;
+import Com_Fav.Affichage;
 import Etablissement.ListeDesEtab;
 import Evenement.AffichagePropEvenForm;
 import Evenement.AffichageclientEvenement;
+import Experience.FilClient;
 import Publicite.AffichageClient;
 import Publicite.PubliciteController;
 import com.codename1.ui.Container;
@@ -54,12 +56,13 @@ public abstract class SideMenuBaseForm1 extends Form {
         
         getToolbar().addComponentToSideMenu(sidemenuTop);
         getToolbar().addMaterialCommandToSideMenu("  Accueil", FontImage.MATERIAL_DASHBOARD,  e -> new PubliciteController(res).show());
-        getToolbar().addMaterialCommandToSideMenu("  Etablissement", FontImage.MATERIAL_TRENDING_UP,  e -> new ListeDesEtab(res).getF().show());
+        getToolbar().addMaterialCommandToSideMenu("  Etablissement", FontImage.MATERIAL_TRENDING_UP,  e -> new ListeDesEtab(res).show());
         getToolbar().addMaterialCommandToSideMenu("  Publicite", FontImage.MATERIAL_TRENDING_UP,e -> new PubliciteController(res).show());
         getToolbar().addMaterialCommandToSideMenu("  Evenement", FontImage.MATERIAL_TRENDING_UP,e -> new AffichageclientEvenement(res).show());
         getToolbar().addMaterialCommandToSideMenu("  Offre", FontImage.MATERIAL_TRENDING_UP,e -> new PubliciteController(res).show());
         getToolbar().addMaterialCommandToSideMenu("  Produit", FontImage.MATERIAL_TRENDING_UP,e -> new PubliciteController(res).show());
-        getToolbar().addMaterialCommandToSideMenu("  Actualité", FontImage.MATERIAL_TRENDING_UP,e -> new AffichageClient(res).show());
+        getToolbar().addMaterialCommandToSideMenu("  Experineces", FontImage.MATERIAL_TRENDING_UP,e -> new FilClient(res).show());
+        getToolbar().addMaterialCommandToSideMenu("  Mes Favoris", FontImage.MATERIAL_TRENDING_UP,e -> new Affichage(res).getF().show());
         getToolbar().addMaterialCommandToSideMenu("  Logout", FontImage.MATERIAL_EXIT_TO_APP,  e -> new Authentification(res).getF().show());
         
        

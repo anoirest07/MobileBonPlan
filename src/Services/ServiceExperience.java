@@ -148,7 +148,6 @@ public class ServiceExperience {
             
             
             
-            Dialog.show("Ajout expérience", "Ajout avec succes", "OK",null);
 
 //            if (str.trim().equalsIgnoreCase("OK")) {
 //                f2.setTitle(tlogin.getText());
@@ -194,7 +193,6 @@ public class ServiceExperience {
             
             
             
-            Dialog.show("Modification expérience", "Modification avec succes", "OK",null);
 
 //            if (str.trim().equalsIgnoreCase("OK")) {
 //                f2.setTitle(tlogin.getText());

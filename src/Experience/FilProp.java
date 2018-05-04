@@ -6,35 +6,72 @@
 package Experience;
 
 import Entities.Experience;
+import Publicite.AddPublicite;
 import Services.ServiceExperience;
+import Services.ServicePublicite;
+import com.codename1.components.FloatingActionButton;
 import com.codename1.components.ImageViewer;
 import com.codename1.components.SpanLabel;
 import com.codename1.ui.Button;
+import static com.codename1.ui.Component.BOTTOM;
+import static com.codename1.ui.Component.RIGHT;
 import com.codename1.ui.Container;
 import com.codename1.ui.EncodedImage;
+import com.codename1.ui.FontImage;
 import com.codename1.ui.Form;
 import com.codename1.ui.Image;
+import com.codename1.ui.Label;
+import com.codename1.ui.SideMenuBar;
 import com.codename1.ui.TextField;
+import com.codename1.ui.Toolbar;
 import com.codename1.ui.URLImage;
+import com.codename1.ui.layouts.BorderLayout;
 import com.codename1.ui.layouts.BoxLayout;
+import com.codename1.ui.layouts.FlowLayout;
 import com.codename1.ui.plaf.Border;
+import com.codename1.ui.util.Resources;
 import java.util.ArrayList;
 import com.mycompany.myapp.Authentification;
+import com.mycompany.myapp.SideMenuBaseForm;
 
 /**
  *
  * @author admin
  */
-public class FilProp {
-      Form f;
+public class FilProp extends SideMenuBaseForm{
+      Container f;
     TextField tnom;
     TextField tetat;
     Button modif;
     Button supp;
 
-    public FilProp()
+    public FilProp(Resources theme)
     {
-        f = new Form("Fil d'actualité",new BoxLayout(BoxLayout.Y_AXIS));
+         super(BoxLayout.y());
+        Toolbar tb = getToolbar();
+        FloatingActionButton fab = FloatingActionButton.createFAB(FontImage.MATERIAL_ADD);     
+        fab.addActionListener(e -> {          
+//          
+        });
+        f = new Container(new BoxLayout(BoxLayout.Y_AXIS));
+        
+        Button menuButton = new Button("");
+        menuButton.setUIID("Title");
+        FontImage.setMaterialIcon(menuButton, FontImage.MATERIAL_MENU);
+        menuButton.addActionListener(l -> ((SideMenuBar)getToolbar().getMenuBar()).openMenu(null));
+        
+        ServicePublicite serviceTask = new ServicePublicite();
+        Container titleCmp = BoxLayout.encloseY(
+                        FlowLayout.encloseIn(menuButton),
+                        BorderLayout.centerAbsolute(
+                                BoxLayout.encloseY(
+                                    new Label("Fil D'Actualité", "Title")
+                                )
+                            )
+                );
+        tb.setTitleComponent(fab.bindFabToContainer(titleCmp, RIGHT, BOTTOM));
+        FontImage arrowDown = FontImage.createMaterial(FontImage.MATERIAL_KEYBOARD_ARROW_DOWN, "Label", 3);  
+        setupSideMenu(theme);
         modif=new Button("Modifier");
         supp=new Button("Supprimer");
         
@@ -115,15 +152,16 @@ public class FilProp {
         }
         
             f.add(glob);
+            add(f);
      
  
                 
             
     }
 
-    public Form getF() {
-        return f;
-    }
+//    public Form getF() {
+//        return f;
+//    }
 
     public void setF(Form f) {
         this.f = f;
@@ -135,6 +173,11 @@ public class FilProp {
 
     public void setTnom(TextField tnom) {
         this.tnom = tnom;
+    }
+
+    @Override
+    protected void showOtherForm(Resources res) {
+       //To change body of generated methods, choose Tools | Templates.
     }
 
 }

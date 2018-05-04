@@ -108,7 +108,15 @@ public class MesEtabs extends SideMenuBaseForm{
         fab.addActionListener(e -> {          
 //            AddPublicite add= new AddPublicite(theme);
 //            add.getForm().show();
-              new AjouterEtab(theme).getF().show();
+          AjouterEtab ae=  new AjouterEtab(theme);
+              ae.getF().show();
+              Form f5 = ae.getF();
+            Toolbar tg = f5.getToolbar();
+            tg.addMaterialCommandToRightBar("", FontImage.MATERIAL_ARROW_BACK, g->
+            {
+            
+            new MesEtabs(theme).show();
+             });
         });
         f = new Container(new BoxLayout(BoxLayout.Y_AXIS));
         

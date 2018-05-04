@@ -7,57 +7,51 @@ package Entities;
 
 /**
  *
- * @author admin
+ * @author malek
  */
 public class Favoris {
-    private int id_favoris;
-    private Etablissement etablissement;
-    private Utilisateur utilisateur;
+    private String id_favoris;
+    private String  id_etablissement;
+    private String id_user;
 
     public Favoris() {
     }
 
-    public Favoris(Etablissement etablissement, Utilisateur utilisateur) {
-        this.etablissement = etablissement;
-        this.utilisateur = utilisateur;
+    public Favoris(String id_etablissement, String id_user) {
+        this.id_etablissement = id_etablissement;
+        this.id_user = id_user;
     }
 
-    public int getId_favoris() {
+    public String getId_favoris() {
         return id_favoris;
     }
 
-    public void setId_favoris(int id_favoris) {
+    public void setId_favoris(String id_favoris) {
         this.id_favoris = id_favoris;
     }
 
-    public Etablissement getEtablissement() {
-        return etablissement;
+    
+
+    public String getId_etablissement() {
+        return id_etablissement;
     }
 
-    public void setEtablissement(Etablissement etablissement) {
-        this.etablissement = etablissement;
+    public void setId_etablissement(String id_etablissement) {
+        this.id_etablissement = id_etablissement;
     }
 
-    public Utilisateur getUtilisateur() {
-        return utilisateur;
+    public String getId_user() {
+        return id_user;
     }
 
-    public void setUtilisateur(Utilisateur utilisateur) {
-        this.utilisateur = utilisateur;
+    public void setId_user(String id_user) {
+        this.id_user = id_user;
     }
 
     @Override
     public String toString() {
-        return "Favoris{" + "id_favoris=" + id_favoris + ", etablissement=" + etablissement + ", utilisateur=" + utilisateur + '}';
+        return "Favoris{" + "id_favoris=" + id_favoris + ", id_etablissement=" + id_etablissement + ", id_user=" + id_user + '}';
     }
 
-   
-
-   
-
-   
-
-  
-    
     
 }

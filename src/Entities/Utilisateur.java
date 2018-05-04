@@ -16,15 +16,18 @@ public class Utilisateur {
  public String mot_de_passe ;
  public String username ;
  public String roles;
+ public String email;
  
 
-     public Utilisateur( String nom, String prenom,String username, String mot_de_passe, String roles) {
+     public Utilisateur( String nom, String prenom,String username, String mot_de_passe, String roles, String email) {
         
         this.nom = nom;
         this.prenom = prenom;
         this.username=username;
         this.mot_de_passe = mot_de_passe;
         this.roles = roles;
+        this.email=email;
+              
     }
 
 
@@ -85,9 +88,21 @@ public class Utilisateur {
         this.roles = roles;
     }
 
-   public String toString() {
-        return "id=" + id + ", nom=" + nom + ", prenom=" + prenom + ", mot_de_passe=" + mot_de_passe + ", login=" + username + "roles="+roles   ; //To change body of generated methods, choose Tools | Templates.
+    public String getEmail() {
+        return email;
     }
+
+    public void setEmail(String email) {
+        this.email = email;
+    }
+
+    @Override
+    public String toString() {
+        return "Utilisateur{" + "id=" + id + ", nom=" + nom + ", prenom=" + prenom + ", mot_de_passe=" + mot_de_passe + ", username=" + username + ", roles=" + roles + ", email=" + email + '}';
+    }
+    
+
+   
 
    
             

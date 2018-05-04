@@ -9,8 +9,13 @@ import com.codename1.components.SpanLabel;
 import com.codename1.ui.Component;
 import com.codename1.ui.Form;
 import Entities.Etablissement;
+import Entities.Favoris;
 import Services.ServiceEtablissement;
+import Services.ServiceFavoris;
 import com.codename1.components.ImageViewer;
+import com.codename1.io.ConnectionRequest;
+import com.codename1.io.NetworkManager;
+import com.codename1.messaging.Message;
 import com.codename1.ui.AutoCompleteTextField;
 import com.codename1.ui.Button;
 import com.codename1.ui.Container;
@@ -19,17 +24,22 @@ import com.codename1.ui.EncodedImage;
 import com.codename1.ui.FontImage;
 import com.codename1.ui.Image;
 import com.codename1.ui.Label;
+import com.codename1.ui.SideMenuBar;
 import com.codename1.ui.Toolbar;
 import com.codename1.ui.URLImage;
 import com.codename1.ui.events.ActionEvent;
 import com.codename1.ui.events.ActionListener;
 import com.codename1.ui.events.DataChangedListener;
+import com.codename1.ui.layouts.BorderLayout;
 import com.codename1.ui.layouts.BoxLayout;
+import com.codename1.ui.layouts.FlowLayout;
 import com.codename1.ui.list.DefaultListModel;
 import com.codename1.ui.list.ListModel;
 import com.codename1.ui.plaf.Border;
 import com.codename1.ui.plaf.Style;
 import com.codename1.ui.util.Resources;
+import com.mycompany.myapp.Authentification;
+import com.mycompany.myapp.SideMenuBaseForm1;
 import java.util.ArrayList;
 
 
@@ -37,9 +47,9 @@ import java.util.ArrayList;
  *
  * @author Nadia
  */
-public class ListeDesEtab {
-
-    Form f,f2;
+public class ListeDesEtab extends SideMenuBaseForm1{
+    Container f;
+    Form f2;
     Label lb1;
     Label lb2,label,lcat,label2;
     SpanLabel lb3,lbadr,lbnom;
@@ -51,12 +61,32 @@ public class ListeDesEtab {
     Container nadia;
     ImageViewer imgv;
 ListModel<String> etabRech = new DefaultListModel<String>();
+
     
     AutoCompleteTextField ac = new AutoCompleteTextField(etabRech);
     
     public ListeDesEtab(Resources theme) {
-
-        f = new Form("Liste des établissements");
+        super(BoxLayout.y());
+         Toolbar tb = getToolbar();
+        f =new Container(new BoxLayout(BoxLayout.Y_AXIS));
+         
+        Button menuButton = new Button("");
+        menuButton.setUIID("Title");
+        FontImage.setMaterialIcon(menuButton, FontImage.MATERIAL_MENU);
+        menuButton.addActionListener(e -> ((SideMenuBar)getToolbar().getMenuBar()).openMenu(null));
+        
+        Container titleCmp = BoxLayout.encloseY(
+                        FlowLayout.encloseIn(menuButton),
+                        BorderLayout.centerAbsolute(
+                                BoxLayout.encloseY(
+                                    new Label("Liste des établissements", "Title")
+                                )
+                            )
+                );
+        tb.setTitleComponent(titleCmp);
+         FontImage arrowDown = FontImage.createMaterial(FontImage.MATERIAL_KEYBOARD_ARROW_DOWN, "Label", 3);
+        setupSideMenu1(theme);
+       
 
         ServiceEtablissement serviceTask = new ServiceEtablissement();
         ac.setHint("Chercher un établissement");
@@ -120,7 +150,7 @@ ListModel<String> etabRech = new DefaultListModel<String>();
                         tb.getAllStyles().setBgColor(0x990033);
                         tb.addMaterialCommandToLeftBar("", FontImage.MATERIAL_ARROW_BACK, (evt2) -> {
                         ListeDesEtab h=new ListeDesEtab(theme);
-                          h.getF().show();
+                          h.show();
                         });
                         ImageViewer img=new ImageViewer();
                         SpanLabel sp=new SpanLabel(et.getNom_etablissement());
@@ -251,9 +281,9 @@ Button favoris = new Button("Ajouter aux favoris");
                         c3 = new Container(new BoxLayout(BoxLayout.Y_AXIS));
 
                         tb.getAllStyles().setBgColor(0x990033);
-                        tb.addMaterialCommandToLeftBar("", FontImage.MATERIAL_ARROW_BACK, (evt2) -> {
+                        tb.addMaterialCommandToRightBar("", FontImage.MATERIAL_ARROW_BACK, (evt2) -> {
                         ListeDesEtab h=new ListeDesEtab(theme);
-                          h.getF().show();
+                          h.show();
                         });
                         ImageViewer img=new ImageViewer();
                         SpanLabel sp=new SpanLabel(e.getNom_etablissement());
@@ -285,6 +315,20 @@ Button favoris = new Button("Ajouter aux favoris");
                         SpanLabel space5= new SpanLabel("                                                  ");
 
                         Button favoris = new Button("Ajouter aux favoris");
+                        favoris.addActionListener(new ActionListener() {
+                            @Override
+                            public void actionPerformed(ActionEvent t) {
+                                Favoris favoris = new Favoris();
+                                ConnectionRequest con = new ConnectionRequest();
+                String Url = "http://localhost/symfony/web/app_dev.php/BonPlan/favjsonnew?id="+
+                        Authentification.connectedUser.getId()+"&idEtablissement="+e.getId_etablissement();
+                
+                
+        con.setUrl(Url);
+        NetworkManager.getInstance().addToQueueAndWait(con);
+                            }
+                        }
+                        );
                          Button produits = new Button("Nos produits");
                           Button offres = new Button("Nos offres");
                         c2.add(sp);
@@ -350,13 +394,19 @@ Button favoris = new Button("Ajouter aux favoris");
 //                c1.setWidth(500);
             }
         }
+        add(f);
     }
 
-    public Form getF() {
-        return f;
-    }
+//    public Form getF() {
+//        return f;
+//    }
 
     public void setF(Form f) {
         this.f = f;
+    }
+
+    @Override
+    protected void showOtherForm(Resources res) {
+        //To change body of generated methods, choose Tools | Templates.
     }
 }

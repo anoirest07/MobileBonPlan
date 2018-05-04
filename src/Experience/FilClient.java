@@ -13,16 +13,22 @@ import com.codename1.ui.Button;
 import com.codename1.ui.Container;
 import com.codename1.ui.EncodedImage;
 import com.codename1.ui.Font;
+import com.codename1.ui.FontImage;
 import com.codename1.ui.Form;
 import com.codename1.ui.Image;
+import com.codename1.ui.Label;
+import com.codename1.ui.SideMenuBar;
 import com.codename1.ui.Slider;
 import com.codename1.ui.TextField;
+import com.codename1.ui.Toolbar;
 import com.codename1.ui.URLImage;
 import com.codename1.ui.layouts.BorderLayout;
 import com.codename1.ui.layouts.BoxLayout;
+import com.codename1.ui.layouts.FlowLayout;
 import com.codename1.ui.plaf.Border;
 import com.codename1.ui.util.Resources;
 import com.mycompany.myapp.Authentification;
+import com.mycompany.myapp.SideMenuBaseForm1;
 import java.io.IOException;
 import java.util.ArrayList;
 
@@ -30,8 +36,8 @@ import java.util.ArrayList;
  *
  * @author admin
  */
-public class FilClient {
-    Form f;
+public class FilClient extends SideMenuBaseForm1 {
+    Container f;
     TextField tnom;
     TextField tetat;
     Button btnajout;
@@ -39,9 +45,28 @@ public class FilClient {
     Button supp;
     Resources theme;
 
-    public FilClient()
+    public FilClient(Resources theme)
     { 
-        f = new Form("Fil d'actualité",new BoxLayout(BoxLayout.Y_AXIS));
+        super(BoxLayout.y());
+         Toolbar tb = getToolbar();
+        f =new Container(new BoxLayout(BoxLayout.Y_AXIS));
+         
+        Button menuButton = new Button("");
+        menuButton.setUIID("Title");
+        FontImage.setMaterialIcon(menuButton, FontImage.MATERIAL_MENU);
+        menuButton.addActionListener(e -> ((SideMenuBar)getToolbar().getMenuBar()).openMenu(null));
+        
+        Container titleCmp = BoxLayout.encloseY(
+                        FlowLayout.encloseIn(menuButton),
+                        BorderLayout.centerAbsolute(
+                                BoxLayout.encloseY(
+                                    new Label("Fil D'Actualité", "Title")
+                                )
+                            )
+                );
+        tb.setTitleComponent(titleCmp);
+         FontImage arrowDown = FontImage.createMaterial(FontImage.MATERIAL_KEYBOARD_ARROW_DOWN, "Label", 3);
+        setupSideMenu1(theme);
         btnajout = new Button("Ajouter une expérience");
         btnajout.getAllStyles().setFgColor(0x9900CC);
 
@@ -130,8 +155,8 @@ Font largeBoldMonospaceFont = Font.createSystemFont(Font.FACE_MONOSPACE, Font.ST
                 
                 suppr.addActionListener((ev) -> {
                 sxp.suppTask(exp.getId_exp());
-                FilClient fc = new FilClient();
-                fc.getF().showBack();
+                FilClient fc = new FilClient(theme);
+                fc.showBack();
                 });      
             }
             
@@ -148,11 +173,12 @@ Font largeBoldMonospaceFont = Font.createSystemFont(Font.FACE_MONOSPACE, Font.ST
         }
         
             f.add(glob);
+            add(f);
     }
 
-    public Form getF() {
-        return f;
-    }
+//    public Form getF() {
+//        return f;
+//    }
 
     public void setF(Form f) {
         this.f = f;
@@ -164,6 +190,11 @@ Font largeBoldMonospaceFont = Font.createSystemFont(Font.FACE_MONOSPACE, Font.ST
 
     public void setTnom(TextField tnom) {
         this.tnom = tnom;
+    }
+
+    @Override
+    protected void showOtherForm(Resources res) {
+        //To change body of generated methods, choose Tools | Templates.
     }
 
 }
