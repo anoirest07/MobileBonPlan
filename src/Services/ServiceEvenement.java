@@ -151,6 +151,9 @@ public class ServiceEvenement {
         NetworkManager.getInstance().addToQueueAndWait(con);
         return listTasks;
     }
+    
+    
+    
       public ArrayList<Etablissement> getListEtab(int id) {
         ArrayList<Etablissement> listTasks = new ArrayList<>();
         ConnectionRequest con = new ConnectionRequest();
@@ -240,7 +243,10 @@ public class ServiceEvenement {
             System.out.println("ajout ok");
 
         });
+        System.out.println("before");
         NetworkManager.getInstance().addToQueueAndWait(con);
+                System.out.println("after");
+
     }   
   public void Updateeven(Evenement ta) {
         ConnectionRequest con = new ConnectionRequest();

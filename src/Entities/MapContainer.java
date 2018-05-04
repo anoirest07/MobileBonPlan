@@ -50,7 +50,7 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
-
+import static com.codename1.ui.ComponentSelector.*;
 /**
  * An abstract Map API that encapsulates the device native map and seamlessly replaces
  * it with MapComponent when unsupported by the platform.

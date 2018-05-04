@@ -7,6 +7,7 @@ package Evenement;
 
 import Entities.Etablissement;
 import Entities.Evenement;
+import Services.ServiceEtablissement;
 import Services.ServiceEvenement;
 import com.codename1.ui.Button;
 import com.codename1.ui.ComboBox;
@@ -36,7 +37,6 @@ public class ModifierEventForm {
     TextField description;
     DateSpinner date=new DateSpinner();
      ServiceEvenement se = new ServiceEvenement();
-     ArrayList<Etablissement> lsevent= se.getListEtab(Authentification.connectedUser.getId());
      
     
     Button btnajout,btnaff;
@@ -47,11 +47,12 @@ public class ModifierEventForm {
         f = new Form("Events");
                               tnom = new TextField();
         description = new TextField();
-        ServiceEvenement se = new ServiceEvenement();
-                ArrayList<Etablissement> lsevent= se.getListEtab(Authentification.connectedUser.getId());
+                ServiceEtablissement seer= new ServiceEtablissement();
+
+                ArrayList<Etablissement> lsevent= seer.MesEtabs(Authentification.connectedUser.getId());
                 ComboBox combo = new ComboBox();
                                 for (Etablissement etablissement : lsevent) {
-                                    combo.addItem(etablissement);
+                                    combo.addItem(etablissement.getNom_etablissement());
                                 }
         btnajout = new Button("Modifier");
         f.add(tnom);

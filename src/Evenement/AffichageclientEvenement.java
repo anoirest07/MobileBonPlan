@@ -102,6 +102,8 @@ public class AffichageclientEvenement extends SideMenuBaseForm1 {
         ServiceEvenement serviceTask = new ServiceEvenement();
 
         ServiceEvenement sp = new ServiceEvenement();
+         serviceInteresser si = new serviceInteresser();
+
         ArrayList<Evenement> p = sp.getList();
         Container ctnlistProduct = new Container(new BoxLayout(BoxLayout.Y_AXIS));
         for (Evenement pr : p) {
@@ -113,13 +115,14 @@ public class AffichageclientEvenement extends SideMenuBaseForm1 {
                 @Override
                 public void actionPerformed(ActionEvent k) {
 
-                    
 
-//                    if(si.isInteresse(connectedUser.getId(), pr.getId_evenement())){
-//                        Dialog.show("Yes", "true", "ok", "annuler");
-//                    }else{
-//                         Dialog.show("No", "false", "ok", "annuler");
-//                    }
+                    if(si.isInteresse(connectedUser.getId(), pr.getId_evenement())){
+                        si.supprimerabo(connectedUser, pr);
+                        
+                    }else{
+                              si.interesser(connectedUser, pr);
+
+                    }
 //                    Dialog d = new Dialog();
 //
 //                    if (Dialog.show("Confirmation", "voulez vous abonnez a cette evenement??", "Ok", "Annuler")) {
