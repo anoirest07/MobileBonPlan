@@ -150,7 +150,9 @@ ListModel<String> etabRech = new DefaultListModel<String>();
                         SpanLabel space3= new SpanLabel("                   ");
                         SpanLabel space4= new SpanLabel("                                                  ");
                         SpanLabel space5= new SpanLabel("                                                  ");
-
+Button favoris = new Button("Ajouter aux favoris");
+                         Button produits = new Button("Nos produits");
+                          Button offres = new Button("Nos offres");
 
                         //   c2.setHeight(700);  
                // f2.getAllStyles().setBorder(Border.createLineBorder(3, 0xffa83b));
@@ -161,6 +163,7 @@ ListModel<String> etabRech = new DefaultListModel<String>();
                        // f2.add(img);
                         c2.add(sp);
                           c2.add(sp3);
+                          c2.add(favoris);
                            c2.add(space1);
                        //   c3.add(sp1);
                           
@@ -173,6 +176,8 @@ ListModel<String> etabRech = new DefaultListModel<String>();
                                   
                                     c3.add(sp6);
                                       c3.add(sp7);
+                                      c3.add(produits);
+                                      c3.add(offres);
                                      c3.add(space2);
                                       c3.add(space3);
                                        c3.add(space4);
@@ -212,9 +217,9 @@ ListModel<String> etabRech = new DefaultListModel<String>();
                    
                 label2 =new Label();
 //        lb1.setY(0);
-//        lb3.setY(0);
-//        lb1.setX(10);
+//        lb3.setY(0););
 //        lb3.setX(10);  
+//        lb1.setX(10
                  lbnom.setText(e.getNom_etablissement());
                 c.add(lbnom);
                 c.add(e.getCategorie().getNom_categorie());

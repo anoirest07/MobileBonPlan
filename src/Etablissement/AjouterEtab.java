@@ -11,8 +11,10 @@ import Entities.Etablissement;
 import Entities.Utilisateur;
 import Services.ServiceCategorie;
 import Services.ServiceEtablissement;
+import com.BonPlan.Utils.UploadFile;
 import com.codename1.capture.Capture;
 import com.codename1.components.ImageViewer;
+import com.codename1.ext.filechooser.FileChooser;
 import com.codename1.io.ConnectionRequest;
 import com.codename1.io.JSONParser;
 import com.codename1.io.Log;
@@ -55,12 +57,12 @@ import java.util.Map;
  * @author Nadia
  */
 public class AjouterEtab {
-    private static final  String apiKey = "AIzaSyBWeRU02YUYPdwRuMFyTKIXUbHjq6e35Gw";
+   private static final  String apiKey = "AIzaSyBWeRU02YUYPdwRuMFyTKIXUbHjq6e35Gw";
         Form f;
         int i;
         final DefaultListModel<String> options = new DefaultListModel<>();
     TextField tnom;
-    TextField tadr;
+    private TextField tadr;
     TextField tdesc;
     TextField ttel;
     ComboBox<String> tbudg;
@@ -73,17 +75,20 @@ public class AjouterEtab {
     ComboBox<String>tcat;
     DateTimeSpinner touver;
     DateTimeSpinner tferm;
-    Label lb1,lb2,lb3,lb4,lb5,test;
+    Label lb1,lb2,lb3,lb4,lb5,test,label,Photo;
     Container cont,cont1,cont2,containerCrit;
-    Button btnajout,btnaff,btnautre;
+    Button btnajout,btnaff,btnautre, btnOpen1, btnOpen2;
      private String newfilePath = "";
+          private String newfilePath2 = "";
+
     ServiceCategorie sc= new ServiceCategorie();
     public AjouterEtab(Resources theme){
         
-     f = new Form("Ajouter un établissement");
+     f = new Form("Ajouter un établissement",BoxLayout.y());
         tnom = new TextField("","Nom établissement");
                  Label label = new Label();
-
+btnOpen1=new Button("photo etab");
+btnOpen2 = new Button("photo pat");
            tdesc = new TextField("","Saisissez une description détaillée");
               tdesc. setSingleLineTextArea(false); 
               ttel = new TextField("","Téléphone:+216");
@@ -93,17 +98,21 @@ public class AjouterEtab {
               tbudg = new ComboBox<>("Faible","Moyen","Cher");
                     tcode = new TextField("","Code Postal");
                        tphoto = new TextField("","phot");
-                   
+                  
                               Button btnOpen = new Button("Choisir Image");
           
                        tphotopat = new TextField("","phot2");
-                             tlong = new TextField("","longitude");
-                                tlat = new TextField("","latitude");
+                             tlong = new TextField("","Longitude");
+                                tlat = new TextField("","Latitude");
                                 tsite = new TextField("","www.exemple.tn");
                                     touver = new DateTimeSpinner();
                                     tferm = new DateTimeSpinner();
-                                  cont = new Container(new BoxLayout(BoxLayout.X_AXIS));
-                                 Container conten = new Container(new BoxLayout(BoxLayout.Y_AXIS));
+                                 
+                                    cont = new Container(new BoxLayout(BoxLayout.X_AXIS));
+            tlat.setEnabled(false);
+                   tlong.setEnabled(false);
+                               
+                                  Container conten = new Container(new BoxLayout(BoxLayout.Y_AXIS));
                              
                                     tcat= new ComboBox<>();
                                     Label l= new Label("Catégorie:");
@@ -152,12 +161,38 @@ public class AjouterEtab {
         ac.setHint("Adresse(Rue,Avenue...)");
         btnajout = new Button("Ajouter");
         btnaff=new Button("Annuler");
-        cont2.add(btnajout);
-        cont2.add(btnaff);
-      
+       // cont2.add(btnajout);
+        //cont2.add(btnaff);
+        Label llabadr= new Label("Adresse:");
+        Photo = new Label();
+        Button btmap = new Button("Localiser Votre établissement");
+         int deviceWidth3 = Display.getInstance().getDisplayWidth() /4;
+            Image placeholder14 = Image.createImage(deviceWidth3, deviceWidth3); //square image set to 10% of screen width
+            EncodedImage encImage1 = EncodedImage.createFromImage(placeholder14, false);
+            Photo.setIcon(URLImage.createToStorage(encImage1,
+                    "Large_" + "http://localhost/symfony/web/images/worldwide.png"
+                    + "", "http://localhost/symfony/web/images/worldwide.png"
+                    + "", URLImage.RESIZE_SCALE_TO_FILL));
+        Photo.addPointerPressedListener(new ActionListener() {
+         @Override
+         public void actionPerformed(ActionEvent evt) {
+           
+         GoogleMaps g = new GoogleMaps();
+         
+         
+         }
+     });
+        tadr = new TextField("","Adresse");
         f.add(tnom);
-        f.add(ac);
-      
+            Container lesb= new Container(BoxLayout.x()); 
+            lesb.add(llabadr);
+            lesb.add(Photo);
+       
+        f.add(lesb);
+       
+      f.add(tadr);
+       f.add(tlong);
+                f.add(tlat);
           f.add(tcode);
          
             f.add(touver);
@@ -182,8 +217,8 @@ public class AjouterEtab {
             Image placeholder1 = Image.createImage(deviceWidth2, deviceWidth2); //square image set to 10% of screen width
             EncodedImage encImage = EncodedImage.createFromImage(placeholder1, false);
             label.setIcon(URLImage.createToStorage(encImage,
-                    "Large_" + "http://localhost/symfony/web/images/star.png" 
-                    + "", "http://localhost/symfony/web/images/star.png" 
+                    "Large_" + "http://localhost/BonPlan/web/images/star.png" 
+                    + "", "http://localhost/BonPlan/web/images/star.png" 
                     + "", URLImage.RESIZE_SCALE_TO_FILL));
             Container ccccc= new Container(BoxLayout.x());
            Label Text= new Label();
@@ -204,22 +239,84 @@ public class AjouterEtab {
         
          f.add(tdesc);
           f.add(ttel);
-         
+          tlong.setEnabled(false);
+        tadr.setEnabled(false);      
+         tlat.setEnabled(false);
           f.add(cont1);
-             f.add(tphoto);
-              f.add(tphotopat);
-               f.add(tlong);
-                f.add(tlat);
+//             f.add(tphoto);
+                f.add(btnOpen1);
+                f.add(btnOpen2);
+
+//              f.add(tphotopat);
+              
                  f.add(tsite);
                     
                           f.add(cont);
+                         
                            f.add(conten);
-                              f.add(cont2);
+                      
+                f.add(btnajout);
+                f.add(btnaff);
+                         //f.add(cont2);
+                     ImageViewer ii = new ImageViewer();
+                     ImageViewer i2 = new ImageViewer();
+                f.add(ii);
+                f.add(i2);
+
+                         btnOpen1.addActionListener((evt1) -> {
+                ActionListener callback = e -> {
+                    if (e != null && e.getSource() != null) {
+                        try {
+                            this.newfilePath = (String) e.getSource();
+                            ii.setImage(Image.createImage(this.newfilePath));
+                            //Here goes the file upload logic
+                            System.out.println("fil"+this.newfilePath);
+                            try {
+                                this.newfilePath = UploadFile.uploadImage(newfilePath, null);
+                            } catch (Exception ex) {
+                                System.out.println(ex.getMessage());
+                            }
+                        } catch (IOException ex) {
+                            System.out.println(ex.getMessage());
+                        }
+                    }
+                };
+                if (FileChooser.isAvailable()) {
+                    FileChooser.showOpenDialog(".jpg,image/jpg,.jpeg", callback);
+                } else {
+                    Display.getInstance().openGallery(callback, Display.GALLERY_IMAGE);
+                }
+            });
+                         
+                   btnOpen2.addActionListener((evt1) -> {
+                ActionListener callback = e -> {
+                    if (e != null && e.getSource() != null) {
+                        try {
+                            this.newfilePath2 = (String) e.getSource();
+                            i2.setImage(Image.createImage(this.newfilePath2));
+                            //Here goes the file upload logic
+                            System.out.println("fil"+this.newfilePath2);
+                            try {
+                                this.newfilePath2 = UploadFile.uploadImage(newfilePath2, null);
+                            } catch (Exception ex) {
+                                System.out.println(ex.getMessage());
+                            }
+                        } catch (IOException ex) {
+                            System.out.println(ex.getMessage());
+                        }
+                    }
+                };
+                if (FileChooser.isAvailable()) {
+                    FileChooser.showOpenDialog(".jpg,image/jpg,.jpeg", callback);
+                } else {
+                    Display.getInstance().openGallery(callback, Display.GALLERY_IMAGE);
+                }
+            });       
                  btnajout.addActionListener(new ActionListener() {
 
             @Override
             public void actionPerformed(ActionEvent evt) {
-                   if(tnom.getText().equals("") ||ttel.getText().equals("")||tdesc.getText().equals("")||ac.getText().equals("")){
+                   if(tnom.getText().equals("") ||ttel.getText().equals("")||tdesc.getText().equals("")){
           Dialog.show("Erreur", "Champ Invalide !","OK",null);
                  }
                    else{
@@ -229,8 +326,8 @@ public class AjouterEtab {
                         + "&descriptionEtablissement=" + tdesc.getText() 
                         + "&codePostal=" + tcode.getText() 
                         + "&budget=" + tbudg.getSelectedItem()
-                        + "&photoEtablissement=" + tphoto.getText()       
-                        + "&photoPatente=" + tphotopat.getText() 
+                        + "&photoEtablissement=" + newfilePath
+                        + "&photoPatente=" + newfilePath2 
                         + "&siteWeb=" + tsite.getText() 
                         + "&latitude=" + tlat.getText() 
                         + "&longitude=" + tlong.getText() 
@@ -249,7 +346,7 @@ public class AjouterEtab {
                         System.out.println(s);
                         // if (s.equals("success")) {
                              Dialog.show("Ajout effectué", "Votre établissement a été ajouté", "Ok", null);
-                               MesEtabs h = new MesEtabs(theme);
+                               MesEtabs h = new MesEtabs( theme);
         h.show();
                         //}
                     }
@@ -262,7 +359,7 @@ public class AjouterEtab {
                 System.out.println(i);
     
         btnaff.addActionListener((e)->{
-        MesEtabs a=new MesEtabs(theme);
+        MesEtabs a=new MesEtabs( theme);
         a.show();
         });
      
@@ -296,5 +393,18 @@ public class AjouterEtab {
     public void setF(Form f) {
         this.f = f;
     }
-    
+
+    /**
+     * @return the tadr
+     */
+    public TextField getTadr() {
+        return tadr;
+    }
+
+    /**
+     * @param tadr the tadr to set
+     */
+    public void setTadr(TextField tadr) {
+        this.tadr = tadr;
+    }
 }

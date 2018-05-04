@@ -47,7 +47,6 @@ public class AjoutEventForm {
     TextField description;
     DateSpinner date=new DateSpinner();
      ServiceEvenement se = new ServiceEvenement();
-     ArrayList<Etablissement> lsevent= se.getListEtab(Authentification.connectedUser.getId());
      
     
     Button btnajout,btnaff;
