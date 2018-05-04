@@ -7,76 +7,63 @@ package Entities;
 
 /**
  *
- * @author amine
+ * @author malek
  */
 public class Commentaire {
-    private int id_commentaire;
-    private String Commentaire;
-    private Experience experience;
-    private Utilisateur utilisateur;
-
-    public Commentaire(String Commentaire, Experience experience, Utilisateur utilisateur) {
-        this.Commentaire = Commentaire;
-        this.experience = experience;
-        this.utilisateur = utilisateur;
-    }
-
     
+    private String id_commentaire;
+    private String commentaire;
+    private String idUcomm;
+    private String idExp;
     
-
-   
-
-    public Commentaire() {
-    }
-
-    public int getId_commentaire() {
-        return id_commentaire;
-    }
-
-    public void setId_commentaire(int id_commentaire) {
-        this.id_commentaire = id_commentaire;
+    public Commentaire(){
+        
     }
 
     public String getCommentaire() {
-        return Commentaire;
+        return commentaire;
     }
 
-    public void setCommentaire(String Commentaire) {
-        this.Commentaire = Commentaire;
+    public void setCommentaire(String commentaire) {
+        this.commentaire = commentaire;
     }
 
-    public Experience getExperience() {
-        return experience;
+    public String getIdUcomm() {
+        return idUcomm;
     }
 
-    public void setExperience(Experience experience) {
-        this.experience = experience;
+    public void setIdUcomm(String idUcomm) {
+        this.idUcomm = idUcomm;
     }
 
-    public Utilisateur getUtilisateur() {
-        return utilisateur;
+    public String getIdExp() {
+        return idExp;
     }
 
-    public void setUtilisateur(Utilisateur utilisateur) {
-        this.utilisateur = utilisateur;
+    public void setIdExp(String idExp) {
+        this.idExp = idExp;
+    }
+
+    public String getId_commentaire() {
+        return id_commentaire;
+    }
+
+    public void setId_commentaire(String id_commentaire) {
+        this.id_commentaire = id_commentaire;
+    }
+
+    
+    
+    public Commentaire(String commentaire, String idUcomm, String idExp) {
+        this.commentaire = commentaire;
+        this.idUcomm = idUcomm;
+        this.idExp = idExp;
     }
 
     @Override
     public String toString() {
-        return "Commentaire{" + "id_commentaire=" + id_commentaire + ", Commentaire=" + Commentaire + ", experience=" + experience + ", utilisateur=" + utilisateur + '}';
+        return "Commentaire{" + "id_commentaire=" + id_commentaire + ", commentaire=" + commentaire + ", idUcomm=" + idUcomm + ", idExp=" + idExp + '}';
     }
-
-   
-    
-
-
-    
-
-   
-
-    
-   
-
     
     
 }

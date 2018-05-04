@@ -72,6 +72,30 @@ public class UserService {
         
         
     }
+    public void ajoutuser(Utilisateur u) {
+        ConnectionRequest con = new ConnectionRequest();
+
+       
+       String Url="http://localhost/symfony/web/app_dev.php/BonPlan/registration?nom="+u.getNom()+"&prenom="+u.getPrenom()+"&password="+u.getMot_de_passe()+"&username="+u.getUsername()+"&email="+u.getEmail()+"&role="+u.getRoles();
+        con.setUrl(Url);
+
+        //System.out.println("tt");
+
+        con.addResponseListener((e) -> {
+            String str = new String(con.getResponseData());
+            System.out.println(str);
+
+        });
+        NetworkManager.getInstance().addToQueueAndWait(con);
+    }
+    public void update(int id,String nom,String prenom, String email) {
+         ConnectionRequest con = new ConnectionRequest();
+        String Url = "http://localhost/update/update.php?nom=" + nom + "&prenom=" + prenom + "&id=" + id +"&email="+email;
+        con.setUrl(Url);
+        System.out.println(Url);
+
+        NetworkManager.getInstance().addToQueueAndWait(con);
+    }
     
     
 }

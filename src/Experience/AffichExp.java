@@ -5,29 +5,43 @@
  */
 package Experience;
 
+import Com_Fav.AffichageCom;
+import Entities.Client;
+import Entities.Commentaire;
 import Entities.CriteresEvaluation;
 import Entities.Evaluation;
 import Entities.Experience;
+import Services.ServiceCommentaire;
 import Services.ServiceCritere;
 import Services.ServiceEvaluation;
 import com.codename1.components.ImageViewer;
+import com.codename1.components.ShareButton;
 import com.codename1.components.SpanLabel;
+import com.codename1.io.ConnectionRequest;
+import com.codename1.io.NetworkManager;
+import com.codename1.messaging.Message;
 import com.codename1.ui.Button;
 import com.codename1.ui.Container;
+import com.codename1.ui.Dialog;
 import com.codename1.ui.Display;
 import com.codename1.ui.EncodedImage;
 import com.codename1.ui.Font;
+import com.codename1.ui.FontImage;
 import com.codename1.ui.Form;
 import com.codename1.ui.Image;
 import com.codename1.ui.Label;
 import com.codename1.ui.Slider;
+import com.codename1.ui.TextField;
 import com.codename1.ui.Toolbar;
 import com.codename1.ui.URLImage;
+import com.codename1.ui.events.ActionEvent;
+import com.codename1.ui.events.ActionListener;
 import com.codename1.ui.layouts.BorderLayout;
 import com.codename1.ui.layouts.BoxLayout;
 import com.codename1.ui.plaf.Border;
 import com.codename1.ui.plaf.UIManager;
 import com.codename1.ui.util.Resources;
+import com.mycompany.myapp.Authentification;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -63,6 +77,10 @@ public class AffichExp {
     Container ctr3;
     Container ctr4;
     Container ctr5;
+    Container ajouCom;
+    Container affichCom;
+    TextField Com;
+   
 
     
     Rating rat1;
@@ -96,10 +114,16 @@ Font mediumPlainMonospaceFont = Font.createSystemFont(Font.FACE_MONOSPACE, Font.
         f = new Form("Détails de l'expérience");
         theme = UIManager.initFirstTheme("/theme");
         Toolbar.setGlobalToolbar(true);
-        FilClient fc = new FilClient();
-        f.getToolbar().addCommandToLeftBar("", theme.getImage("back-command.png"), b -> {
-                fc.getF().showBack();
-                });
+        FilClient fc = new FilClient(theme);
+//        f.getToolbar().addCommandToLeftBar("", theme.getImage("back-command.png"), b -> {
+//                fc.showBack();
+//                });
+Toolbar tg = f.getToolbar();
+         tg.addMaterialCommandToRightBar("", FontImage.MATERIAL_ARROW_BACK, g->
+            {
+            
+            new FilClient(theme).show();
+             });
         
         ServiceCritere scrit = new ServiceCritere();
 
@@ -122,6 +146,13 @@ Font mediumPlainMonospaceFont = Font.createSystemFont(Font.FACE_MONOSPACE, Font.
         ctr3=new Container(new BoxLayout(BoxLayout.X_AXIS));
         ctr4=new Container(new BoxLayout(BoxLayout.X_AXIS));
         ctr5=new Container(new BoxLayout(BoxLayout.X_AXIS));
+//        ajouCom = new Container(new BoxLayout(BoxLayout.X_AXIS));
+//        affichCom = new Container(new BoxLayout(BoxLayout.X_AXIS));
+        
+//        ajouCom.add(Com);
+//    ajouCom.add(ajouterCom);
+        
+        
 
 
         usr= new SpanLabel(expr.getUtilisateur().getPrenom());
@@ -170,6 +201,8 @@ Font mediumPlainMonospaceFont = Font.createSystemFont(Font.FACE_MONOSPACE, Font.
         ctlab.add(usr);
         ctlab.add(etab);
         ctlab.add(createForFont(smallPlainProportionalFont, date.getText()));
+        
+        
 
 //        ctlab.add(date);
 
@@ -250,10 +283,133 @@ Font mediumPlainMonospaceFont = Font.createSystemFont(Font.FACE_MONOSPACE, Font.
         kbir.add(ctr5);
        
         kbir.add(ctx2);
+          ServiceCommentaire serviceTask=new ServiceCommentaire();
+         ArrayList<Commentaire> listTasks = serviceTask.getListCom(expr.getId_exp());
+         Container root = new Container(new BoxLayout(BoxLayout.Y_AXIS));
+          Container king = new Container(new BoxLayout(BoxLayout.Y_AXIS));
+          Container Ajout = new Container(new BoxLayout(BoxLayout.Y_AXIS));
+          TextField nv =new TextField("","Ajouter commentaire",20, TextField.NUMERIC);
+          Ajout.add(nv);
+          Container bout = new Container(new BoxLayout(BoxLayout.X_AXIS));
+          Button aj = new Button("ajout");
+          aj.setText("Ajouter");
+          ShareButton sb = new ShareButton();
+          sb.setText("envoyer mail");
+          sb.setTextToShare("vous avez un nouveau comm");
+          bout.add(sb);
+          bout.add(aj);
+          Ajout.add(bout);
+           aj.addActionListener(new ActionListener() {
+       @Override
+       public void actionPerformed(ActionEvent t) {
+           Commentaire commentaire= new Commentaire();
+        ConnectionRequest con = new ConnectionRequest();
+                String Url = "http://localhost/symfony/web/app_dev.php/BonPlan/comjsonnew2?commentaire="+nv.getText()+
+                       "&id="+ Authentification.connectedUser.getId()+"&idExp="+expr.getId_exp();
+                Dialog.show("Confirmation", "Votre commentaire a été ajouté ", "Ok", null);
+                
+               // Message m = new Message("yo");
+//       Display.getInstance().sendMessage(new String[]{"hot lhné lmail "}, "hey", m);
+        con.setUrl(Url);
+        NetworkManager.getInstance().addToQueueAndWait(con);
+        f.revalidate();
+        AffichExp aa=new AffichExp(expr);
+                
+                aa.getF().show();
+        }
+       });
+            int z =0;
+        for(Commentaire pub:listTasks){
+            z++;
+               // Container C = new Container(new GridLayout(1, 2));
+                Container root2 = new Container(new BoxLayout(BoxLayout.Y_AXIS));
+                 Container img = new Container(new BoxLayout(BoxLayout.Y_AXIS));
+          
+                Label Message3 = new Label();
+                Message3.setText(pub.getCommentaire());
+                Container C2 = new Container(new BoxLayout(BoxLayout.X_AXIS));
+                C2.add(Message3);
+              
+               //  Container root2 = new Container(new BoxLayout(BoxLayout.Y_AXIS));
+              Button b = new Button();
+                 
+               
+                  //  C.add(b);
+                    b.setText("Supprimer"); 
+                   // b.setUIID("consulterbt");
+                    
+                     b.addActionListener(new ActionListener() {
+                        @Override
+                        public void actionPerformed(ActionEvent evt) {
+                             ConnectionRequest con = new ConnectionRequest();
+        String Url = "http://localhost/symfony/web/app_dev.php/BonPlan/comjsondelete/"+pub.getId_commentaire();
+          Dialog.show("Confirmation", "supprimer ce commentaire?? ","oui", "Annuler");
+        con.setUrl(Url);
+                            System.out.println(Url);
+         NetworkManager.getInstance().addToQueueAndWait(con);
+         f.revalidate();
+        AffichExp aa=new AffichExp(expr);
+                
+                aa.getF().show();
+                        }
+                        
+                        
+                        }); 
+            ArrayList<Client> listclient=serviceTask.getListClient("http://localhost/symfony/web/app_dev.php/BonPlan/comjsonuser/"+pub.getId_commentaire());
+            
+               for(Client cl:listclient){
+                   
+                   
+                    Label Message = new Label();
+                
+                Label Message2 = new Label();
+                  Container C1 = new Container(new BoxLayout(BoxLayout.X_AXIS));
+                   Message.setText("Nom : "+cl.getNom());
+                  
+                Message2.setText("Prenom : "+cl.getPrenom());
+                  C1.add(Message);
+                
+                C1.add(Message2);
+                   System.out.println(Message);
+                   System.out.println(Message2);
+                  // System.out.println(etab);
+                   
+                     EncodedImage img1 = EncodedImage.createFromImage(Image.createImage(Display.getInstance().getDisplayWidth(), 150), true);
+                            URLImage imgg1 = URLImage.createToStorage(img1, cl.getPhoto_user(),
+                                    "http://localhost/symfony/web/images/"+cl.getPhoto_user());
+                            imgg1.fetch();
+                           // Image bla = imgg1.getImage("bla.jpg");
+                            ImageViewer imgv1 = new ImageViewer(imgg1);
+                          //   Container C1 = new Container(BoxLayout.y());
+                    img.add(imgv1);
+                      root2.add(C1);
+                   
+                   //  f.add(C1);
+                   
+               }
+                       
+                     Container btn = new Container(new BoxLayout(BoxLayout.X_AXIS));
+                     btn.add(b);
+            
+            
+                 root2.add(C2);
+                 root2.add(btn);
+                 root.add(img);
+            root.add(root2);
+              
+                // f.add(C);
+         //   System.out.println(Message);
+          //  System.out.println(Message2);
+        }
+        //kbir.add(ajouCom);
 
-
-       
+     king.add(root);
+//       f.add(ajouCom);
+//       f.add(affichCom);
         f.add(kbir);
+        
+        f.add(king);
+        f.add(Ajout);
 }
     
      public Form getF() {

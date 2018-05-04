@@ -15,6 +15,7 @@ import com.codename1.io.ConnectionRequest;
 import com.codename1.io.JSONParser;
 import com.codename1.io.NetworkEvent;
 import com.codename1.io.NetworkManager;
+import com.codename1.ui.Button;
 import com.codename1.ui.Container;
 import com.codename1.ui.Dialog;
 import com.codename1.ui.EncodedImage;
@@ -142,6 +143,11 @@ public class Authentification {
 
         data.add(login);
         data.add(reset);
+         Button reg = new Button("Register ?");
+        reg.addActionListener(e->{
+        new register(theme).getF1().show();
+        
+        });
 
 //        Label reg = new Label("Register ?");
 //        reg.addPointerPressedListener(e->{
@@ -150,7 +156,7 @@ public class Authentification {
 //        
 //        });
 //      
-        //     data.add(reg);
+             data.add(reg);
         f.add(data);
 
 //        UserService us = new UserService();

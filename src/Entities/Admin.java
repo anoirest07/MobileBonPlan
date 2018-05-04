@@ -17,7 +17,7 @@ public class Admin extends Utilisateur{
     }
     
     public Admin( String nom, String prenom,String username, String mot_de_passe, String roles,String email){
-        super( nom , prenom , mot_de_passe,username,roles);
+        super( nom , prenom , mot_de_passe,username,roles,email);
         this.email=email;
     }
 

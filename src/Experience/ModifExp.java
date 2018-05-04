@@ -12,8 +12,10 @@ import com.codename1.components.ImageViewer;
 import com.codename1.ext.filechooser.FileChooser;
 import com.codename1.ui.Button;
 import com.codename1.ui.Container;
+import com.codename1.ui.Dialog;
 import com.codename1.ui.Display;
 import com.codename1.ui.EncodedImage;
+import com.codename1.ui.FontImage;
 import com.codename1.ui.Form;
 import com.codename1.ui.Image;
 import com.codename1.ui.TextField;
@@ -48,10 +50,16 @@ public class ModifExp {
         theme = UIManager.initFirstTheme("/theme");
 
         Toolbar.setGlobalToolbar(true);
-        FilClient fc = new FilClient();
-        f.getToolbar().addCommandToLeftBar("", theme.getImage("back-command.png"), b -> {
-                fc.getF().showBack();
-            });
+        FilClient fc = new FilClient(theme);
+//        f.getToolbar().addCommandToLeftBar("", theme.getImage("back-command.png"), b -> {
+//                fc.showBack();
+//            });
+Toolbar tg = f.getToolbar();
+         tg.addMaterialCommandToRightBar("", FontImage.MATERIAL_ARROW_BACK, g->
+            {
+            
+            new FilClient(theme).show();
+             });
 
         btnajout = new Button("Valider");
         btnmod = new Button("Modifier la photo");
@@ -96,6 +104,9 @@ public class ModifExp {
                     
               ServiceExperience sxp = new ServiceExperience();
             sxp.modifTask(expr, desc.getText(),this.newfilePath); 
+                        Dialog.show("Modification expérience", "Modification avec succes", "OK",null);
+                        new FilClient(theme).show();
+
         }
 
         
@@ -106,7 +117,7 @@ public class ModifExp {
           
 //            ,preuve.getImage().getImageName()
            
-            fc.getF().showBack();
+            //fc.getF().showBack();
                 
         });
          
