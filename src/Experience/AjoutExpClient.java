@@ -51,6 +51,7 @@ import com.nexmo.client.sms.SmsSubmissionResult;
 import com.nexmo.client.sms.messages.TextMessage;
 import com.codename1.ext.filechooser.FileChooser;
 import com.codename1.ui.FontImage;
+import com.codename1.ui.plaf.Border;
 import com.mycompany.myapp.Authentification;
 
 
@@ -98,6 +99,7 @@ public class AjoutExpClient {
     AutoCompleteTextField ac = new AutoCompleteTextField(etabRech);
 
     Container ctrat = new Container(new BoxLayout(BoxLayout.Y_AXIS));
+    
     Container ctcrit = new Container(new BoxLayout(BoxLayout.Y_AXIS));
     Container ctev = new Container(new BoxLayout(BoxLayout.X_AXIS));
     
@@ -114,7 +116,7 @@ public class AjoutExpClient {
     public AjoutExpClient() throws IOException {
         
         f = new Form("Ajout d'expérience", new BoxLayout(BoxLayout.Y_AXIS));
-        
+       // f=new Form("Ajout d'expérience");
         theme = UIManager.initFirstTheme("/theme");
         Toolbar.setGlobalToolbar(true);
         FilClient fc = new FilClient(theme);
@@ -137,9 +139,12 @@ public class AjoutExpClient {
        
         ImageViewer i = new ImageViewer();
         
-//        date = new Picker();
-       
-        comboCat = new ComboBox();
+////        date = new Picker();
+//            ctrat.getAllStyles().setBorder(Border.createDoubleBorder(1, 0x9900CC));
+//             ctcrit.getAllStyles().setBorder(Border.createDoubleBorder(1, 0x9900CC));
+
+             
+             comboCat = new ComboBox();
       
         ServiceCategorie scat = new ServiceCategorie();
         List<Categorie> listecat = new ArrayList<>();
@@ -149,7 +154,7 @@ public class AjoutExpClient {
         {
             comboCat.addItem(c.getNom_categorie());
         }           
-        
+        ac.setHint("Etablissement");
         ac.setMinimumElementsShownInPopup(5);
 
         ServiceEtablissement setab = new ServiceEtablissement();
@@ -239,9 +244,9 @@ public class AjoutExpClient {
         f.add(btnOpen);
         f.add(ctev);
 
-        f.add(btnajout);
         
         f.add(btnCapt);
+        f.add(btnajout);
 
 
             

@@ -77,6 +77,15 @@ public class ServiceExperience {
                         float idetb = Float.parseFloat(b.get("idEtablissement").toString());
                         
                         etb.setId_etablissement((int)idetb);
+                        
+                        Map<String,Object> u = (Map<String,Object>) b.get("id"); 
+                        Utilisateur usr = new Utilisateur();
+
+                        float idusr = Float.parseFloat(u.get("id").toString());
+                        
+                        usr.setId((int)idusr);
+                        etb.setUtilisateur(usr);
+                        
                         etb.setNom_etablissement(b.get("nomEtablissement").toString());
                         
                         Map<String, Object> c = (Map<String, Object>)b.get("idCategorie");

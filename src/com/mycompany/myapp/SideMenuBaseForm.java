@@ -62,17 +62,17 @@ public abstract class SideMenuBaseForm extends Form {
     }
     
     public void setupSideMenu(Resources res) {
-        
-        Image profilePic = res.getImage("logo1.png");
-        Image mask = res.getImage("round-mask.png");
-       mask = mask.scaledHeight(mask.getHeight() / 4 * 3);
-        profilePic = profilePic.fill(mask.getWidth(), mask.getHeight());
-        Label profilePicLabel = new Label("", profilePic, "SideMenuTitle");
-       profilePicLabel.setMask(mask.createMask());
+//        
+//        Image profilePic = res.getImage("logoacc.png");
+//        Image mask = res.getImage("round-mask.png");
+//       mask = mask.scaledHeight(mask.getHeight() / 4 * 3);
+     //   profilePic = profilePic.fill(mask.getWidth(), mask.getHeight());
+        Label profilePicLabel = new Label("", "SideMenuTitle");
+       //profilePicLabel.setMask(mask.createMask());
 
         Container sidemenuTop = BorderLayout.center(profilePicLabel);
         sidemenuTop.setUIID("SidemenuTop");
-        
+//          sidemenuTop.getAllStyles().setBgColor(0x990033);
         getToolbar().addComponentToSideMenu(sidemenuTop);
         getToolbar().addMaterialCommandToSideMenu("  Accueil", FontImage.MATERIAL_DASHBOARD,  e -> new PubliciteController(res).show());
         getToolbar().addMaterialCommandToSideMenu("  Profil", FontImage.MATERIAL_DASHBOARD,  e -> new MonProfilProp(res).show());
@@ -84,7 +84,7 @@ public abstract class SideMenuBaseForm extends Form {
         getToolbar().addMaterialCommandToSideMenu("  Experience", FontImage.MATERIAL_TRENDING_UP,e -> new FilProp(res).show());
         getToolbar().addMaterialCommandToSideMenu("  Logout", FontImage.MATERIAL_EXIT_TO_APP,  e -> new Authentification(res).getF().show());
         
-       
+     
       
     }
     

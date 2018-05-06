@@ -13,17 +13,15 @@ import com.codename1.io.NetworkEvent;
 import com.codename1.io.NetworkManager;
 import com.codename1.ui.events.ActionListener;
 import Entities.Etablissement;
-import Entities.budget;
-import Etablissement.MesEtabs;
 import com.codename1.l10n.ParseException;
 import com.codename1.l10n.SimpleDateFormat;
-import com.codename1.ui.Dialog;
 import com.codename1.ui.util.Resources;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import java.util.Map;
+
 
 
 
@@ -90,6 +88,19 @@ public class ServiceEtablissement {
 //                     //    new Date((long) Float.parseFloat(x1.toString()));
 //                        task.setOuverture(new Date((long) Float.parseFloat(obj.get("ouverture").toString())));  
 //                        task.setFermeture(new Date((long) Float.parseFloat(obj.get("fermeture").toString())));
+Map<String, Object> ouverture = (Map<String, Object>) obj.get("ouverture");
+                        double t = (double) ouverture.get("timestamp");
+                        long x = (long) (t * 1000L); 
+                        String format = new SimpleDateFormat("HH:mm:ss").format(new Date(x));
+                        Date tdate= new SimpleDateFormat("HH:mm:ss").parse(format);
+                        Map<String, Object> fermeture = (Map<String, Object>) obj.get("fermeture");
+                        double t1 = (double) fermeture.get("timestamp");
+                        long x1 = (long) (t1 * 1000L); 
+                        String format1 = new SimpleDateFormat("HH:mm:ss").format(new Date(x1)); 
+                        Date tdate1= new SimpleDateFormat("HH:mm:ss").parse(format1);
+
+                        task.setOuverture(tdate);
+                        task.setFermeture(tdate1);
              task.setCode_postal((int)(double) obj.get("codePostal"));
              task.setSite_web(obj.get("siteWeb").toString());
              task.setTelephone_etablissement((int)(double) obj.get("telephoneEtablissement"));
@@ -97,6 +108,8 @@ public class ServiceEtablissement {
 
                     }
                 } catch (IOException ex) {
+                } catch (ParseException ex) {
+                   
                 }
 
             }

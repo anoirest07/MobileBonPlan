@@ -43,13 +43,13 @@ public abstract class SideMenuBaseForm1 extends Form {
     }
     
     public void setupSideMenu1(Resources res) {
-        
-        Image profilePic = res.getImage("logo1.png");
-        Image mask = res.getImage("round-mask.png");
-        mask = mask.scaledHeight(mask.getHeight() / 4 * 3);
-        profilePic = profilePic.fill(mask.getWidth(), mask.getHeight());
-        Label profilePicLabel = new Label("", profilePic, "SideMenuTitle");
-       profilePicLabel.setMask(mask.createMask());
+//        
+//        Image profilePic = res.getImage("logoacc.png");
+//        Image mask = res.getImage("round-mask.png");
+//        mask = mask.scaledHeight(mask.getHeight() / 4 * 3);
+//        profilePic = profilePic.fill(mask.getWidth(), mask.getHeight());
+        Label profilePicLabel = new Label("", "SideMenuTitle");
+//       profilePicLabel.setMask(mask.createMask());
 
         Container sidemenuTop = BorderLayout.center(profilePicLabel);
         sidemenuTop.setUIID("SidemenuTop");

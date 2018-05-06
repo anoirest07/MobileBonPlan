@@ -17,11 +17,13 @@ import static com.codename1.ui.Component.BOTTOM;
 import static com.codename1.ui.Component.RIGHT;
 import com.codename1.ui.Container;
 import com.codename1.ui.EncodedImage;
+import com.codename1.ui.Font;
 import com.codename1.ui.FontImage;
 import com.codename1.ui.Form;
 import com.codename1.ui.Image;
 import com.codename1.ui.Label;
 import com.codename1.ui.SideMenuBar;
+import com.codename1.ui.Slider;
 import com.codename1.ui.TextField;
 import com.codename1.ui.Toolbar;
 import com.codename1.ui.URLImage;
@@ -33,34 +35,32 @@ import com.codename1.ui.util.Resources;
 import java.util.ArrayList;
 import com.mycompany.myapp.Authentification;
 import com.mycompany.myapp.SideMenuBaseForm;
+import java.io.IOException;
 
 /**
  *
  * @author admin
  */
 public class FilProp extends SideMenuBaseForm{
-      Container f;
+        Container f;
     TextField tnom;
     TextField tetat;
+    Button btnajout;
     Button modif;
     Button supp;
+    Resources theme;
 
     public FilProp(Resources theme)
-    {
-         super(BoxLayout.y());
-        Toolbar tb = getToolbar();
-        FloatingActionButton fab = FloatingActionButton.createFAB(FontImage.MATERIAL_ADD);     
-        fab.addActionListener(e -> {          
-//          
-        });
-        f = new Container(new BoxLayout(BoxLayout.Y_AXIS));
-        
+    { 
+        super(BoxLayout.y());
+         Toolbar tb = getToolbar();
+        f =new Container(new BoxLayout(BoxLayout.Y_AXIS));
+         
         Button menuButton = new Button("");
         menuButton.setUIID("Title");
         FontImage.setMaterialIcon(menuButton, FontImage.MATERIAL_MENU);
-        menuButton.addActionListener(l -> ((SideMenuBar)getToolbar().getMenuBar()).openMenu(null));
+        menuButton.addActionListener(e -> ((SideMenuBar)getToolbar().getMenuBar()).openMenu(null));
         
-        ServicePublicite serviceTask = new ServicePublicite();
         Container titleCmp = BoxLayout.encloseY(
                         FlowLayout.encloseIn(menuButton),
                         BorderLayout.centerAbsolute(
@@ -69,22 +69,18 @@ public class FilProp extends SideMenuBaseForm{
                                 )
                             )
                 );
-        tb.setTitleComponent(fab.bindFabToContainer(titleCmp, RIGHT, BOTTOM));
-        FontImage arrowDown = FontImage.createMaterial(FontImage.MATERIAL_KEYBOARD_ARROW_DOWN, "Label", 3);  
+        tb.setTitleComponent(titleCmp);
+         FontImage arrowDown = FontImage.createMaterial(FontImage.MATERIAL_KEYBOARD_ARROW_DOWN, "Label", 3);
         setupSideMenu(theme);
-        modif=new Button("Modifier");
-        supp=new Button("Supprimer");
-        
-//        btnajout.addActionListener((e) -> {
-//            ServiceTask ser = new ServiceTask();
-//            Task t = new Task(0, tnom.getText(), tetat.getText());
-//            ser.ajoutTask(t);
-//            
-//
-//        });
-
        
 
+      
+        
+Font mediumPlainMonospaceFont = Font.createSystemFont(Font.FACE_MONOSPACE, Font.STYLE_PLAIN, Font.SIZE_MEDIUM);
+Font mediumItalicMonospaceFont = Font.createSystemFont(Font.FACE_MONOSPACE, Font.STYLE_ITALIC, Font.SIZE_MEDIUM);
+Font largeBoldMonospaceFont = Font.createSystemFont(Font.FACE_MONOSPACE, Font.STYLE_BOLD, Font.SIZE_LARGE);
+
+       
         Container glob = new Container(new BoxLayout(BoxLayout.Y_AXIS));
         
         ServiceExperience sxp = new ServiceExperience();
@@ -92,73 +88,70 @@ public class FilProp extends SideMenuBaseForm{
         
         for (Experience exp : listExps)
         {
+                        if (exp.getEtablissement().getUtilisateur().getId()==Authentification.connectedUser.getId())
+                        {
+           Container ctfor = new Container(new BoxLayout(BoxLayout.Y_AXIS));
+   
+           Container x = new Container(new BoxLayout(BoxLayout.X_AXIS));
+//            Container xbtn = new Container(new BoxLayout(BoxLayout.X_AXIS));
 
-             if (exp.getEtablissement().getUtilisateur().getId()==Authentification.connectedUser.getId())
-
-             {  
+            Container xbtn = new Container();
+            xbtn.setLayout(new BorderLayout(BorderLayout.CENTER_BEHAVIOR_CENTER_ABSOLUTE));
+            
             Container ct = new Container(new BoxLayout(BoxLayout.Y_AXIS));
             
-            ct.getAllStyles().setBorder(Border.createDoubleBorder(1, 0x99CCCC));
-            ct.getAllStyles().setPadding(ct.LEFT, 80);
+            ctfor.getAllStyles().setBorder(Border.createDoubleBorder(1, 0x9900CC));
             
-            EncodedImage placeholder = EncodedImage.createFromImage(Image.createImage(70,70, 0xffff2700), true);
+            EncodedImage placeholder = EncodedImage.createFromImage(Image.createImage(120,120, 0xffff2700), true);
             Image i = URLImage.createToStorage(placeholder, exp.getPreuve(), "http://localhost/symfony/web/uploads/images/"+ exp.getPreuve(), URLImage.RESIZE_SCALE);
-            ImageViewer iv = new ImageViewer(i);
-            
+            ImageViewer iv = new ImageViewer(i);      
            
             SpanLabel usr= new SpanLabel(exp.getUtilisateur().getPrenom());
             SpanLabel etb= new SpanLabel(exp.getEtablissement().getNom_etablissement());
             SpanLabel dt = new SpanLabel(exp.getDate_exp());
-            
-            System.out.println(" !!!!!!!!!  "+exp.getDate_exp());
-
-            
+                        
             SpanLabel s1 = new SpanLabel(exp.getDescription_experience());
-            SpanLabel s2= new SpanLabel(exp.getPreuve());
-            SpanLabel s3= new SpanLabel(Integer.toString(exp.getNoteExp()));
-
             
-//             Label img = new Label();
-//          img.setIcon(i);
-//          ct.add(img);
+            Rating moy = new Rating();
+            Slider sl= new Slider();
+            sl=moy.createStarRankSlider();
+            sl.setEditable(false);
+            sl.setProgress(exp.getNoteExp());
+
+            s1.getTextAllStyles().setFont(mediumPlainMonospaceFont);
+            dt.getTextAllStyles().setFont(mediumItalicMonospaceFont);
+
             ct.add(usr);
             ct.add(etb);
             ct.add(dt);
             ct.add(s1);
-            ct.add(s2);
-            ct.add(s3);
-            ct.add(iv);
-
-            System.out.println("ID USER"+exp.getUtilisateur().getId());
-
-//          System.out.println("NOM USER"+exp.getUtilisateur().getNom());
-//          System.out.println("PRENOM USER"+exp.getUtilisateur().getPrenom());
-//          System.out.println("ID EXP"+exp.getId_exp());
-
+            ct.add(sl);
             
-            glob.add(ct);
-
-            System.out.println("NOTE"+exp.getNoteExp());
+            x.add(iv);
+            x.add(ct);
+            
+            ctfor.setHeight(500);
+            ctfor.add(x);
+            ctfor.add(xbtn);
+            
+           
+            
+            glob.add(ctfor);
             
             Button btnAff = new Button();
             btnAff.addActionListener((evt) -> {
                AffichExp aff =new AffichExp(exp);
                aff.getF().show();
-               
-                
             });
-            ct.setLeadComponent(btnAff);
-             }
+            
+            x.setLeadComponent(btnAff);
+
+        }
         }
         
             f.add(glob);
             add(f);
-     
- 
-                
-            
     }
-
 //    public Form getF() {
 //        return f;
 //    }

@@ -16,6 +16,7 @@ import com.codename1.ui.Button;
 import com.codename1.ui.Container;
 import com.codename1.ui.FontImage;
 import com.codename1.ui.Form;
+import com.codename1.ui.SideMenuBar;
 import com.codename1.ui.events.ActionEvent;
 import com.codename1.ui.events.ActionListener;
 import com.codename1.ui.layouts.BorderLayout;
@@ -25,6 +26,7 @@ import com.codename1.ui.list.DefaultListModel;
 import com.codename1.ui.plaf.Border;
 import com.codename1.ui.plaf.Style;
 import com.codename1.ui.util.Resources;
+import com.mycompany.myapp.SideMenuBaseForm;
 import java.io.ByteArrayInputStream;
 import java.io.IOException;
 import java.io.InputStreamReader;
@@ -34,11 +36,12 @@ import java.util.Map;
  *
  * @author amine
  */
-public class GoogleMaps {
+public class GoogleMaps extends SideMenuBaseForm{
      Coord LL;
     final MapContainer cnt;
+    
     String[] Adds;
-    Resources theme;
+    
    // Session SS;
     
     public String[] searchLocations(String text) 
@@ -97,11 +100,18 @@ public class GoogleMaps {
         return null;
     }
     
-    public GoogleMaps()
-    {
+    public GoogleMaps(Resources theme)
+            
+    {  
        // this.SS = SS;
         Form hi = new Form("Google Maps");
         hi.setLayout(new BorderLayout());
+        Button menuButton = new Button("");
+        menuButton.setUIID("Title");
+        FontImage.setMaterialIcon(menuButton, FontImage.MATERIAL_MENU);
+        menuButton.addActionListener(l -> ((SideMenuBar)getToolbar().getMenuBar()).openMenu(null));
+        FontImage arrowDown = FontImage.createMaterial(FontImage.MATERIAL_KEYBOARD_ARROW_DOWN, "Label", 3);  
+        setupSideMenu(theme);
         cnt = new MapContainer("AIzaSyCeIRbinQ5bJ2h_Qk9i558DRTg9PranZQ0");
         final DefaultListModel<String> options = new DefaultListModel<>();
         AutoCompleteTextField ac = new AutoCompleteTextField(options)
@@ -169,25 +179,26 @@ public class GoogleMaps {
                   UD.getTadr().setText(Adds[0]);
                   UD.tlong.setText(Double.toString(LL.getLongitude()));
                   UD.tlat.setText(Double.toString(LL.getLatitude()));
-
+                  
+     
                 }
                 else
                 {
                     UD.getTadr().setText("");
                 }
-                UD.getF().show();
+                 UD.getF().show();
             }
         });
-    FontImage icon = FontImage.createMaterial(FontImage.MATERIAL_ARROW_BACK, "TitleCommand", 3);
-    hi.getToolbar().addCommandToRightBar("", icon, new ActionListener() 
-    {
-            @Override
-            public void actionPerformed(ActionEvent evt) 
-            {
-                AjouterEtab a = new AjouterEtab(theme);
-                a.getF().show();
-            }
-        });
+//    FontImage icon = FontImage.createMaterial(FontImage.MATERIAL_ARROW_BACK, "TitleCommand", 3);
+//    hi.getToolbar().addCommandToRightBar("", icon, new ActionListener() 
+//    {
+//            @Override
+//            public void actionPerformed(ActionEvent evt) 
+//            {
+//                AjouterEtab a = new AjouterEtab(theme);
+//                a.getF().show();
+//            }
+//        });
     Container CN = new Container(new BoxLayout(BoxLayout.X_AXIS));
     CN.add(ac).add(BO);
    
@@ -196,5 +207,10 @@ public class GoogleMaps {
                 BorderLayout.north(CN));
     hi.add(BorderLayout.CENTER, root);
     hi.show();
+    }
+
+    @Override
+    protected void showOtherForm(Resources res) {
+       //To change body of generated methods, choose Tools | Templates.
     }
 }

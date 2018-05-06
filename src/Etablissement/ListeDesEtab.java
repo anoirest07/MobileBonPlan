@@ -154,7 +154,7 @@ ListModel<String> etabRech = new DefaultListModel<String>();
                         });
                         ImageViewer img=new ImageViewer();
                         SpanLabel sp=new SpanLabel(et.getNom_etablissement());
-                     //   SpanLabel sp1=new SpanLabel("Travaille aujourd'hui à :"+et.getOuverture().toString()+"_"+et.getFermeture().toString());
+                       SpanLabel sp1=new SpanLabel("Travaille aujourd'hui à :"+et.getOuverture().toString()+"-->"+et.getFermeture().toString());
                         SpanLabel sp2=new SpanLabel("Catégorie :"+et.getCategorie().getNom_categorie());
                         SpanLabel sp3=new SpanLabel(et.getAdresse_etablissement()+","+et.getCode_postal());
                         SpanLabel sp4=new SpanLabel("");
@@ -195,7 +195,7 @@ Button favoris = new Button("Ajouter aux favoris");
                           c2.add(sp3);
                           c2.add(favoris);
                            c2.add(space1);
-                       //   c3.add(sp1);
+                          c3.add(sp1);
                           
                             c3.add(sp2);
                           
@@ -287,7 +287,7 @@ Button favoris = new Button("Ajouter aux favoris");
                         });
                         ImageViewer img=new ImageViewer();
                         SpanLabel sp=new SpanLabel(e.getNom_etablissement());
-                      //  SpanLabel sp1=new SpanLabel("Travaille aujourd'hui à :"+e.getOuverture().toString()+"_"+e.getFermeture().toString());
+                        SpanLabel sp1=new SpanLabel("Travaille aujourd'hui à :"+e.getOuverture().toString()+"_"+e.getFermeture().toString());
                         SpanLabel sp2=new SpanLabel("Catégorie :"+e.getCategorie().getNom_categorie());
                         SpanLabel sp3=new SpanLabel(e.getAdresse_etablissement()+","+e.getCode_postal());
                         SpanLabel sp4=new SpanLabel("");
@@ -336,7 +336,7 @@ Button favoris = new Button("Ajouter aux favoris");
                            c2.add(favoris);
                            c2.add(space1);
                           
-//                          c3.add(sp1);
+                          c3.add(sp1);
                           
                             c3.add(sp2);
                           
