@@ -6,54 +6,57 @@
 package com.mycompany.myapp;
 
 import Services.UserService;
-import com.codename1.capture.Capture;
-import com.codename1.components.ImageViewer;
-import com.codename1.l10n.ParseException;
-import com.codename1.l10n.SimpleDateFormat;
 import com.codename1.ui.Button;
 import com.codename1.ui.Component;
 import com.codename1.ui.Container;
 import com.codename1.ui.Dialog;
-import com.codename1.ui.Display;
-import com.codename1.ui.EncodedImage;
 import com.codename1.ui.FontImage;
 import com.codename1.ui.Form;
-import com.codename1.ui.Image;
 import com.codename1.ui.Label;
-import com.codename1.ui.TextArea;
+import com.codename1.ui.SideMenuBar;
 import com.codename1.ui.TextField;
 import com.codename1.ui.Toolbar;
-import com.codename1.ui.URLImage;
-import com.codename1.ui.events.ActionEvent;
-import com.codename1.ui.events.ActionListener;
+import com.codename1.ui.layouts.BorderLayout;
 import com.codename1.ui.layouts.BoxLayout;
-import com.codename1.ui.plaf.Style;
-import com.codename1.ui.plaf.UIManager;
-import com.codename1.ui.spinner.Picker;
+import com.codename1.ui.layouts.FlowLayout;
 import com.codename1.ui.util.Resources;
 
-import java.io.IOException;
-import java.util.Date;
 
 
 /**
  *
- * @author Yassine
+ * @author user
  */
-public class MonProfilForm {
+public class MonProfilProp extends SideMenuBaseForm{
 
-    Form f;
+    Container f;
     String imgPath;
-    Resources res;
+   
 
     
 
-    public MonProfilForm() {
-        f = new Form("Mon profil", BoxLayout.y());
-        Toolbar tb = new Toolbar();
-        tb.setUIID("Toolbar");
-        f.setToolbar(tb);
-        tb.setTitle("Modifier profil");
+    public MonProfilProp(Resources res) {
+        super(BoxLayout.y());
+         Toolbar tb = getToolbar();
+        f =new Container(new BoxLayout(BoxLayout.Y_AXIS));
+         
+        Button menuButton = new Button("");
+        menuButton.setUIID("Title");
+        FontImage.setMaterialIcon(menuButton, FontImage.MATERIAL_MENU);
+        menuButton.addActionListener(e -> ((SideMenuBar)getToolbar().getMenuBar()).openMenu(null));
+        
+        Container titleCmp = BoxLayout.encloseY(
+                        FlowLayout.encloseIn(menuButton),
+                        BorderLayout.centerAbsolute(
+                                BoxLayout.encloseY(
+                                    new Label("Modifier Profil", "Title")
+                                )
+                            )
+                );
+        tb.setTitleComponent(titleCmp);
+         FontImage arrowDown = FontImage.createMaterial(FontImage.MATERIAL_KEYBOARD_ARROW_DOWN, "Label", 3);
+        setupSideMenu(res);
+        
         
         
         Container cc = new Container(BoxLayout.y());
@@ -124,22 +127,28 @@ public class MonProfilForm {
         
         cc.add(Modifier);
         f.add(cc);
+        add(f);
         UserService us = new UserService();
         Modifier.addActionListener((evt) -> {
             us.update(Authentification.connectedUser.getId(), nomT.getText(), prenomT.getText(), emailT.getText());
             Dialog.show("Succès!", "Informations modifiés avec succès!", "OK", null);
             f.refreshTheme();
             f.revalidate();
-            this.f.show();
+            
         });
     }
 
-    public Form getF() {
-        return f;
-    }
+//    public Form getF() {
+//        return f;
+//    }
 
     public void setF(Form f) {
         this.f = f;
+    }
+
+    @Override
+    protected void showOtherForm(Resources res) {
+        //To change body of generated methods, choose Tools | Templates.
     }
 
 }

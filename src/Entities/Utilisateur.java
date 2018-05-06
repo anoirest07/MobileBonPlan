@@ -17,9 +17,10 @@ public class Utilisateur {
  public String username ;
  public String roles;
  public String email;
+ public String PhotoUser;
  
 
-     public Utilisateur( String nom, String prenom,String username, String mot_de_passe, String roles, String email) {
+     public Utilisateur( String nom, String prenom,String username, String mot_de_passe, String roles, String email,String PhotoUser) {
         
         this.nom = nom;
         this.prenom = prenom;
@@ -27,6 +28,7 @@ public class Utilisateur {
         this.mot_de_passe = mot_de_passe;
         this.roles = roles;
         this.email=email;
+        this.PhotoUser=PhotoUser;
               
     }
 
@@ -96,10 +98,21 @@ public class Utilisateur {
         this.email = email;
     }
 
+    public String getPhotoUser() {
+        return PhotoUser;
+    }
+
+    public void setPhotoUser(String PhotoUser) {
+        this.PhotoUser = PhotoUser;
+    }
+
     @Override
     public String toString() {
-        return "Utilisateur{" + "id=" + id + ", nom=" + nom + ", prenom=" + prenom + ", mot_de_passe=" + mot_de_passe + ", username=" + username + ", roles=" + roles + ", email=" + email + '}';
+        return "Utilisateur{" + "id=" + id + ", nom=" + nom + ", prenom=" + prenom + ", mot_de_passe=" + mot_de_passe + ", username=" + username + ", roles=" + roles + ", email=" + email + ", PhotoUser=" + PhotoUser + '}';
     }
+    
+
+    
     
 
    

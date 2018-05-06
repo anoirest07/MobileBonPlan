@@ -105,7 +105,7 @@ ImageViewer image;
         f.add(ref);
         desc = new TextField("", "descriptionPublicite", 20, TextField.NUMERIC);
         f.add(desc);
-        choose=new Button("choose image");
+        choose=new Button("choisir image");
 
                  f.add(choose);
         image = new ImageViewer();

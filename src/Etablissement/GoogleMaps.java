@@ -179,13 +179,13 @@ public class GoogleMaps {
             }
         });
     FontImage icon = FontImage.createMaterial(FontImage.MATERIAL_ARROW_BACK, "TitleCommand", 3);
-    hi.getToolbar().addCommandToLeftBar("", icon, new ActionListener() 
+    hi.getToolbar().addCommandToRightBar("", icon, new ActionListener() 
     {
             @Override
             public void actionPerformed(ActionEvent evt) 
             {
-//                UneDemande UD = new UneDemande(SS);
-//                UD.getF().show();
+                AjouterEtab a = new AjouterEtab(theme);
+                a.getF().show();
             }
         });
     Container CN = new Container(new BoxLayout(BoxLayout.X_AXIS));

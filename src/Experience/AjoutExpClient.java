@@ -307,19 +307,19 @@ public class AjoutExpClient {
         
             Date debut = date.getDate();
 
-             if(comboCat.getSelectedItem().equals(null) || ac.getText().isEmpty() || desc.getText().isEmpty() ) 
+   //         if(comboCat.getSelectedItem().equals(null) || ac.getText().isEmpty() || desc.getText().isEmpty() ) 
    { 
                    Dialog.show("Erreur !", "Veuillez remplir tous les champs", "OK",null);
 
                     
    }
    
-   else if (s1.getProgress()== 0|| s2.getProgress()==0 || s3.getProgress()==0|| s4.getProgress() ==0|| s5.getProgress() ==0)
+  // else if (s1.getProgress()== 0|| s2.getProgress()==0 || s3.getProgress()==0|| s4.getProgress() ==0|| s5.getProgress() ==0)
    {                   Dialog.show("Erreur !", "Veuillez évaluez tous les critères", "OK",null);
 
             
         }
-   else {
+ //  else {
        
         if (!this.newfilePath.equals("") && this.newfilePath != null) {
                                 
@@ -394,7 +394,8 @@ TextMessage message = new TextMessage("BonPlan", "21620004410", "Vous avez une m
                              System.out.println("   FFIN3");
 
             }
-       }}
+       }
+           //}
             
         });
 

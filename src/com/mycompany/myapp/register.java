@@ -6,7 +6,9 @@
 package com.mycompany.myapp;
 
 import Entities.Utilisateur;
+import Services.ServicePublicite;
 import Services.UserService;
+import com.codename1.components.ImageViewer;
 import com.codename1.ui.Button;
 import com.codename1.ui.ComboBox;
 import com.codename1.ui.Dialog;
@@ -36,6 +38,9 @@ public class register {
        TextField passField;
         TextField emaField;
         Button ajoutuser;
+        ImageViewer image;
+  
+    Button choose ; 
           Vector<String> items1=new Vector<>();
 
     public Form getF1() {
@@ -63,6 +68,22 @@ public class register {
         passField = new TextField("","password");
          
         emaField = new TextField("","email",20,TextArea.EMAILADDR);
+        choose=new Button("choisir image");
+
+                
+        image = new ImageViewer();
+        
+                 
+
+        choose.addActionListener(new ActionListener() 
+        {
+            @Override
+            public void actionPerformed(ActionEvent evt) {
+                ServicePublicite s=new ServicePublicite();
+                s.browseImage(image);
+          
+            }
+        });
                 ajoutuser = new Button("ajouter");
                 Validator validator = new Validator();
                 validator.addSubmitButtons(ajoutuser);
@@ -132,6 +153,8 @@ f1.add(passField);
 
 f1.add(emaField);
 f1.add(roleBox);
+ f1.add(choose);
+  f1.add(image);
 f1.add(ajoutuser);
 
         
@@ -139,9 +162,11 @@ f1.add(ajoutuser);
             @Override
             public void actionPerformed(ActionEvent evt) {
                 UserService uc = new UserService();
-                Utilisateur u=new Utilisateur(nomField.getText(), preField.getText(), userField.getText(), passField.getText(), roleBox.getSelectedItem(), emaField.getText());
+                Utilisateur u=new Utilisateur(nomField.getText(), preField.getText(), userField.getText(), passField.getText(), roleBox.getSelectedItem(), emaField.getText(),image.getImage().getImageName());
                 uc.ajoutuser(u);
-                
+                  Dialog.show("Confirmation", "votre inscription a été enregistrer", "Ok", null);
+               Authentification l = new Authentification(res);
+         l.getF().show();
             }
         });
             

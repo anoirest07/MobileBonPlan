@@ -47,12 +47,15 @@ public class UserService {
                     String nom = User.get("nom").toString();
                     String prenom = User.get("prenom").toString();
                     String role = User.get("roles").toString();
+                    String email = User.get("email").toString();
+                    String photouser = User.get("photoUser").toString();
                     //String adresse= User.get("adresse").toString();
                     
                     user.setUsername(username);
-                   // user.setAdresse(adresse);
+                    user.setEmail(email);
                     user.setNom(nom);
                     user.setPrenom(prenom);
+                    user.setPhotoUser(photouser);
                     user.setRoles(role);
                     user.setId(id);
                     System.out.println(user.getNom() +"  NAME");
@@ -76,7 +79,7 @@ public class UserService {
         ConnectionRequest con = new ConnectionRequest();
 
        
-       String Url="http://localhost/symfony/web/app_dev.php/BonPlan/registration?nom="+u.getNom()+"&prenom="+u.getPrenom()+"&password="+u.getMot_de_passe()+"&username="+u.getUsername()+"&email="+u.getEmail()+"&role="+u.getRoles();
+       String Url="http://localhost/symfony/web/app_dev.php/BonPlan/registration?nom="+u.getNom()+"&prenom="+u.getPrenom()+"&password="+u.getMot_de_passe()+"&username="+u.getUsername()+"&email="+u.getEmail()+"&photoUser="+u.getPhotoUser()+"&role="+u.getRoles();
         con.setUrl(Url);
 
         //System.out.println("tt");
@@ -86,7 +89,7 @@ public class UserService {
             System.out.println(str);
 
         });
-        NetworkManager.getInstance().addToQueueAndWait(con);
+        NetworkManager.getInstance().addToQueue(con);
     }
     public void update(int id,String nom,String prenom, String email) {
          ConnectionRequest con = new ConnectionRequest();

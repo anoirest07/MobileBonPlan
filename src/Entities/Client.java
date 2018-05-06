@@ -32,7 +32,7 @@ public class Client extends Utilisateur{
      public Client( String nom, String prenom, Date date_de_naissance, String sexe, int num_tel,  String mot_de_passe, String username ,String region, String roles, String ville, String email , Date date_inscription, String photo_user)
      {
         
-        super( nom , prenom , mot_de_passe,username,roles,email);
+        super( nom , prenom , mot_de_passe,username,roles,email,photo_user);
         
        
         this.num_tel=num_tel;
@@ -46,7 +46,7 @@ public class Client extends Utilisateur{
       }
 
     public Client(String nom,String prenom, String username, String mot_de_passe,String roles,String region, String ville, String email ,String photo_user ) {
-        super(nom, prenom, username, mot_de_passe,roles,email);
+        super(nom, prenom, username, mot_de_passe,roles,email,photo_user);
        // this.date_de_naissance = date_de_naissance;
         this.region = region;
         this.ville = ville;
