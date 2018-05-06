@@ -8,6 +8,10 @@ package Etablissement;
 import Entities.Categorie;
 import Entities.CriteresEvaluation;
 import Entities.Etablissement;
+import Produit_Offre.AfficheOffreClient;
+import Produit_Offre.AfficheOffres;
+import Produit_Offre.AfficheProduits;
+import Produit_Offre.AfficheProduitsClient;
 import Publicite.AddPublicite;
 import Services.ServiceCategorie;
 import Services.ServiceEtablissement;
@@ -95,7 +99,8 @@ public class MesEtabs extends SideMenuBaseForm{
     ComboBox<String>tcat;
     DateTimeSpinner touver;
     DateTimeSpinner tferm;
- 
+ Button produits = new Button("Nos produits");
+                          Button offres = new Button("Nos offres");
     Container cont,cont1,cont2,containerCrit;
     Button btnajout,btnaff,btnautre;
      private String newfilePath = "";
@@ -142,7 +147,25 @@ public class MesEtabs extends SideMenuBaseForm{
         ArrayList<Etablissement> lis = serviceTask.MesEtabs(Authentification.connectedUser.getId());
        for (Etablissement e : lis) {
             if (e.getEnabled() == 1) {
-              
+               produits.addActionListener(new ActionListener() {
+                @Override
+                public void actionPerformed(ActionEvent evt) {
+                
+                
+               AfficheProduits apc= new  AfficheProduits(theme);
+                   apc.show();
+                
+                }});
+                
+                 offres.addActionListener(new ActionListener() {
+                @Override
+                public void actionPerformed(ActionEvent evt) {
+                
+                
+               AfficheOffres apc= new  AfficheOffres(theme);
+                   apc.show();
+                
+                }});
                 lb1 = new Label();
                 lb2 = new Label();
                  lcat = new Label();
@@ -286,11 +309,15 @@ public class MesEtabs extends SideMenuBaseForm{
              f2.add(n4);
                  f2.add(ttel);
                           f2.add(cont);
+                           
              f2.add(n6);
                           f2.add(touver);
                            f2.add(n7);
                f2.add(tferm);
-                              f2.add(btnajout);
+                f2.add(produits);
+                                      f2.add(offres);              
+               
+               f2.add(btnajout);
                               f2.add(back);
                               f2.show();
                               

@@ -96,50 +96,21 @@ public class AjouterProduit {
         // f.add(iduser);
         f.add(cont2);
 
-//        cetab.addActionListener(new ActionListener() {
-//            @Override
-//            public void actionPerformed(ActionEvent evt) {
-//
-////                                            for(Etablissement etab: se.getEtablissementClient(Int.valueof(cetab.getSelectedItem())){
-////                                        i=etab.getId_etablissement();
-////                                                System.out.println("++"+i);
-////                                            }
-//            }
-//        }
-//        );
+
         btnajout.addActionListener(new ActionListener() {
 
             @Override
             public void actionPerformed(ActionEvent evt) {
                
-                ConnectionRequest req = new ConnectionRequest();
-                req.setUrl("http://localhost/symfony/web/app_dev.php/BonPlan/createproduit"
-                        + "/" + tfnomp.getText()
-                        + "/" + tfimgp.getText()
-                        + "/" + tfprixp.getText()
-                        + "/" + getidetab(combo.getSelectedIndex())
-                );
+              
+                             sp.ajouterProduit(tfnomp.getText(),tfimgp.getText(), Double.valueOf(tfprixp.getText()), 
+                              getidetab(combo.getSelectedIndex()));
 
-                req.addResponseListener(new ActionListener<NetworkEvent>() {
-
-                    @Override
-                    public void actionPerformed(NetworkEvent evt) {
-                        byte[] data = (byte[]) evt.getMetaData();
-                        String s = new String(data);
-                        System.out.println(s);
-                        // if (s.equals("success")) {
-                        Dialog.show("Confirmation", "ajout ok", "Ok", null);
-           new AfficheProduits(res).show();
                         
-                        //}
+                        
                  
                     }
-                });
-
-                NetworkManager.getInstance().addToQueueAndWait(req);
-
-            }
-
+              
         });
         System.out.println(i);
 

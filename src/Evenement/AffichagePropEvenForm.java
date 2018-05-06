@@ -237,6 +237,7 @@ public class AffichagePropEvenForm extends SideMenuBaseForm {
                             for (Client k : listi) {
 
                                 System.out.println(k.getNom());
+                                System.out.println(k.getPhoto_user());
                                 Container listinter = new Container(new BoxLayout(BoxLayout.Y_AXIS));
 
                                 Container c = new Container(new BoxLayout(BoxLayout.X_AXIS));
@@ -246,7 +247,7 @@ public class AffichagePropEvenForm extends SideMenuBaseForm {
                                 Image placeholder = Image.createImage(deviceWidth, deviceWidth); //square image set to 10% of screen width
                                 EncodedImage encImage = EncodedImage.createFromImage(placeholder, false);
                                 label.setIcon(URLImage.createToStorage(encImage,
-                                        "http://localhost/symfony/web/uploads/images/" + k.getPhoto_user(),
+                                        "/image/xxx/" + k.getPhoto_user(),
                                         "http://localhost/symfony/web/uploads/images/" + k.getPhoto_user(), URLImage.RESIZE_SCALE_TO_FILL));
 
                                 c.add(label);

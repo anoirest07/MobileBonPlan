@@ -7,40 +7,28 @@ package Produit_Offre;
 
 import Entities.Etablissement;
 import Entities.Produit;
-import Entities.Utilisateur;
 import Services.ServiceEtablissement;
 import Services.ServiceOffre;
+import Services.ServiceProduit;
 
-import com.codename1.capture.Capture;
 import com.codename1.components.ImageViewer;
-import com.codename1.components.ToastBar;
-import com.codename1.io.ConnectionRequest;
-import com.codename1.io.JSONParser;
-import com.codename1.io.MultipartRequest;
-import com.codename1.io.NetworkEvent;
-import com.codename1.io.NetworkManager;
 import com.codename1.ui.Button;
 import com.codename1.ui.ComboBox;
 import com.codename1.ui.Container;
-import com.codename1.ui.Dialog;
-import com.codename1.ui.Display;
 import com.codename1.ui.Form;
-import com.codename1.ui.Image;
 import com.codename1.ui.Label;
 import com.codename1.ui.TextField;
 import com.codename1.ui.events.ActionEvent;
 import com.codename1.ui.events.ActionListener;
 import com.codename1.ui.layouts.BoxLayout;
-import com.codename1.ui.spinner.Picker;
-import com.codename1.ui.spinner.TimeSpinner;
-import com.codename1.ui.util.Resources;
-import com.codename1.util.Callback;
-import java.io.IOException;
-import java.io.InputStream;
-import java.io.InputStreamReader;
+import com.codename1.ui.spinner.DateSpinner;
+
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Map;
-import javafx.stage.FileChooser;
+import java.util.Date;
+import com.codename1.ui.util.Resources;
+import com.mycompany.myapp.Authentification;
 
 /**
  *
@@ -52,26 +40,30 @@ public class AjouterOffre {
     int i;
     TextField tfnomoff;
     TextField tfdescoff;
-    TextField tfimgoff;
-    Button addProd;
-    Picker pickDateDebut;
-    Picker pickDateFin;
+    
+    DateSpinner pickDateDebut;
+    DateSpinner pickDateFin;
+    ImageViewer image;
+
+    Button choose;
+
 //    TimeSpinner touver;
 //    TimeSpinner tferm;
     Container cont, cont1, cont2;
     Button btnajout, btnaff, btnautre;
     private String newfilePath = "";
     ServiceOffre so = new ServiceOffre();
+    ServiceProduit sp = new ServiceProduit();
     ServiceEtablissement se = new ServiceEtablissement();
 
     public AjouterOffre(Resources res) {
         f = new Form("Créer une Offre");
         tfnomoff = new TextField("", "Titre Offre");
         tfdescoff = new TextField("", "Description");
-        tfimgoff = new TextField("", "image");
-        addProd = new Button("Ajouter un Poduit à votre Offre");
-        pickDateDebut = new Picker();
-        pickDateFin = new Picker();
+        pickDateDebut = new DateSpinner();
+        pickDateFin = new DateSpinner();
+
+        ComboBox comboprod = new ComboBox();
 
         cont1 = new Container(new BoxLayout(BoxLayout.X_AXIS));
 
@@ -88,7 +80,7 @@ public class AjouterOffre {
         cont.add(l4);
         cont.add(l5);
 
-        ArrayList<Etablissement> petabs = se.getListEtab();
+        ArrayList<Etablissement> petabs = se.MesEtabs(Authentification.connectedUser.getId());
 
         ComboBox combo = new ComboBox();
 
@@ -98,20 +90,98 @@ public class AjouterOffre {
 
         }
 
+        ArrayList<Produit> prodoffre = sp.getList2(Authentification.connectedUser.getId());
+        System.out.println("///>>>>>>>>>>>" + prodoffre);
+
+        for (Produit pdts : prodoffre) {
+
+            comboprod.addItem(pdts.getNom_produit());
+
+        }
+
         cont2 = new Container(new BoxLayout(BoxLayout.X_AXIS));
 
         //  tcat.setWidth(200);
 //        cont1.add(cetab);
+        choose = new Button("choose image");
+
+        choose.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent evt) {
+                ServiceOffre s = new ServiceOffre();
+                s.browseImage(image);
+
+            }
+        });
         btnajout = new Button("Ajouter");
         btnaff = new Button("Annuler");
+
+        btnajout.addActionListener(new ActionListener() {
+
+            @Override
+            public void actionPerformed(ActionEvent evt) {
+
+                int dday, dmonth, dyear;
+                dday = pickDateDebut.getCurrentDay();
+                dmonth = pickDateDebut.getCurrentMonth();
+                dyear = pickDateDebut.getCurrentYear();
+                SimpleDateFormat format = new SimpleDateFormat("dd/MM/yyyy");
+                String datee = dday + "/" + dmonth + "/" + dyear;
+                Date debut = new Date();
+
+                try {
+                    debut = format.parse(datee);
+                } catch (ParseException ex) {
+
+                }
+
+                int fday, fmonth, fyear;
+                fday = pickDateDebut.getCurrentDay();
+                fmonth = pickDateDebut.getCurrentMonth();
+                fyear = pickDateDebut.getCurrentYear();
+                SimpleDateFormat fformat = new SimpleDateFormat("dd/MM/yyyy");
+                String fdatee = fday + "/" + fmonth + "/" + fyear;
+                Date fin = new Date();
+
+                try {
+                    fin = format.parse(datee);
+                } catch (ParseException ex) {
+
+                }
+                so.ajouterOffre(tfnomoff.getText(), image.getImage().getImageName(), tfdescoff.getText(), debut,
+                        fin, getidetab(combo.getSelectedIndex()));
+
+                AfficheOffres a = new AfficheOffres(res);
+                a.show();
+
+            }
+
+        });
+
+        System.out.println(i);
+
+        btnaff.addActionListener((e) -> {
+            AfficheOffres a = new AfficheOffres(res);
+            a.show();
+        });
+Label lbldd= new Label("Date Début: ");
+Label lbldf= new Label("Date Fin: ");
         cont2.add(btnajout);
         cont2.add(btnaff);
         f.add(tfnomoff);
         f.add(tfdescoff);
+        f.add(lbldd);
         f.add(pickDateDebut);
+                f.add(lbldf);
+
         f.add(pickDateFin);
-        f.add(addProd);
         f.add(combo);
+        f.add(choose);
+        image = new ImageViewer();
+
+        f.add(image);
+
+        f.add(comboprod);
         f.add(cont);
         f.add(cont1);
 
@@ -119,65 +189,6 @@ public class AjouterOffre {
         // f.add(tferm);
         // f.add(iduser);
         f.add(cont2);
-
-        btnajout.addActionListener(new ActionListener() {
-
-            @Override
-            public void actionPerformed(ActionEvent evt) {
-                if ((pickDateFin.getTime() < pickDateDebut.getTime())) {
-                    ToastBar.showErrorMessage("Try again please!\nThe start time cannot be bigger than the end time.");
-
-                    System.out.println("777777777777777777777777");
-                    System.out.println((int) (pickDateFin.getTime() - pickDateDebut.getTime()));
-                    System.out.println("777777777777777777777777");
-
-                } else {
-
-                    System.out.println("444444444444444444444444444");
-                    System.out.println((int) (pickDateFin.getTime() - pickDateDebut.getTime()));
-                    System.out.println("444444444444444444444444444");
-
-
-                ConnectionRequest req = new ConnectionRequest();
-                req.setUrl("http://localhost/symfony/web/app_dev.php/BonPlan/createoffre"
-                        + "/" + tfnomoff.getText()
-                        + "/" + tfimgoff.getText()
-                        + "/" + tfdescoff.getText()
-                        + "/" + pickDateDebut.getTime()
-                        + "/" + pickDateFin.getTime()
-                        + "/" + getidetab(combo.getSelectedIndex())
-                );
-
-                req.addResponseListener(new ActionListener<NetworkEvent>() {
-
-                    @Override
-                    public void actionPerformed(NetworkEvent evt) {
-                        byte[] data = (byte[]) evt.getMetaData();
-                        String s = new String(data);
-                        System.out.println(s);
-                        // if (s.equals("success")) {
-                        Dialog.show("Confirmation", "ajout ok", "Ok", null);
-
-                        AfficheOffres a = new AfficheOffres(res);
-                        a.show();
-                        //}
-
-                    }
-                    
-                });
-
-                NetworkManager.getInstance().addToQueueAndWait(req);
-
-            }
-                }
-
-        });
-        System.out.println(i);
-
-        btnaff.addActionListener((e) -> {
-            AfficheOffres a = new AfficheOffres(res);
-            a.show();
-        });
 
     }
 

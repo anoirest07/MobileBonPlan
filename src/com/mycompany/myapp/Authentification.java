@@ -60,8 +60,7 @@ public class Authentification {
             enc = EncodedImage.create("/giphy.gif");
         } catch (IOException ex) {
 
-        }
-        
+        }      
         f = new Form(BoxLayout.y());
         Image imu = URLImage.createToStorage(enc, "/img/frfr.jpg", "http://localhost/img.jpg", URLImage.RESIZE_SCALE);
         f.setLayout(new LayeredLayout());

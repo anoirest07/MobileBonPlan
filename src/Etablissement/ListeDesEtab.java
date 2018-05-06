@@ -10,6 +10,8 @@ import com.codename1.ui.Component;
 import com.codename1.ui.Form;
 import Entities.Etablissement;
 import Entities.Favoris;
+import Produit_Offre.AfficheOffreClient;
+import Produit_Offre.AfficheProduitsClient;
 import Services.ServiceEtablissement;
 import Services.ServiceFavoris;
 import com.codename1.components.ImageViewer;
@@ -108,6 +110,10 @@ ListModel<String> etabRech = new DefaultListModel<String>();
         for (Etablissement e : lis) {
             if (e.getEnabled() == 1) {
             etabRech.addItem(e.getNom_etablissement());
+            
+            
+            
+            
             ac.addActionListener(new ActionListener() {
                 @Override
                 public void actionPerformed(ActionEvent evt) {
@@ -184,6 +190,26 @@ Button favoris = new Button("Ajouter aux favoris");
                          Button produits = new Button("Nos produits");
                           Button offres = new Button("Nos offres");
 
+                          
+                produits.addActionListener(new ActionListener() {
+                @Override
+                public void actionPerformed(ActionEvent evt) {
+                
+                
+               AfficheProduitsClient apc= new  AfficheProduitsClient(theme,et.getId_etablissement());
+                   apc.show();
+                
+                }});
+                
+                 offres.addActionListener(new ActionListener() {
+                @Override
+                public void actionPerformed(ActionEvent evt) {
+                
+                
+               AfficheOffreClient apc= new  AfficheOffreClient(theme,et.getId_etablissement());
+                   apc.show();
+                
+                }});
                         //   c2.setHeight(700);  
                // f2.getAllStyles().setBorder(Border.createLineBorder(3, 0xffa83b));
 //                f2.getAllStyles().set3DText(true, false);
@@ -331,7 +357,29 @@ Button favoris = new Button("Ajouter aux favoris");
                         );
                          Button produits = new Button("Nos produits");
                           Button offres = new Button("Nos offres");
-                        c2.add(sp);
+                        produits.addActionListener(new ActionListener() {
+                @Override
+                public void actionPerformed(ActionEvent evt) {
+                
+                
+               AfficheProduitsClient apc= new  AfficheProduitsClient(theme,e.getId_etablissement());
+                   apc.show();
+                
+                }});
+                
+                 offres.addActionListener(new ActionListener() {
+                @Override
+                public void actionPerformed(ActionEvent evt) {
+                
+                
+               AfficheOffreClient apc= new  AfficheOffreClient(theme,e.getId_etablissement());
+                   apc.show();
+                
+                }});
+                          
+                          
+                          
+                          c2.add(sp);
                           c2.add(sp3);
                            c2.add(favoris);
                            c2.add(space1);

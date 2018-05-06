@@ -34,6 +34,7 @@ import com.codename1.ui.layouts.FlowLayout;
 import com.codename1.ui.plaf.Border;
 import com.codename1.ui.plaf.Style;
 import com.codename1.ui.util.Resources;
+import com.mycompany.myapp.Authentification;
 import com.mycompany.myapp.SideMenuBaseForm;
 import java.util.ArrayList;
 
@@ -56,6 +57,8 @@ public class AfficheProduits extends SideMenuBaseForm{
 
     public AfficheProduits(Resources res) {
         super(BoxLayout.y());
+       
+        
         Toolbar tb = getToolbar();
           FloatingActionButton fab = FloatingActionButton.createFAB(FontImage.MATERIAL_ADD);     
         fab.addActionListener(e -> {          
@@ -93,7 +96,7 @@ public class AfficheProduits extends SideMenuBaseForm{
         setupSideMenu(res);
 
         ServiceProduit serviceProd = new ServiceProduit();
-        ArrayList<Produit> lis = serviceProd.getList2();
+        ArrayList<Produit> lis = serviceProd.getList2(Authentification.connectedUser.getId());
         for (Produit e : lis) {
 
             lb1 = new Label();
@@ -121,26 +124,17 @@ public class AfficheProduits extends SideMenuBaseForm{
             c.add(c3);
 
             //c1.add(imgv);
-            del.addActionListener(new ActionListener() {
+             del.addActionListener(new ActionListener() {
                 @Override
                 public void actionPerformed(ActionEvent evt) {
-//            ServiceProduit sp = new ServiceProduit();
-//                    sp.supprimerProduit(e);
-//              AfficheProduits ap= new AfficheProduits(res);
-//              ap.getF().show();
- Dialog d = new Dialog();
+            ServiceProduit sp = new ServiceProduit();
+                    sp.supprimerProduit(e);
 
-                    if (Dialog.show("Confirmation", "delete this product??", "oui", "Annuler")) {
-                        ConnectionRequest req = new ConnectionRequest();
-
-                        req.setUrl("http://localhost/symfony/web/app_dev.php/BonPlan/deleteprod/"+e.getId_produit());
-                    
-                        NetworkManager.getInstance().addToQueue(req);
-                        f.revalidate();
-//                       PubliciteController pc = new PubliciteController(theme);
-//                        pc.getForm().show();
+                 f.revalidate();
                     new AfficheProduits(res).show();
-             }}
+                
+                
+                }
             });
             
             
@@ -149,28 +143,9 @@ public class AfficheProduits extends SideMenuBaseForm{
                 public void actionPerformed(ActionEvent evt) {
 
                     f2 = new Form(new BoxLayout(BoxLayout.Y_AXIS));
-                    Toolbar tb = f2.getToolbar();
                     c2 = new Container(new BoxLayout(BoxLayout.Y_AXIS));
 
-                    tb.getAllStyles().setBgColor(0x990033);
-                    tb.addMaterialCommandToRightBar("Retourner à la liste", FontImage.MATERIAL_ARROW_BACK, (evt2) -> {
-                        AfficheProduits h = new AfficheProduits(res);
-                        h.show();
-                    });
-                    tb.getAllStyles().setBgColor(0x990033);
-
-                    tb.addMaterialCommandToSideMenu("Retourner à la liste", FontImage.MATERIAL_RADIO_BUTTON_CHECKED, (evt2) -> {
-                        AfficheProduits h = new AfficheProduits(res);
-                        h.show();
-                    });
-                    tb.addMaterialCommandToSideMenu("Retourner à la liste", FontImage.MATERIAL_RADIO_BUTTON_CHECKED, (evt2) -> {
-                        AfficheProduits h = new AfficheProduits(res);
-                        h.show();
-                    });
-                    tb.addMaterialCommandToSideMenu("Retourner à la liste", FontImage.MATERIAL_RADIO_BUTTON_CHECKED, (evt2) -> {
-                        AfficheProduits h = new AfficheProduits(res);
-                        h.show();
-                    });
+        
 
                     ImageViewer img = new ImageViewer();
                     int deviceWidth = Display.getInstance().getDisplayWidth() / 4;
@@ -221,20 +196,7 @@ public class AfficheProduits extends SideMenuBaseForm{
 
         }
         
-        tb.getAllStyles().setBgColor(0x990033);
-
-        tb.addMaterialCommandToSideMenu("Retourner à la liste", FontImage.MATERIAL_RADIO_BUTTON_CHECKED, (evt2) -> {
-            AfficheProduits h = new AfficheProduits(res);
-            h.show();
-        });
-        tb.addMaterialCommandToSideMenu("Retourner à la liste", FontImage.MATERIAL_RADIO_BUTTON_CHECKED, (evt2) -> {
-            AfficheProduits h = new AfficheProduits(res);
-            h.show();
-        });
-        tb.addMaterialCommandToSideMenu("Retourner à la liste", FontImage.MATERIAL_RADIO_BUTTON_CHECKED, (evt2) -> {
-            AfficheProduits h = new AfficheProduits(res);
-            h.show();
-        });
+        
 //        btnajout.addActionListener((e) -> {
 //            AjouterProduit a = new AjouterProduit(res);
 //            a.getF().show();
@@ -256,6 +218,9 @@ public class AfficheProduits extends SideMenuBaseForm{
         this.f = f;
     }
 
+    
+    
+    
     @Override
     protected void showOtherForm(Resources res) {
          //To change body of generated methods, choose Tools | Templates.

@@ -131,8 +131,9 @@ for (Offre e : lis) {
                 public void actionPerformed(ActionEvent evt) {
             ServiceOffre so = new ServiceOffre();
                     so.supprimerOffre(e);
-              AfficheOffres ao= new AfficheOffres(res);
-              ao.show();
+            f.revalidate();
+                    new AfficheOffres(res).show();
+                
                 }
             });
             details.addActionListener(new ActionListener() {
@@ -143,7 +144,7 @@ for (Offre e : lis) {
                     Toolbar tb = f2.getToolbar();
                     c2 = new Container(new BoxLayout(BoxLayout.Y_AXIS));
                     tb.getAllStyles().setBgColor(0x990033);
-                    tb.addMaterialCommandToLeftBar("Retourner à la liste", FontImage.MATERIAL_ARROW_BACK, (evt2) -> {
+                    tb.addMaterialCommandToLeftBar("", FontImage.MATERIAL_ARROW_BACK, (evt2) -> {
                         AfficheOffres h = new AfficheOffres(res);
                         h.show();
                     });
@@ -203,9 +204,6 @@ for (Offre e : lis) {
 
     }
 
-//    public Form getF() {
-//        return f;
-//    }
 
     public void setF(Form f) {
         this.f = f;
