@@ -14,6 +14,7 @@ import com.codename1.ui.events.ActionListener;
 import Entities.Client;
 import Entities.Commentaire;
 import Entities.Experience;
+import Entities.Utilisateur;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
@@ -68,8 +69,14 @@ public class ServiceCommentaire {
                          c.setId_commentaire(obj.get("idCommentaire").toString());
                          c.setCommentaire(obj.get("commentaire").toString());
                          c.setIdExp(obj.get("idExp").toString());
-                         c.setIdUcomm(obj.get("idUcomm").toString());
+                         //c.setIdUcomm(obj.get("idUcomm").toString());
+                         String user_id ="";
+                user_id = obj.get("idUcomm").toString();
+                String id_user=user_id.substring(user_id.indexOf("id=")+3, user_id.indexOf("nom")-4);
+                System.out.println("7achty   "+id_user);
+            // c.setId_u(id_user);
                          
+                        c.setIdUcomm(id_user);
                        
                         
                         //ArrayList<Etablissement> listEtab=getListEtab("http://localhost/BonPlan3/web/app_dev.php/BonPlan/etabjsonid/"+P.getId_etablissement());

@@ -143,7 +143,7 @@ public class Authentification {
 
         data.add(login);
         data.add(reset);
-         Button reg = new Button("Register ?");
+         Button reg = new Button("s'inscrire ");
         reg.addActionListener(e->{
         new register(theme).getF1().show();
         

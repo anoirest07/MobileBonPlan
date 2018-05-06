@@ -22,7 +22,10 @@ import com.codename1.ui.util.ImageIO;
 import com.codename1.util.Base64;
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 import java.util.Map;
 
@@ -54,6 +57,19 @@ public class ServicePublicite {
                         P.setPhoto_publicite(obj.get("photoPublicite").toString()); 
                         P.setTitre(obj.get("titre").toString()); 
                         P.setDescription_publicite(obj.get("descriptionPublicite").toString());
+                        Map<String, Object> debutsession = (Map<String, Object>) obj.get("datedebut");
+                        double td = (double) debutsession.get("timestamp");
+                        long xd = (long) (td * 1000L);
+                        String formatd = new SimpleDateFormat("dd-MM-yyyy ").format(new Date(xd));
+                        Date datedebut;
+                        try {
+                            datedebut = new SimpleDateFormat("dd-MM-yyyy").parse(formatd);
+                            System.out.println(formatd);
+                        System.out.println(datedebut);
+                        P.setDateDebut(datedebut);
+                        } catch (ParseException ex) {
+                        }
+                        
 
 
                         listTasks.add(P);

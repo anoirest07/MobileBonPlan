@@ -30,7 +30,7 @@ public class Proprietaire extends Utilisateur{
      public Proprietaire( String nom, String prenom, Date date_de_naissance, String sexe, int num_tel,  String mot_de_passe, String username ,String region, String roles, String ville, String email , Date date_inscription , String photo_user)
      {
         
-        super( nom , prenom , mot_de_passe,username,roles,email);
+        super( nom , prenom , mot_de_passe,username,roles,email,photo_user);
         
        
         this.num_tel=num_tel;

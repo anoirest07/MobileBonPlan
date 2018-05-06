@@ -18,6 +18,8 @@ import com.restfb.types.FacebookType;
 import com.codename1.components.FloatingActionButton;
 import com.codename1.io.ConnectionRequest;
 import com.codename1.io.NetworkManager;
+import com.codename1.l10n.ParseException;
+import com.codename1.l10n.SimpleDateFormat;
 import com.codename1.ui.Button;
 import static com.codename1.ui.Component.BOTTOM;
 import com.codename1.ui.Container;
@@ -33,11 +35,14 @@ import com.codename1.ui.events.ActionListener;
 import com.codename1.ui.layouts.BorderLayout;
 import com.codename1.ui.layouts.BoxLayout;
 import com.codename1.ui.layouts.FlowLayout;
+import com.codename1.ui.plaf.Border;
 import com.codename1.ui.util.Resources;
 import com.mycompany.myapp.Authentification;
 import com.mycompany.myapp.SideMenuBaseForm;
 import com.mycompany.myapp.StatsForm;
 import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Date;
 
 /**
  *
@@ -54,7 +59,8 @@ public class PubliciteController extends SideMenuBaseForm{
     public PubliciteController(Resources theme){
         super(BoxLayout.y());
         Toolbar tb = getToolbar();
-        FloatingActionButton fab = FloatingActionButton.createFAB(FontImage.MATERIAL_ADD);     
+        FloatingActionButton fab = FloatingActionButton.createFAB(FontImage.MATERIAL_ADD); 
+        
         fab.addActionListener(e -> {          
 //            AddPublicite add= new AddPublicite(theme);
 //            add.getForm().show();
@@ -64,6 +70,7 @@ public class PubliciteController extends SideMenuBaseForm{
         
         Button menuButton = new Button("");
         menuButton.setUIID("Title");
+        
         FontImage.setMaterialIcon(menuButton, FontImage.MATERIAL_MENU);
         menuButton.addActionListener(l -> ((SideMenuBar)getToolbar().getMenuBar()).openMenu(null));
         
@@ -149,6 +156,7 @@ public class PubliciteController extends SideMenuBaseForm{
             btn.add(del);
             root2.add(btn);
             root.add(root2);
+            root.add(showdate(t.getDateDebut()));
 
         }
         home.add(root);
@@ -165,6 +173,48 @@ public class PubliciteController extends SideMenuBaseForm{
     @Override
     protected void showOtherForm(Resources res) {
           new StatsForm(res).show();//To change body of generated methods, choose Tools | Templates.
+    }
+    
+    public String showdate(Date c) {
+        
+        Calendar cal = Calendar.getInstance();
+         cal.add(Calendar.DATE, -7);
+         Date dt = cal.getTime();
+        String str = new SimpleDateFormat("dd/MM/yyyy : HH:mm").format(dt);
+        SimpleDateFormat format = new SimpleDateFormat("dd/MM/yyyy : HH:mm");
+        Date d1 = null;
+        Date d2 = null;
+        Container contr = new Container(new BoxLayout(BoxLayout.Y_AXIS));
+        contr.getStyle().setBorder(Border.createLineBorder(1, 1));
+        try {
+            String date = new SimpleDateFormat("dd/MM/yyyy : HH:mm").format(c);
+            d1 = format.parse(date);
+            d2 = format.parse(str);
+
+            //in milliseconds
+            long diff = d2.getTime() - d1.getTime();
+
+            long diffSeconds = diff / 1000 % 60;
+            long diffMinutes = diff / (60 * 1000) % 60;
+            long diffHours = diff / (60 * 60 * 1000) % 24;
+            long diffDays = diff / (24 * 60 * 60 * 1000);
+
+            System.out.print(diffDays + " days, ");
+            System.out.print(diffHours + " hours, ");
+            System.out.print(diffMinutes + " minutes, ");
+            System.out.print(diffSeconds + " seconds.");
+            if(diffDays < 7){
+          String dateString = "Il vous reste : " + diffDays + " jour(s) " + diffHours + " heure(s) " + diffMinutes + " minute(s)";
+   return dateString;
+            }
+            else {
+                return "passé";
+            }
+            
+        } catch (ParseException ex) {
+
+        }
+        return "";
     }
     
  }

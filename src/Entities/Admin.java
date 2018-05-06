@@ -12,12 +12,13 @@ package Entities;
 public class Admin extends Utilisateur{
     
     private String email;
+     private String photo_user;
     public Admin(){
         
     }
     
-    public Admin( String nom, String prenom,String username, String mot_de_passe, String roles,String email){
-        super( nom , prenom , mot_de_passe,username,roles,email);
+    public Admin( String nom, String prenom,String username, String mot_de_passe, String roles,String email,String photo_user){
+        super( nom , prenom , mot_de_passe,username,roles,email,photo_user);
         this.email=email;
     }
 

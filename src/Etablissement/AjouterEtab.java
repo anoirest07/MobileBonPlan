@@ -29,10 +29,12 @@ import com.codename1.ui.Container;
 import com.codename1.ui.Dialog;
 import com.codename1.ui.Display;
 import com.codename1.ui.EncodedImage;
+import com.codename1.ui.FontImage;
 import com.codename1.ui.Form;
 import com.codename1.ui.Image;
 import com.codename1.ui.Label;
 import com.codename1.ui.TextField;
+import com.codename1.ui.Toolbar;
 import com.codename1.ui.URLImage;
 import com.codename1.ui.events.ActionEvent;
 import com.codename1.ui.events.ActionListener;
@@ -85,6 +87,12 @@ public class AjouterEtab {
     public AjouterEtab(Resources theme){
         
      f = new Form("Ajouter un établissement",BoxLayout.y());
+      Toolbar tg = f.getToolbar();
+            tg.addMaterialCommandToRightBar("", FontImage.MATERIAL_ARROW_BACK, g->
+            {
+            
+            new MesEtabs(theme).show();
+             });
         tnom = new TextField("","Nom établissement");
                  Label label = new Label();
 btnOpen1=new Button("photo etab");
@@ -160,7 +168,7 @@ btnOpen2 = new Button("photo pat");
         ac.setMinimumElementsShownInPopup(5);
         ac.setHint("Adresse(Rue,Avenue...)");
         btnajout = new Button("Ajouter");
-        btnaff=new Button("Annuler");
+       // btnaff=new Button("Annuler");
        // cont2.add(btnajout);
         //cont2.add(btnaff);
         Label llabadr= new Label("Adresse:");
@@ -256,7 +264,7 @@ btnOpen2 = new Button("photo pat");
                            f.add(conten);
                       
                 f.add(btnajout);
-                f.add(btnaff);
+               // f.add(btnaff);
                          //f.add(cont2);
                      ImageViewer ii = new ImageViewer();
                      ImageViewer i2 = new ImageViewer();
@@ -347,7 +355,7 @@ btnOpen2 = new Button("photo pat");
                         // if (s.equals("success")) {
                              Dialog.show("Ajout effectué", "Votre établissement a été ajouté", "Ok", null);
                                MesEtabs h = new MesEtabs( theme);
-        h.show();
+                                 h.show();
                         //}
                     }
                 });
@@ -358,10 +366,7 @@ btnOpen2 = new Button("photo pat");
         });
                 System.out.println(i);
     
-        btnaff.addActionListener((e)->{
-        MesEtabs a=new MesEtabs( theme);
-        a.show();
-        });
+        
      
    //  f.add(containerCrit);  
     }

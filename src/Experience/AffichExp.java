@@ -323,7 +323,7 @@ Toolbar tg = f.getToolbar();
             z++;
                // Container C = new Container(new GridLayout(1, 2));
                 Container root2 = new Container(new BoxLayout(BoxLayout.Y_AXIS));
-                 Container img = new Container(new BoxLayout(BoxLayout.Y_AXIS));
+                 Container img = new Container(new BoxLayout(BoxLayout.X_AXIS));
           
                 Label Message3 = new Label();
                 Message3.setText(pub.getCommentaire());
@@ -364,37 +364,52 @@ Toolbar tg = f.getToolbar();
                 
                 Label Message2 = new Label();
                   Container C1 = new Container(new BoxLayout(BoxLayout.X_AXIS));
-                   Message.setText("Nom : "+cl.getNom());
+                   Message.setText(cl.getNom());
                   
-                Message2.setText("Prenom : "+cl.getPrenom());
+                Message2.setText(cl.getPrenom());
                   C1.add(Message);
                 
                 C1.add(Message2);
                    System.out.println(Message);
                    System.out.println(Message2);
                   // System.out.println(etab);
-                   
-                     EncodedImage img1 = EncodedImage.createFromImage(Image.createImage(Display.getInstance().getDisplayWidth(), 150), true);
-                            URLImage imgg1 = URLImage.createToStorage(img1, cl.getPhoto_user(),
-                                    "http://localhost/symfony/web/images/"+cl.getPhoto_user());
-                            imgg1.fetch();
-                           // Image bla = imgg1.getImage("bla.jpg");
-                            ImageViewer imgv1 = new ImageViewer(imgg1);
+                   Label label = new Label();
+                      int deviceWidth = Display.getInstance().getDisplayWidth() / 4;
+                      Image placeholder1 = Image.createImage(deviceWidth, deviceWidth); //square image set to 10% of screen width
+            EncodedImage encImage = EncodedImage.createFromImage(placeholder1, false);
+            label.setIcon(URLImage.createToStorage(encImage,
+                    "Large_" + "http://localhost/symfony/web/uploads/images/" + cl.getPhoto_user()
+                    + "", "http://localhost/symfony/web/uploads/images/" + cl.getPhoto_user()
+                    + "", URLImage.RESIZE_SCALE_TO_FILL));
+//                     EncodedImage img1 = EncodedImage.createFromImage(Image.createImage(Display.getInstance().getDisplayWidth(), 150), true);
+//                            URLImage imgg1 = URLImage.createToStorage(img1, cl.getPhoto_user(),
+//                                    "http://localhost/symfony/web/images/"+cl.getPhoto_user());
+//                            imgg1.fetch();
+//                           // Image bla = imgg1.getImage("bla.jpg");
+//                            ImageViewer imgv1 = new ImageViewer(imgg1);
                           //   Container C1 = new Container(BoxLayout.y());
-                    img.add(imgv1);
-                      root2.add(C1);
+                    img.add(label);
+                    img.add(C1);
+                  //  img.add(C2);
+                  //  root2.add(img);
+                   //   root2.add(C1);
                    
                    //  f.add(C1);
                    
                }
                        
                      Container btn = new Container(new BoxLayout(BoxLayout.X_AXIS));
-                     btn.add(b);
+                     System.out.println(pub.getIdUcomm());
+                    if(pub.getIdUcomm().equals(String.valueOf(Authentification.connectedUser.getId()))){
+                   btn.add(b);
+                   }
             
             
+              //   root2.add(C2);
+                 
+                 root.add(img);
                  root2.add(C2);
                  root2.add(btn);
-                 root.add(img);
             root.add(root2);
               
                 // f.add(C);
