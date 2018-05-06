@@ -5,6 +5,7 @@
  */
 package Evenement;
 
+import Entities.Client;
 import Entities.Evenement;
 import Entities.Interesser;
 import Entities.Utilisateur;
@@ -14,6 +15,7 @@ import com.codename1.components.ImageViewer;
 import com.codename1.components.SpanLabel;
 import com.codename1.io.ConnectionRequest;
 import com.codename1.io.NetworkManager;
+import com.codename1.ui.AutoCompleteTextField;
 import com.codename1.ui.Button;
 import com.codename1.ui.Container;
 import com.codename1.ui.Dialog;
@@ -31,6 +33,8 @@ import com.codename1.ui.events.ActionListener;
 import com.codename1.ui.layouts.BorderLayout;
 import com.codename1.ui.layouts.BoxLayout;
 import com.codename1.ui.layouts.FlowLayout;
+import com.codename1.ui.list.DefaultListModel;
+import com.codename1.ui.list.ListModel;
 import com.codename1.ui.util.Resources;
 import com.mycompany.myapp.Authentification;
 import com.mycompany.myapp.SideMenuBaseForm;
@@ -48,70 +52,66 @@ import java.util.ArrayList;
  *
  * @author tanga
  */
-public class AffichagePropEvenForm extends SideMenuBaseForm{
-  Container f;
+public class AffichagePropEvenForm extends SideMenuBaseForm {
+
+    Container f;
     String url2 = "/imggd";
     String url = "http://localhost/symfony/web/uploads/images/";
     EncodedImage enc;
-  Label l5;
-    
-    public AffichagePropEvenForm(Resources theme)  
-    {super(BoxLayout.y());
-    Toolbar tb = getToolbar();
-    
-    tb.addMaterialCommandToRightBar("", FontImage.MATERIAL_ADD, e->{
-             AjoutEventForm add= new AjoutEventForm(theme);
+    Label l5;
+
+    public AffichagePropEvenForm(Resources theme) {
+        super(BoxLayout.y());
+        Toolbar tb = getToolbar();
+
+        tb.addMaterialCommandToRightBar("", FontImage.MATERIAL_ADD, e -> {
+            AjoutEventForm add = new AjoutEventForm(theme);
             add.getF().show();
             Form f2 = add.getF();
-                                    Toolbar fg = f2.getToolbar();
-         fg.addMaterialCommandToRightBar("", FontImage.MATERIAL_ARROW_BACK, hj->
-            {
-            new AffichagePropEvenForm(theme).show();
-            
-            });  
-            
+            Toolbar fg = f2.getToolbar();
+            fg.addMaterialCommandToRightBar("", FontImage.MATERIAL_ARROW_BACK, hj
+                    -> {
+                new AffichagePropEvenForm(theme).show();
+
             });
-       
-                                try {
-                                    enc = EncodedImage.create("/load.png");
-                                } catch (IOException ex) 
-                                {
-                                }
-                                
-         f = new Container(new BoxLayout(BoxLayout.Y_AXIS));
-         Button menuButton = new Button("");
+
+        });
+
+        try {
+            enc = EncodedImage.create("/load.png");
+        } catch (IOException ex) {
+        }
+
+        f = new Container(new BoxLayout(BoxLayout.Y_AXIS));
+        Button menuButton = new Button("");
         menuButton.setUIID("Title");
         FontImage.setMaterialIcon(menuButton, FontImage.MATERIAL_MENU);
-        menuButton.addActionListener(l -> ((SideMenuBar)getToolbar().getMenuBar()).openMenu(null));
-        
-       
+        menuButton.addActionListener(l -> ((SideMenuBar) getToolbar().getMenuBar()).openMenu(null));
+
         Container titleCmp = BoxLayout.encloseY(
-                        FlowLayout.encloseIn(menuButton),
-                        BorderLayout.centerAbsolute(
-                                BoxLayout.encloseY(
-                                    new Label("Mes Evenements", "Title")
-                                )
-                            )
-                );
+                FlowLayout.encloseIn(menuButton),
+                BorderLayout.centerAbsolute(
+                        BoxLayout.encloseY(
+                                new Label("Mes Evenements", "Title")
+                        )
+                )
+        );
         tb.setTitleComponent(titleCmp);
-        FontImage arrowDown = FontImage.createMaterial(FontImage.MATERIAL_KEYBOARD_ARROW_DOWN, "Label", 3);  
+        FontImage arrowDown = FontImage.createMaterial(FontImage.MATERIAL_KEYBOARD_ARROW_DOWN, "Label", 3);
         setupSideMenu(theme);
-         
-         
+
         //menuButton.addActionListener(e -> ((SideMenuBar)getToolbar().getMenuBar()).openMenu(null));
         ServiceEvenement serviceTask = new ServiceEvenement();
-        
-       
-        
+
         ServiceEvenement sp = new ServiceEvenement();
         ArrayList<Evenement> p = sp.getList2(Authentification.connectedUser.getId());
         Container ctnlistProduct = new Container(new BoxLayout(BoxLayout.Y_AXIS));
         for (Evenement pr : p) {
-                       
-                    ArrayList<Utilisateur>listi = sp.getListinteresser(pr.getId_evenement());
-                   
-        Button del = new Button("");
-                                del.setIcon(FontImage.createMaterial(FontImage.MATERIAL_DELETE, del.getUnselectedStyle()));   
+
+            ArrayList<Client> listi = sp.getListinteresser(pr.getId_evenement());
+
+            Button del = new Button("");
+            del.setIcon(FontImage.createMaterial(FontImage.MATERIAL_DELETE, del.getUnselectedStyle()));
 
             del.addActionListener(new ActionListener() {
                 @Override
@@ -122,160 +122,193 @@ public class AffichagePropEvenForm extends SideMenuBaseForm{
                     if (Dialog.show("Confirmation", "delete this Events??", "Ok", "Annuler")) {
                         ConnectionRequest req = new ConnectionRequest();
 
-                        req.setUrl("http://localhost/symfony/web/app_dev.php/BonPlan/deletes/"
+                        req.setUrl("http://localhost/symfony/web/app_dev.php/BonPlan/deletesJson/"
                                 + pr.getId_evenement());
                         System.out.println(pr.getId_evenement());
                         NetworkManager.getInstance().addToQueueAndWait(req);
-                        
+
                         AffichagePropEvenForm pc = new AffichagePropEvenForm(theme);
                         pc.show();
 
                     }
                 }
             });
-              Button Update = new Button("");
-                                Update.setIcon(FontImage.createMaterial(FontImage.MATERIAL_EDIT, Update.getUnselectedStyle()));   
+            Button Update = new Button("");
+            Update.setIcon(FontImage.createMaterial(FontImage.MATERIAL_EDIT, Update.getUnselectedStyle()));
 
             Update.addActionListener(new ActionListener() {
                 @Override
-                public void actionPerformed(ActionEvent k) 
-                {
+                public void actionPerformed(ActionEvent k) {
                     System.out.println("button update clicked");
-                        ModifierEventForm jk = new ModifierEventForm(theme, pr);
+                    ModifierEventForm jk = new ModifierEventForm(theme, pr);
                     jk.getF().show();
-            Form f2 = jk.getF();
-                        Toolbar fg = f2.getToolbar();
+                    Form f2 = jk.getF();
+                    Toolbar fg = f2.getToolbar();
 
-         fg.addMaterialCommandToRightBar("", FontImage.MATERIAL_ARROW_BACK, g->
-            {
-            
-            new AffichagePropEvenForm(theme).show();
-            
-            });  
-                        
-                                    
-                                  
-             }
-                          
+                    fg.addMaterialCommandToRightBar("", FontImage.MATERIAL_ARROW_BACK, g
+                            -> {
+
+                        new AffichagePropEvenForm(theme).show();
+
+                    });
+
+                    AffichagePropEvenForm pc = new AffichagePropEvenForm(theme);
+                    pc.show();
+                }
+
             });
-           
-            
+
             Button btmap = new Button("Carte");
-                        btmap.setIcon(FontImage.createMaterial(FontImage.MATERIAL_MAP, btmap.getUnselectedStyle()));   
-                        btmap.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) 
-            {
-                                    double latitude = pr.getEtab().getLat();
-                                    double longitude = pr.getEtab().getLong();
-                                    
-                                    
-        System.out.println("coordinates: "+latitude+" "+longitude);
-                Form f7;
-                MapForm a=new MapForm(latitude,longitude,pr.getNom_evenement());
-                a.getF().show();
-                f7 = a.getF();
-                Toolbar fg = f7.getToolbar();
-            
-            fg.addMaterialCommandToRightBar("", FontImage.MATERIAL_ARROW_BACK, g->
-            {
-            
-            new AffichagePropEvenForm(theme).show();
-            
-            });
-            }
-        });
-   
+            btmap.setIcon(FontImage.createMaterial(FontImage.MATERIAL_MAP, btmap.getUnselectedStyle()));
+            btmap.addActionListener(new ActionListener() {
+                @Override
+                public void actionPerformed(ActionEvent e) {
+                    double latitude = pr.getEtab().getLat();
+                    double longitude = pr.getEtab().getLong();
 
-            
-            
+                    System.out.println("coordinates: " + latitude + " " + longitude);
+                    Form f7;
+                    MapForm a = new MapForm(latitude, longitude, pr.getNom_evenement());
+                    a.getF().show();
+                    f7 = a.getF();
+                    Toolbar fg = f7.getToolbar();
+
+                    fg.addMaterialCommandToRightBar("", FontImage.MATERIAL_ARROW_BACK, g
+                            -> {
+
+                        new AffichagePropEvenForm(theme).show();
+
+                    });
+                }
+            });
+
             Button btn3 = new Button("Détails");
-                      btn3.setIcon(FontImage.createMaterial(FontImage.MATERIAL_INFO, btn3.getUnselectedStyle()));   
+            btn3.setIcon(FontImage.createMaterial(FontImage.MATERIAL_INFO, btn3.getUnselectedStyle()));
 
-                        btn3.setWidth(15);
-                        btn3.addActionListener(new ActionListener() 
-                        {
-                            @Override
-            public void actionPerformed(ActionEvent evt) {
-            Form f2;
-            
-            
-            f2 = new Form(pr.getNom_evenement(),BoxLayout.y());
-                  
-            Toolbar tb = f2.getToolbar();
-            
-            tb.addMaterialCommandToRightBar("", FontImage.MATERIAL_ARROW_BACK, e->{
-            
-            new AffichagePropEvenForm(theme).show();
-            
-            });
-            
-                URLImage imgsv = URLImage.createToStorage(enc, url2+pr.getPhoto(), url+pr.getPhoto());
-                ImageViewer imgvb = new ImageViewer(imgsv);
-                imgvb.setWidth(100);
-                imgvb.setHeight(100);
-                SpanLabel name = new SpanLabel(pr.getNom_evenement());
-                
-                SpanLabel fondation = new SpanLabel("Description: "+pr.getDescription());
-                Container ca = new Container(new BoxLayout(BoxLayout.Y_AXIS));
-                SpanLabel inter = new SpanLabel("list des interessé");
-                 
-                ca.add(imgvb);
-                f2.add(fondation); 
-                f2.add(ca);
-               f2.add(inter);
-               for (Utilisateur k : listi) {
+            btn3.setWidth(15);
+            btn3.addActionListener(new ActionListener() {
+                @Override
+                public void actionPerformed(ActionEvent evt) {
+                    Form f2;
 
-                    System.out.println(k.getNom());
-                    
-                   SpanLabel listinteresser = new SpanLabel(k.getNom());
-                 f2.add(listinteresser);
-                 }
+                    f2 = new Form(pr.getNom_evenement(), BoxLayout.y());
 
-               f2.show();
-}
-        });
-                   
+                    Toolbar tb = f2.getToolbar();
 
-                        Container c = new Container(new BoxLayout(BoxLayout.X_AXIS));
-                        SpanLabel label = new SpanLabel();
-                        System.out.println(pr.getPhoto());
-                        int deviceWidth = Display.getInstance().getDisplayWidth() /4;
+                    tb.addMaterialCommandToRightBar("", FontImage.MATERIAL_ARROW_BACK, e -> {
+
+                        new AffichagePropEvenForm(theme).show();
+
+                    });
+
+                    URLImage imgsv = URLImage.createToStorage(enc, url2 + pr.getPhoto(), url + pr.getPhoto());
+                    ImageViewer imgvb = new ImageViewer(imgsv);
+                    imgvb.setWidth(100);
+                    imgvb.setHeight(100);
+                    SpanLabel name = new SpanLabel(pr.getNom_evenement());
+
+                    SpanLabel fondation = new SpanLabel("Description: " + pr.getDescription());
+                    Container ca = new Container(new BoxLayout(BoxLayout.Y_AXIS));
+                    URLImage imageinters = URLImage.createToStorage(enc, url2 + pr.getPhoto(), url + pr.getPhoto());
+
+                    ImageViewer imageinter = new ImageViewer(imageinters);
+                    ca.add(imgvb);
+                    f2.add(fondation);
+                    f2.add(ca);
+                    Button listInteressers = new Button("list des Interessers");
+                    listInteressers.setIcon(FontImage.createMaterial(FontImage.MATERIAL_THUMB_UP, btn3.getUnselectedStyle()));
+
+                    listInteressers.setWidth(15);
+                    listInteressers.addActionListener(new ActionListener() {
+                        @Override
+                        public void actionPerformed(ActionEvent evt) {
+                            Form f4;
+
+                            f4 = new Form(pr.getNom_evenement(), BoxLayout.y());
+
+                            Toolbar tb = f4.getToolbar();
+
+                            tb.addMaterialCommandToRightBar("", FontImage.MATERIAL_ARROW_BACK, e -> {
+
+                                new AffichagePropEvenForm(theme).show();
+
+                            });
+
+                            for (Client k : listi) {
+
+                                System.out.println(k.getNom());
+                                Container listinter = new Container(new BoxLayout(BoxLayout.Y_AXIS));
+
+                                Container c = new Container(new BoxLayout(BoxLayout.X_AXIS));
+                                Label label = new Label();
+
+                                int deviceWidth = Display.getInstance().getDisplayWidth() / 4;
                                 Image placeholder = Image.createImage(deviceWidth, deviceWidth); //square image set to 10% of screen width
                                 EncodedImage encImage = EncodedImage.createFromImage(placeholder, false);
                                 label.setIcon(URLImage.createToStorage(encImage,
-                                        "Large_" + url2 +pr.getPhoto()+
-                                                "", url +pr.getPhoto()+
-                                                        ""));
-                    
-                        c.add(label);
-                        Container cnt = new Container(new BoxLayout(BoxLayout.Y_AXIS));
-                        cnt.add(pr.getNom_evenement());
-                                                System.out.println(pr.getEtab().getLat());
-                                                System.out.println(pr.getEtab().getLong());
+                                        "http://localhost/symfony/web/uploads/images/" + k.getPhoto_user(),
+                                        "http://localhost/symfony/web/uploads/images/" + k.getPhoto_user(), URLImage.RESIZE_SCALE_TO_FILL));
 
-                        c.add(cnt);
-                        Container cnt1 = new Container(new BoxLayout(BoxLayout.X_AXIS));
-                        cnt1.add(btn3);
-                         cnt1.add(btmap);
-                         cnt1.add(del);
-                         cnt1.add(Update);
-                        Container cc = new Container(new BoxLayout(BoxLayout.Y_AXIS));
-                        cc.add(c);
-                        cc.add(cnt1);
-                        ctnlistProduct.add(cc);
-                         SpanLabel dd = new SpanLabel(pr.getDate_evenement().toString());
-                          cnt.add(dd);
-                           Label ab = new Label(pr.getEtab().getNom_etablissement().toString());
-                        cnt.add(ab);
-                        
-       
+                                c.add(label);
+                                Container cnt = new Container(new BoxLayout(BoxLayout.Y_AXIS));
+                                cnt.add(k.getNom());
+
+                                c.add(cnt);
+                                Container cc = new Container(new BoxLayout(BoxLayout.Y_AXIS));
+                                cc.add(c);
+                                listinter.add(cc);
+
+                                f4.add(listinter);
+                            }
+
+                            f4.show();
+
+                        }
+                    });
+                    f2.add(listInteressers);
+                    f2.show();
+
+                }
+            });
+
+            Container c = new Container(new BoxLayout(BoxLayout.X_AXIS));
+            SpanLabel label = new SpanLabel();
+            System.out.println(pr.getPhoto());
+            int deviceWidth = Display.getInstance().getDisplayWidth() / 4;
+            Image placeholder = Image.createImage(deviceWidth, deviceWidth); //square image set to 10% of screen width
+            EncodedImage encImage = EncodedImage.createFromImage(placeholder, false);
+            label.setIcon(URLImage.createToStorage(encImage,
+                    "Large_" + url2 + pr.getPhoto()
+                    + "", url + pr.getPhoto()
+                    + ""));
+
+            c.add(label);
+            Container cnt = new Container(new BoxLayout(BoxLayout.Y_AXIS));
+            cnt.add(pr.getNom_evenement());
+            System.out.println(pr.getEtab().getLat());
+            System.out.println(pr.getEtab().getLong());
+
+            c.add(cnt);
+            Container cnt1 = new Container(new BoxLayout(BoxLayout.X_AXIS));
+            cnt1.add(btn3);
+            cnt1.add(btmap);
+            cnt1.add(del);
+            cnt1.add(Update);
+            Container cc = new Container(new BoxLayout(BoxLayout.Y_AXIS));
+            cc.add(c);
+            cc.add(cnt1);
+            ctnlistProduct.add(cc);
+            SpanLabel dd = new SpanLabel(pr.getDate_evenement().toString());
+            cnt.add(dd);
+            Label ab = new Label(pr.getEtab().getNom_etablissement().toString());
+            cnt.add(ab);
+
         }
-        
-        
+
         f.add(ctnlistProduct);
         add(f);
     }
+
     public static Image getImageFromTheme(String name) {
         try {
             Resources resFile = Resources.openLayered("/theme");
@@ -290,14 +323,13 @@ public class AffichagePropEvenForm extends SideMenuBaseForm{
 //    public Form getF() {
 //        return f;
 //    }
-
     public void setF(Form f) {
         this.f = f;
     }
 
     @Override
     protected void showOtherForm(Resources res) {
-         //To change body of generated methods, choose Tools | Templates.
+        //To change body of generated methods, choose Tools | Templates.
     }
-   
+
 }

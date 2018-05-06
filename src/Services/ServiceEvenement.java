@@ -5,6 +5,7 @@
  */
 package Services;
 
+import Entities.Client;
 import Entities.Etablissement;
 import com.codename1.io.CharArrayReader;
 import com.codename1.io.ConnectionRequest;
@@ -152,7 +153,63 @@ public class ServiceEvenement {
         return listTasks;
     }
     
-    
+    public ArrayList<Evenement> recherchEvenements(String nom) {
+        ArrayList<Evenement> listTasks = new ArrayList<>();
+        ConnectionRequest con = new ConnectionRequest();
+        con.setUrl("http://localhost/symfony/web/app_dev.php/BonPlan/rechercheEven/"+nom);
+        con.addResponseListener(new ActionListener<NetworkEvent>() 
+        {
+            @Override
+            public void actionPerformed(NetworkEvent evt) {
+                //listTasks = getListTask(new String(con.getResponseData()));
+                JSONParser jsonp = new JSONParser();
+                
+                try {
+                    
+                    Map<String, Object> tasks = jsonp.parseJSON(new CharArrayReader(new String(con.getResponseData()).toCharArray()));
+                    System.out.println(tasks);
+                    //System.out.println(tasks);
+                    List<Map<String, Object>> list = (List<Map<String, Object>>) tasks.get("root");
+                  
+                    
+
+                    for (Map<String, Object> obj : list) {
+                        Evenement E = new Evenement();
+                           float id = Float.parseFloat(obj.get("idEvenement").toString());
+                        
+                           Map<String, Object> debutsession = (Map<String, Object>) obj.get("dateEvenement");
+                        double td = (double) debutsession.get("timestamp");
+                        long xd = (long) (td * 1000L);
+                        String formatd = new SimpleDateFormat("dd-MM-yyyy ").format(new Date(xd));
+                        Date datedebut = new SimpleDateFormat("dd-MM-yyyy").parse(formatd);
+                        System.out.println(formatd);
+                        System.out.println(datedebut);
+                        E.setDate_evenement(datedebut);
+                        Map<String, Object> etab = (Map<String, Object>) obj.get("idEtablissement");
+                           
+                           
+                           
+                        E.setId_evenement((int) id);
+
+
+
+                        E.setNom_evenement(obj.get("nomEvenement").toString()); 
+                        E.setDescription(obj.get("descriptionEvenement").toString()); 
+                        E.setPhoto(obj.get("photoEvenement").toString()); 
+                         E.getEtab().setNom_etablissement(etab.get("nomEtablissement").toString());
+                         E.getEtab().setLat((Double) etab.get("latitude"));
+                         E.getEtab().setLong((Double) etab.get("longitude"));
+                        listTasks.add(E);
+
+                    }
+                } catch (IOException ex) {
+                } catch (ParseException ex) {
+                }
+            }
+        });
+        NetworkManager.getInstance().addToQueueAndWait(con);
+        return listTasks;
+    } 
     
       public ArrayList<Etablissement> getListEtab(int id) {
         ArrayList<Etablissement> listTasks = new ArrayList<>();
@@ -192,8 +249,8 @@ public class ServiceEvenement {
     
     
     
-     public ArrayList<Utilisateur> getListinteresser(int id) {
-        ArrayList<Utilisateur> listTasks = new ArrayList<>();
+     public ArrayList<Client> getListinteresser(int id) {
+        ArrayList<Client> listTasks = new ArrayList<>();
         ConnectionRequest con = new ConnectionRequest();
         con.setUrl("http://localhost/symfony/web/app_dev.php/BonPlan/listinteresser/"+id);
         con.addResponseListener(new ActionListener<NetworkEvent>() 
@@ -209,7 +266,7 @@ public class ServiceEvenement {
                     //System.out.println(tasks);
                     List<Map<String, Object>> list = (List<Map<String, Object>>) tasks.get("root");
                     for (Map<String, Object> obj : list) {
-                        Utilisateur E = new Utilisateur();
+                        Client E = new Client();
                    
                             float id = Float.parseFloat(obj.get("id").toString());
                              E.setId((int)id);

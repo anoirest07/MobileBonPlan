@@ -125,7 +125,7 @@ public class PubliciteController extends SideMenuBaseForm{
                     if (Dialog.show("Confirmation", "supprimer cette publicite??", "oui", "Annuler")) {
                         ConnectionRequest req = new ConnectionRequest();
 
-                        req.setUrl("http://localhost/symfony/web/app_dev.php/BonPlan/delet/"
+                        req.setUrl("http://localhost/symfony/web/app_dev.php/BonPlan/deletepub/"
                                 + t.getId_publicite());
                         System.out.println(t.getId_publicite());
                         NetworkManager.getInstance().addToQueue(req);

@@ -81,12 +81,10 @@ public void supprimerabo(Utilisateur u,Evenement e){
             public void actionPerformed(NetworkEvent evt) {
                 
                 
-                try {
-                   
+                try {                    
                     String res = new String(connectionRequest.getResponseData());
                     JSONParser j = new JSONParser();
                     response = (Map<String, Object>) j.parseJSON(new CharArrayReader(res.toCharArray()));
-                   
                     //res = response.containsValue("true");
                 } catch (IOException ex) {
                     
