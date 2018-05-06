@@ -29,6 +29,7 @@ import com.codename1.ui.events.ActionEvent;
 import com.codename1.ui.events.ActionListener;
 import com.codename1.ui.layouts.BoxLayout;
 import com.codename1.ui.layouts.LayeredLayout;
+import com.codename1.ui.plaf.Border;
 import com.codename1.ui.plaf.Style;
 import com.codename1.ui.util.Resources;
 
@@ -43,12 +44,12 @@ public class Authentification {
 
     public static Utilisateur connectedUser;
     Form f;
-    Container icon;
+    
     Container data;
     TextField username;
     TextField password;
-    SpanButton login;
-    SpanButton reset;
+    Button login;
+    Button reset;
     SpanButton fb;
     Label img;
     String role;
@@ -62,25 +63,41 @@ public class Authentification {
 
         }      
         f = new Form(BoxLayout.y());
-        Image imu = URLImage.createToStorage(enc, "/img/frfr.jpg", "http://localhost/img.jpg", URLImage.RESIZE_SCALE);
+        Image imu = URLImage.createToStorage(enc, "/choose/frfr.jpg", "http://localhost/symfony/web/images/choose.JPG", URLImage.RESIZE_SCALE);
         f.setLayout(new LayeredLayout());
-        f.getToolbar().hideToolbar();
-        Label l = new Label("");
-        l.getUnselectedStyle().setBgImage(imu);
-        l.getUnselectedStyle().setBackgroundType(Style.BACKGROUND_IMAGE_SCALED_FILL);
-        l.getUnselectedStyle().setBgTransparency(255);
-        l.setSelectedStyle(l.getUnselectedStyle());
-        f.addComponent(l);
-        icon = new Container();
-        data = new Container();
+        f.getToolbar().setVisible(false);
+       Label l = new Label("     << Keep calm & hangout");
+       Label l2 = new Label("                with friends >>");
+      l2.setUIID("labelAcc");
+        
+     //   l.getAllStyles().setBgColor(0x990033);
+        l.setUIID("labelAcc");
+//        l.getAllStyles().setBgTransparency(220);
+//        l.getUnselectedStyle().setBackgroundType(Style.BACKGROUND_IMAGE_SCALED_FILL);
+//       
+//        l.setSelectedStyle(l.getUnselectedStyle());
+//        f.addComponent(l);
+     data = new Container();
+      data.add(l);
+      data.add(l2);
+      f.getAllStyles().setBgColor(0xd6d6c2);
+        
         username = new TextField();
-        username.setHint("Username");
+        username.setHint("Login");
+        username.getAllStyles().setBorder(Border.createLineBorder(1, 0xffa83b));
+       
         password = new TextField();
-        password.setHint("Password");
+        password.getAllStyles().setBorder(Border.createLineBorder(1, 0xffa83b));
+        password.setHint("Mot de Passe");
         password.setConstraint(TextField.PASSWORD);
-        login = new SpanButton("LOGIN");
+        login = new Button("Se Connecter");
+        
+        login.setUIID("ButonAcc");
+        
 
-        reset = new SpanButton("RESET");
+        reset = new Button("Actualiser");
+        reset.setUIID("ButonAcc");
+        
         reset.addActionListener(e -> {
             username.clear();
             password.clear();
@@ -143,6 +160,7 @@ public class Authentification {
         data.add(login);
         data.add(reset);
          Button reg = new Button("s'inscrire ");
+         reg.setUIID("ButonAcc");
         reg.addActionListener(e->{
         new register(theme).getF1().show();
         

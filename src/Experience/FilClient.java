@@ -68,7 +68,6 @@ public class FilClient extends SideMenuBaseForm1 {
          FontImage arrowDown = FontImage.createMaterial(FontImage.MATERIAL_KEYBOARD_ARROW_DOWN, "Label", 3);
         setupSideMenu1(theme);
         btnajout = new Button("Ajouter une expérience");
-        btnajout.getAllStyles().setFgColor(0x9900CC);
 
         modif=new Button("Modifier");
         supp=new Button("Supprimer");

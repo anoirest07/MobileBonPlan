@@ -5,6 +5,7 @@
  */
 package Services;
 
+import static Com_Fav.AffichageCom.n;
 import com.codename1.io.CharArrayReader;
 import com.codename1.io.ConnectionRequest;
 import com.codename1.io.JSONParser;
@@ -15,6 +16,7 @@ import Entities.Client;
 import Entities.Commentaire;
 import Entities.Experience;
 import Entities.Utilisateur;
+import com.mycompany.myapp.Authentification;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
@@ -77,7 +79,10 @@ public class ServiceCommentaire {
             // c.setId_u(id_user);
                          
                         c.setIdUcomm(id_user);
-                       
+                      
+                         if(id_user.equals(String.valueOf(Authentification.connectedUser.getId()))){
+                             n++;
+                         }
                         
                         //ArrayList<Etablissement> listEtab=getListEtab("http://localhost/BonPlan3/web/app_dev.php/BonPlan/etabjsonid/"+P.getId_etablissement());
                                 

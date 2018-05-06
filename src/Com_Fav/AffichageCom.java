@@ -26,6 +26,7 @@ import com.codename1.ui.layouts.BoxLayout;
 import Entities.Client;
 import Entities.Commentaire;
 import Services.ServiceCommentaire;
+import com.codename1.ui.Dialog;
 import com.mycompany.myapp.Authentification;
 import java.util.ArrayList;
 
@@ -38,6 +39,7 @@ public class AffichageCom {
     SpanLabel lb;
     int y=2;
     Commentaire commentaire = new Commentaire();
+    public static int n;
     
     public AffichageCom(){
         f = new Form();
@@ -63,18 +65,41 @@ public class AffichageCom {
           aj.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent evt) {
-               ConnectionRequest con = new ConnectionRequest();
-                String Url = "http://localhost/symfony/web/app_dev.php/BonPlan/comjsonnew2?commentaire="+nv.getText()+
-                        Authentification.connectedUser.getId()+commentaire.getIdExp();
-                
-                Message m = new Message("yo");
-       Display.getInstance().sendMessage(new String[]{"hot lhné lmail "}, "hey", m);
-        con.setUrl(Url);
-        NetworkManager.getInstance().addToQueueAndWait(con);
-        AffichageCom h=new AffichageCom();
-                                h.getF().show();
+                if(n<2){
+                    
+                     ConnectionRequest con = new ConnectionRequest();
+                String Url = "http://localhost/symfony/web/app_dev.php/BonPlan/comjsonnew2?commentaire=" + nv.getText()
+                        + "&id="+Authentification.connectedUser.getId()+"&idExp="+commentaire.getIdExp();
+
+             //   Message m = new Message("yo");
+              //  Display.getInstance().sendMessage(new String[]{" lmail "}, "hey", m);
+                con.setUrl(Url);
+                NetworkManager.getInstance().addToQueueAndWait(con);
+                AffichageCom h = new AffichageCom();
+                h.getF().show();
+                }
+                   else{
+          Dialog.show("erreur","vous avez atteint la limite","ok",null);
+    }
+               
             }
         });
+          
+//          aj.addActionListener(new ActionListener() {
+//            @Override
+//            public void actionPerformed(ActionEvent evt) {
+//               ConnectionRequest con = new ConnectionRequest();
+//                String Url = "http://localhost/symfony/web/app_dev.php/BonPlan/comjsonnew2?commentaire="+nv.getText()+
+//                        Authentification.connectedUser.getId()+commentaire.getIdExp();
+//                
+//                Message m = new Message("yo");
+//       Display.getInstance().sendMessage(new String[]{"hot lhné lmail "}, "hey", m);
+//        con.setUrl(Url);
+//        NetworkManager.getInstance().addToQueueAndWait(con);
+//        AffichageCom h=new AffichageCom();
+//                                h.getF().show();
+//            }
+//        });
                   
            int i =0;
         for(Commentaire pub:listTasks){

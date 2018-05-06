@@ -14,6 +14,7 @@
     <image name="blog-small-03.jpg"  />
     <image name="bonplan.png"  />
     <image name="BonPlan.png"  />
+    <image name="bonplan3.jpg"  />
     <image name="boutique-gifts.jpg"  />
     <image name="boutique1.jpg"  />
     <image name="cart-item-01.jpg"  />
@@ -35,6 +36,7 @@
     <image name="category-img8.jpg"  />
     <image name="category-img9.jpg"  />
     <image name="celio.jpg"  />
+    <image name="choose.jpg"  />
     <image name="dossierinscriptionperiscolaire-extrascolaireenfantvierge2011-2012x-120319091104-phpapp01-thumbnail-4.jpg"  />
     <image name="duke.png" type="multi"  />
     <image name="exmeple.jpg"  />
@@ -44,10 +46,12 @@
     <image name="images.jpg"  />
     <image name="iphone.jpg"  />
     <image name="justif.jpg"  />
+    <image name="la-closerie.jpg"  />
     <image name="login-background.jpg"  />
     <image name="logo.png"  />
     <image name="logo1.png"  />
     <image name="logo_temp.jpg"  />
+    <image name="logoacc.png"  />
     <image name="moto.jpg"  />
     <image name="nike.jpg"  />
     <image name="notes.png" type="multi"  />
@@ -90,6 +94,14 @@
         <val key="BottomPaddingContainer.padUnit" value="0,0,2,0" />
         <val key="BottomPaddingContainer.padding" value="0,2,0,0" />
         <val key="BottomPaddingContainer.transparency" value="0" />
+        <val key="ButonAcc.bgColor" value="990033" />
+        <val key="ButonAcc.fgColor" value="ff9900" />
+        <font key="ButonAcc.font" type="ttf" face="64" style="2" size="0" name="native:ItalicBold" family="native:ItalicBold" sizeSettings="0" actualSize="12.0" />
+        <val key="ButonAcc.transparency" value="255" />
+        <val key="Button.bgColor" value="ffffff" />
+        <val key="Button.fgColor" value="990033" />
+        <font key="Button.font" type="ttf" face="0" style="2" size="8" name="native:MainBold" family="native:MainBold" sizeSettings="0" actualSize="12.0" />
+        <val key="Button.transparency" value="255" />
         <val key="CenterSubTitle.align" value="4" />
         <val key="CenterSubTitle.fgColor" value="ffffff" />
         <font key="CenterSubTitle.font" type="ttf" face="0" style="0" size="0" name="native:MainLight" family="native:MainLight" sizeSettings="3" actualSize="2.0" />
@@ -136,12 +148,13 @@
         <val key="FloatingActionButton.sel#fgColor" value="0" />
         <val key="FloatingActionButton.sel#transparency" value="0" />
         <val key="FloatingActionButton.transparency" value="0" />
+        <val key="Label.fgColor" value="333333" />
         <font key="Label.font" type="system" face="0" style="2" size="0" />
         <val key="Label.press#transparency" value="0" />
         <val key="Label.sel#transparency" value="0" />
         <val key="Label.transparency" value="0" />
         <val key="LoginButton.bgColor" value="cccccc" />
-        <val key="LoginButton.fgColor" value="99cc" />
+        <val key="LoginButton.fgColor" value="ff3333" />
         <font key="LoginButton.font" type="ttf" face="0" style="0" size="8" name="native:MainRegular" family="native:MainRegular" sizeSettings="0" actualSize="3.5" />
         <val key="LoginButton.marUnit" value="2,2,2,2" />
         <val key="LoginButton.margin" value="1,1,1,1" />
@@ -224,10 +237,11 @@
         <gradient key="SideNavigationPanel.bgGradient" color1="0" color2="0" posX="0.5" posY="0.5" radius="1.0" />
         <val key="SideNavigationPanel.bgType" value="0" />
         <border key="SideNavigationPanel.border" type="empty" />
+        <val key="SideNavigationPanel.fgColor" value="ff6600" />
         <val key="SideNavigationPanel.margin" value="0,0,0,0" />
         <val key="SideNavigationPanel.padding" value="0,0,0,0" />
         <val key="SideNavigationPanel.transparency" value="255" />
-        <val key="SidemenuTop.bgImage" value="BonPlan.png" />
+        <val key="SidemenuTop.bgImage" value="bonplan3.jpg" />
         <val key="SidemenuTop.bgType" value="33" />
         <val key="SidemenuTop.margin" value="0,0,0,0" />
         <val key="SidemenuTop.padUnit" value="2,2,2,2" />
@@ -322,7 +336,7 @@
         <val key="TodayTitle.padUnit" value="2,2,2,2" />
         <val key="TodayTitle.padding" value="5,3,2,1" />
         <val key="TodayTitle.transparency" value="0" />
-        <val key="Toolbar.bgImage" value="slide3.jpg" />
+        <val key="Toolbar.bgImage" value="la-closerie.jpg" />
         <val key="Toolbar.bgType" value="33" />
         <border key="Toolbar.border" type="empty" />
         <val key="Toolbar.margin" value="0,0,0,0" />
@@ -357,6 +371,12 @@
         <val key="WelcomeWhite.margin" value="0,0,0,0" />
         <val key="WelcomeWhite.padding" value="0,0,0,0" />
         <val key="WelcomeWhite.transparency" value="0" />
+        <val key="labelAcc.bgColor" value="d6d6c2" />
+        <gradient key="labelAcc.bgGradient" color1="0" color2="0" posX="0.5" posY="0.5" radius="1.0" />
+        <val key="labelAcc.bgType" value="0" />
+        <val key="labelAcc.fgColor" value="990033" />
+        <font key="labelAcc.font" type="ttf" face="32" style="2" size="16" name="native:ItalicThin" family="native:ItalicThin" sizeSettings="1" actualSize="12.0" />
+        <val key="labelAcc.transparency" value="255" />
         <val key="press#transparency" value="0" />
         <val key="sel#transparency" value="0" />
         <val key="transparency" value="0" />

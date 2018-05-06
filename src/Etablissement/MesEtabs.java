@@ -53,6 +53,7 @@ import com.codename1.ui.list.DefaultListModel;
 import com.codename1.ui.plaf.Border;
 import com.codename1.ui.plaf.Style;
 import com.codename1.ui.spinner.DateTimeSpinner;
+import com.codename1.ui.spinner.Picker;
 import com.codename1.ui.spinner.TimeSpinner;
 import com.codename1.ui.util.Resources;
 import com.mycompany.myapp.Authentification;
@@ -97,10 +98,16 @@ public class MesEtabs extends SideMenuBaseForm{
     TextField tlat;
     TextField tsite;
     ComboBox<String>tcat;
+<<<<<<< HEAD
     DateTimeSpinner touver;
     DateTimeSpinner tferm;
  Button produits = new Button("Nos produits");
                           Button offres = new Button("Nos offres");
+=======
+    Picker touver;
+    Picker tferm;
+  
+>>>>>>> e849650ff3f5d6deccaf084cdbf726bf3a6006dd
     Container cont,cont1,cont2,containerCrit;
     Button btnajout,btnaff,btnautre;
      private String newfilePath = "";
@@ -115,13 +122,13 @@ public class MesEtabs extends SideMenuBaseForm{
 //            add.getForm().show();
           AjouterEtab ae=  new AjouterEtab(theme);
               ae.getF().show();
-              Form f5 = ae.getF();
-            Toolbar tg = f5.getToolbar();
-            tg.addMaterialCommandToRightBar("", FontImage.MATERIAL_ARROW_BACK, g->
-            {
-            
-            new MesEtabs(theme).show();
-             });
+              //Form f5 = ae.getF();
+//            Toolbar tg = f5.getToolbar();
+//            tg.addMaterialCommandToRightBar("", FontImage.MATERIAL_ARROW_BACK, g->
+//            {
+//            
+//            new MesEtabs(theme).show();
+//             });
         });
         f = new Container(new BoxLayout(BoxLayout.Y_AXIS));
         
@@ -186,6 +193,7 @@ public class MesEtabs extends SideMenuBaseForm{
                 label =new Label();
                    
                 label2 =new Label();
+                
 //        lb1.setY(0);
 //        lb3.setY(0);
 //        lb1.setX(10);
@@ -216,8 +224,8 @@ public class MesEtabs extends SideMenuBaseForm{
         h.show();
                             }
                         });
-                        touver = new DateTimeSpinner();
-                    tferm= new DateTimeSpinner();
+                        touver = new Picker();
+                    tferm= new Picker();
                      int deviceWidth2 = Display.getInstance().getDisplayWidth() /5;
             Image placeholder1 = Image.createImage(deviceWidth2, deviceWidth2); //square image set to 10% of screen width
             EncodedImage encImage1 = EncodedImage.createFromImage(placeholder1, false);
@@ -267,6 +275,8 @@ public class MesEtabs extends SideMenuBaseForm{
         cont1.add(tbudg);
                      btnajout = new Button("Modifier");
                      Button back= new Button("Annuler");
+                     touver.setType(Display.PICKER_TYPE_TIME);
+                     tferm.setType(Display.PICKER_TYPE_TIME);
       Label n1=new Label("Nom établissement:");
         Label n2=new Label("Code Postal:");
           Label n3=new Label("Description:");
@@ -336,8 +346,8 @@ public class MesEtabs extends SideMenuBaseForm{
                       //  + "&photoEtablissement=" + up.getText()       
                         + "&siteWeb=" + tsite.getText() 
                         + "&telephoneEtablissement=" + ttel.getText() 
-                        + "&fermeture=" + tferm.getCurrentHour()+":"+tferm.getCurrentMinute()
-                        + "&ouverture=" + touver.getCurrentHour()+":"+touver.getCurrentMinute()
+                        + "&fermeture=" + tferm.getText()
+                        + "&ouverture=" + touver.getText()
                      
                 );
 
